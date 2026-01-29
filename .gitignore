@@ -1,0 +1,38 @@
+# Build results
+bin/
+obj/
+out/
+
+# Rider and VS Code
+.idea/
+.vscode/
+
+# Visual Studio
+.vs/
+*.user
+*.suo
+*.cache
+*.docstates
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# NuGet
+packages/
+*.nupkg
+*.snupkg
+.nuget/
+
+# Logs
+*.log
+
+# Temporary files
+*.tmp
+*.temp
+
+# MAUI generated
+*.apk
+*.aab
+*.app
+*.ipa
