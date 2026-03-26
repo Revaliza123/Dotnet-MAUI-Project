@@ -26145,11 +26145,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\DotnetProjectApp\\ProjectMaui\\ProjectMaui\\ProjectMaui.csproj",
+      "projectUniqueName": "C:\\Learning-kuliah\\DotnetProjectApp\\ProjectMaui\\ProjectMaui.csproj",
       "projectName": "ProjectMaui",
-      "projectPath": "C:\\DotnetProjectApp\\ProjectMaui\\ProjectMaui\\ProjectMaui.csproj",
+      "projectPath": "C:\\Learning-kuliah\\DotnetProjectApp\\ProjectMaui\\ProjectMaui.csproj",
       "packagesPath": "C:\\Users\\ASUS\\.nuget\\packages\\",
-      "outputPath": "C:\\DotnetProjectApp\\ProjectMaui\\ProjectMaui\\obj\\",
+      "outputPath": "C:\\Learning-kuliah\\DotnetProjectApp\\ProjectMaui\\obj\\",
       "projectStyle": "PackageReference",
       "crossTargeting": true,
       "configFilePaths": [
