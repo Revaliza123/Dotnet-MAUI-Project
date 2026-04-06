@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "blJxx7IUPAQ=",
+  "dgSpecHash": "s3yZ7/JQP3c=",
   "success": true,
-  "projectFilePath": "C:\\Learning-kuliah\\DotnetProjectApp\\ProjectMaui\\ProjectMaui.csproj",
+  "projectFilePath": "C:\\Users\\ASUS\\Desktop\\Dotnet-MAUI-Project\\ProjectMaui.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\ASUS\\.nuget\\packages\\googlegson\\2.13.0.1\\googlegson.2.13.0.1.nupkg.sha512",
     "C:\\Users\\ASUS\\.nuget\\packages\\microsoft.extensions.configuration\\9.0.9\\microsoft.extensions.configuration.9.0.9.nupkg.sha512",
@@ -25,7 +25,7 @@
     "C:\\Users\\ASUS\\.nuget\\packages\\microsoft.maui.graphics\\9.0.120\\microsoft.maui.graphics.9.0.120.nupkg.sha512",
     "C:\\Users\\ASUS\\.nuget\\packages\\microsoft.maui.graphics.win2d.winui.desktop\\9.0.120\\microsoft.maui.graphics.win2d.winui.desktop.9.0.120.nupkg.sha512",
     "C:\\Users\\ASUS\\.nuget\\packages\\microsoft.maui.resizetizer\\9.0.120\\microsoft.maui.resizetizer.9.0.120.nupkg.sha512",
-    "C:\\Users\\ASUS\\.nuget\\packages\\microsoft.net.illink.tasks\\9.0.12\\microsoft.net.illink.tasks.9.0.12.nupkg.sha512",
+    "C:\\Users\\ASUS\\.nuget\\packages\\microsoft.net.illink.tasks\\9.0.14\\microsoft.net.illink.tasks.9.0.14.nupkg.sha512",
     "C:\\Users\\ASUS\\.nuget\\packages\\microsoft.web.webview2\\1.0.3179.45\\microsoft.web.webview2.1.0.3179.45.nupkg.sha512",
     "C:\\Users\\ASUS\\.nuget\\packages\\microsoft.windows.sdk.buildtools\\10.0.22621.756\\microsoft.windows.sdk.buildtools.10.0.22621.756.nupkg.sha512",
     "C:\\Users\\ASUS\\.nuget\\packages\\microsoft.windowsappsdk\\1.7.250909003\\microsoft.windowsappsdk.1.7.250909003.nupkg.sha512",
