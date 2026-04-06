@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Learning-kuliah\\DotnetProjectApp\\ProjectMaui\\ProjectMaui.csproj": {}
+    "C:\\Learning-kuliah\\Dotnet-MAUI-Project\\ProjectMaui.csproj": {}
   },
   "projects": {
-    "C:\\Learning-kuliah\\DotnetProjectApp\\ProjectMaui\\ProjectMaui.csproj": {
+    "C:\\Learning-kuliah\\Dotnet-MAUI-Project\\ProjectMaui.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Learning-kuliah\\DotnetProjectApp\\ProjectMaui\\ProjectMaui.csproj",
+        "projectUniqueName": "C:\\Learning-kuliah\\Dotnet-MAUI-Project\\ProjectMaui.csproj",
         "projectName": "ProjectMaui",
-        "projectPath": "C:\\Learning-kuliah\\DotnetProjectApp\\ProjectMaui\\ProjectMaui.csproj",
+        "projectPath": "C:\\Learning-kuliah\\Dotnet-MAUI-Project\\ProjectMaui.csproj",
         "packagesPath": "C:\\Users\\ASUS\\.nuget\\packages\\",
-        "outputPath": "C:\\Learning-kuliah\\DotnetProjectApp\\ProjectMaui\\obj\\",
+        "outputPath": "C:\\Learning-kuliah\\Dotnet-MAUI-Project\\obj\\",
         "projectStyle": "PackageReference",
         "crossTargeting": true,
         "configFilePaths": [
@@ -74,6 +74,14 @@
               "target": "Package",
               "version": "[9.0.12, )",
               "autoReferenced": true
+            },
+            "SQLitePCLRaw.bundle_green": {
+              "target": "Package",
+              "version": "[2.1.11, )"
+            },
+            "sqlite-net-pcl": {
+              "target": "Package",
+              "version": "[1.9.172, )"
             }
           },
           "imports": [
@@ -113,6 +121,14 @@
               "target": "Package",
               "version": "[9.0.12, )",
               "autoReferenced": true
+            },
+            "SQLitePCLRaw.bundle_green": {
+              "target": "Package",
+              "version": "[2.1.11, )"
+            },
+            "sqlite-net-pcl": {
+              "target": "Package",
+              "version": "[1.9.172, )"
             }
           },
           "imports": [
@@ -152,6 +168,14 @@
               "target": "Package",
               "version": "[9.0.12, )",
               "autoReferenced": true
+            },
+            "SQLitePCLRaw.bundle_green": {
+              "target": "Package",
+              "version": "[2.1.11, )"
+            },
+            "sqlite-net-pcl": {
+              "target": "Package",
+              "version": "[1.9.172, )"
             }
           },
           "imports": [
@@ -186,6 +210,14 @@
             "Microsoft.Maui.Controls": {
               "target": "Package",
               "version": "[9.0.120, )"
+            },
+            "SQLitePCLRaw.bundle_green": {
+              "target": "Package",
+              "version": "[2.1.11, )"
+            },
+            "sqlite-net-pcl": {
+              "target": "Package",
+              "version": "[1.9.172, )"
             }
           },
           "imports": [
