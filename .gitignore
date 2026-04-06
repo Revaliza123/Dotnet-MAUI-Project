@@ -1,38 +1,70 @@
-# Build results
-bin/
-obj/
-out/
+# --- [.NET MAUI Full GitIgnore] ---
 
-# Rider and VS Code
-.idea/
-.vscode/
+# Build results
+[Bb]in/
+[Oo]bj/
+[Oo]ut/
+msvcca/
 
 # Visual Studio
 .vs/
 *.user
+*.userosscache
+*.sln.docstates
 *.suo
 *.cache
-*.docstates
+*.opendb
+*.db-shm
+*.db-wal
 
-# OS files
-.DS_Store
-Thumbs.db
+# Visual Studio Code & JetBrains Rider
+.vscode/
+.idea/
+*.sln.iml
+.vsconfig
 
-# NuGet
+# NuGet Packages
 packages/
 *.nupkg
 *.snupkg
+# Lokasi global NuGet biasanya di luar folder project, tapi ini untuk berjaga-jaga
 .nuget/
 
-# Logs
-*.log
-
-# Temporary files
-*.tmp
-*.temp
-
-# MAUI generated
+# MAUI / Mobile Specific (Android, iOS, MacCatalyst)
 *.apk
 *.aab
 *.app
 *.ipa
+*.dsym
+*.xcresult
+*.ap_
+*.dex
+*.pb.h
+*.pb.cc
+
+# Database (Sangat penting jika menggunakan SQLite)
+*.db
+*.sqlite
+*.sqlite3
+*.db-shm
+*.db-wal
+
+# OS Files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Logs & Temp
+*.log
+*.tmp
+*.temp
+Log/
+logs/
+
+# Secrets & Local Settings
+appsettings.json
+!appsettings.json
+appsettings.Development.json
+*.env
+*.config
+!App.config
