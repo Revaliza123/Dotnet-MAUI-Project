@@ -1,26 +1,31 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
+
+using SQLite;
 
 namespace ProjectMaui.Models
 {
     public class Order
     {
-        public string OrderId { get; set; }
+        [PrimaryKey] [AutoIncrement]
+        public int OrderId { get; set; }
         public int CustomerId { get; set; }
         public DateTime OrderDate { get; set; }
         public int TableNumber { get; set; }
         public PaymentMethod PaymentMethod { get; set; }
         public PaymentStatus PaymentStatus { get; set; }
         public OrderStatus OrderStatus { get; set; }
+        [Ignore]
         public List<OrderItem> OrderItems { get; set; } = new();
 
-        public void CalculateTotalAmount(int OrderId) {
+        public void CalculateTotalAmount(int OrderId)
+        {
             Console.WriteLine($"{OrderId} orders");
         }
     }
     public class OrderItem
     {
+        [PrimaryKey] [AutoIncrement]
+        public int OrderItemId { get; set; }
+        public int OrderId { get; set; }
         public int ProductId { get; set; }
         public int Quantity { get; set; }
         public decimal UnitPrice { get; set; }

@@ -1,4 +1,7 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using Services;
+using Microsoft.Extensions.Logging;
+using DatabaseServices;
+using DotnetMauiProject.Services;
 
 namespace ProjectMaui;
 
@@ -14,6 +17,12 @@ public static class MauiProgram
 				fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
 				fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
 			});
+
+		builder.Services.AddSingleton<DatabaseServiceConnection>();
+		builder.Services.AddSingleton<ProductServices>();
+		builder.Services.AddSingleton<OrderService>();
+		builder.Services.AddSingleton<TableServices>();
+		builder.Services.AddTransient<MainPage>();
 
 #if DEBUG
 		builder.Logging.AddDebug();

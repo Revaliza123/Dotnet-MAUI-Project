@@ -1,12 +1,18 @@
-﻿namespace ProjectMaui;
+﻿
+using DotnetMauiProject.Services;
+
+namespace ProjectMaui;
 
 public partial class MainPage : ContentPage
 {
 	int count = 0;
-
-	public MainPage()
+	private readonly Services.ProductServices _productService;
+	public MainPage(Services.ProductServices productServices)
 	{
 		InitializeComponent();
+		_productService = productServices;
+
+		CheckDatabase();
 	}
 
 	private void OnCounterClicked(object? sender, EventArgs e)
@@ -19,5 +25,13 @@ public partial class MainPage : ContentPage
 			CounterBtn.Text = $"Clicked {count} times";
 
 		SemanticScreenReader.Announce(CounterBtn.Text);
+	}
+	private async void CheckDatabase()
+	{
+		if (_productService != null)
+		{
+			var data = await _productService.GetProductsAsync();
+			System.Diagnostics.Debug.WriteLine($"{data} ini adalah data products");
+		}
 	}
 }

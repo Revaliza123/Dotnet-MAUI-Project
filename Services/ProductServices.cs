@@ -1,22 +1,23 @@
+using System.Diagnostics;
+using DatabaseServices;
 using ProjectMaui.Models;
 using SQLite;
 
-namespace DotnetMauiProject.Services
+namespace Services
 {
     public class ProductServices
     {
-        private SQLiteAsyncConnection _database;
 
-        private async Task Init()
+        private readonly DatabaseServiceConnection? databaseServices;
+
+        public ProductServices(DatabaseServiceConnection database)
         {
-            if (_database is not null)
-                return;
-
-            var dbPath = Path.Combine(FileSystem.AppDataDirectory, "Restaurant.db3");
-
-            _database = new SQLiteAsyncConnection(dbPath);
-
-            await _database.CreateTableAsync<Product>();
+            databaseServices = database;
+        }
+        public async Task<List<Product>> GetProductsAsync()
+        {
+            var dbConect = await databaseServices.GetConnection();
+            return await dbConect.Table<Product>().ToListAsync();
         }
     }
 }

@@ -1,9 +1,23 @@
+using DatabaseServices;
 using ProjectMaui.Models;
 
 namespace DotnetMauiProject.Services
 {
     public class TableServices
     {
+        private readonly DatabaseServiceConnection? database;
+
+        public TableServices(DatabaseServiceConnection db)
+        {
+            database = db;
+        }
+
+        public async Task<List<Table>> GetTableData()
+        {
+            var dbConnect = await database.GetConnection();
+            var tables = await dbConnect.Table<Table>().ToListAsync();
+            return tables;
+        }
         public void UpdateTableStatus(int tableId, TableStatus tableStatus)
         {
             Console.WriteLine($"{tableId} orders");
