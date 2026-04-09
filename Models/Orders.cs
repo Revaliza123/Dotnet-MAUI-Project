@@ -1,37 +1,36 @@
 
+using ProjectMaui.Common;
 using SQLite;
 
 namespace ProjectMaui.Models
 {
     public class Order
     {
-        [PrimaryKey] [AutoIncrement]
-        public int OrderId { get; set; }
-        public int CustomerId { get; set; }
-        public DateTime OrderDate { get; set; }
-        public int TableNumber { get; set; }
-        public PaymentMethod PaymentMethod { get; set; }
-        public PaymentStatus PaymentStatus { get; set; }
-        public OrderStatus OrderStatus { get; set; }
+        [PrimaryKey]
+        public Guid Id { get; set; } = Guid.NewGuid();
+
+        public Guid? CustomerId { get; private set; }
+        public DateTime OrderDate { get; private set; }
+        public Guid? TableId { get; private set; }
+        public PaymentMethod PaymentMethod { get; private set; }
+        public PaymentStatus PaymentStatus { get; private set; }
+        public OrderStatus OrderStatus { get; private set; }
+
         [Ignore]
         public List<OrderItem> OrderItems { get; set; } = new();
 
-        public void CalculateTotalAmount(int OrderId)
+        public Order() { }
+        public Order(DateTime orderDate, PaymentMethod paymentMethod, PaymentStatus paymentStatus, OrderStatus status)
         {
-            Console.WriteLine($"{OrderId} orders");
+            OrderDate = Guard.NotDefault(orderDate, nameof(orderDate));
+            PaymentMethod = paymentMethod;
+            PaymentStatus = paymentStatus;
+            OrderStatus = status;
+        }
+
+        public void CalculateTotalAmount(Guid orderId)
+        {
+            Console.WriteLine($"{orderId} orders");
         }
     }
-    public class OrderItem
-    {
-        [PrimaryKey] [AutoIncrement]
-        public int OrderItemId { get; set; }
-        public int OrderId { get; set; }
-        public int ProductId { get; set; }
-        public int Quantity { get; set; }
-        public decimal UnitPrice { get; set; }
-        public string Note { get; set; }
-        public ItemStatus ItemStatus { get; set; }
-        public decimal SubTotal => Quantity * UnitPrice;
-    }
-
 }
