@@ -24,6 +24,23 @@ namespace DotnetMauiProject.Services
             }
             return orders;
         }
+
+        public async Task AddOrder(Order order)
+        {
+            try {
+                var db = await databaseConnect.GetConnection();
+                int result = await db.InsertAsync(order);
+
+                if (result > 0) {
+                    Console.WriteLine($"Succes to add the new data");
+                }
+            }
+            catch (Exception exc) {
+                Console.WriteLine($"Error {exc.Message} when get the data");
+                throw;
+            }
+        }
+
         public void UpdateOrderStatus(int orderId, OrderStatus orderStatus)
         {
             Console.WriteLine($"{orderId} orders");

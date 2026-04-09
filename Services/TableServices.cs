@@ -14,10 +14,33 @@ namespace DotnetMauiProject.Services
 
         public async Task<List<Table>> GetTableData()
         {
-            var dbConnect = await database.GetConnection();
-            var tables = await dbConnect.Table<Table>().ToListAsync();
-            return tables;
+            try {
+                var dbConnect = await database.GetConnection();
+                var tables = await dbConnect.Table<Table>().ToListAsync();
+                return tables;
+            }
+            catch (Exception exc) {
+                Console.WriteLine($"Error {exc.Message} when get the data");
+                throw;
+            }
         }
+
+        public async Task AddTable(Table table)
+        {
+            try {
+                var db = await database.GetConnection();
+                int result = await db.InsertAsync(table);
+
+                if (result > 0) {
+                    Console.WriteLine($"Succes to add the new data");
+                }
+            }
+            catch (Exception exc) {
+                Console.WriteLine($"Error {exc.Message} when get the data");
+                throw;
+            }
+        }
+
         public void UpdateTableStatus(int tableId, TableStatus tableStatus)
         {
             Console.WriteLine($"{tableId} orders");
