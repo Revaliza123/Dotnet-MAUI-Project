@@ -1,14 +1,14 @@
 using System.Threading.Tasks;
-using DatabaseServices;
 using ProjectMaui.Models;
+using ProjectMaui.Services;
 
 namespace DotnetMauiProject.Services
 {
     public class OrderService
     {
-        private readonly DatabaseServiceConnection databaseConnect;
+        private readonly DatabaseService databaseConnect;
 
-        public OrderService(DatabaseServiceConnection db)
+        public OrderService(DatabaseService db)
         {
             databaseConnect = db;
         }
@@ -19,7 +19,7 @@ namespace DotnetMauiProject.Services
 
             foreach (var order in orders)
             {
-                var itemsOrder = await database.Table<OrderItem>().Where(x => x.OrderId == order.OrderId).ToListAsync();
+                var itemsOrder = await database.Table<OrderItem>().Where(x => x.OrderId == order.Id).ToListAsync();
                 order.OrderItems = itemsOrder;
             }
             return orders;

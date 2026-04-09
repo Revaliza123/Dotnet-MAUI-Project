@@ -1,14 +1,14 @@
 using ProjectMaui.Models;
 using SQLite;
 
-namespace DatabaseServices;
+namespace ProjectMaui.Services;
 
-public class DatabaseServiceConnection
+public class DatabaseService
 {
     private SQLiteAsyncConnection? database;
     private readonly string dbPath;
 
-    public DatabaseServiceConnection()
+    public DatabaseService()
     {
         dbPath = Path.Combine(FileSystem.AppDataDirectory, "DbResto.sqlite");
     }

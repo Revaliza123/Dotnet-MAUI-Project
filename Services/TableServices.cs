@@ -1,13 +1,13 @@
-using DatabaseServices;
 using ProjectMaui.Models;
+using ProjectMaui.Services;
 
 namespace DotnetMauiProject.Services
 {
     public class TableServices
     {
-        private readonly DatabaseServiceConnection? database;
+        private readonly DatabaseService? database;
 
-        public TableServices(DatabaseServiceConnection db)
+        public TableServices(DatabaseService db)
         {
             database = db;
         }

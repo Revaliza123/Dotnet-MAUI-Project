@@ -8,7 +8,10 @@ public class OrderItem
     [PrimaryKey]
     public Guid Id { get; set; } = Guid.NewGuid();
 
+    [Indexed]
     public Guid OrderId { get; private set; }
+    
+    [Indexed]
     public Guid ProductId { get; private set; }
     public int Quantity { get; private set; }
     public decimal UnitPrice { get; private set; }

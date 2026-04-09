@@ -1,16 +1,16 @@
 using System.Diagnostics;
-using DatabaseServices;
 using ProjectMaui.Models;
+using ProjectMaui.Services;
 using SQLite;
 
-namespace Services
+namespace ProjectMaui.Services
 {
     public class ProductServices
     {
 
-        private readonly DatabaseServiceConnection? databaseServices;
+        private readonly DatabaseService? databaseServices;
 
-        public ProductServices(DatabaseServiceConnection database)
+        public ProductServices(DatabaseService database)
         {
             databaseServices = database;
         }
