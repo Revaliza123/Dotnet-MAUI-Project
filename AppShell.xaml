@@ -7,8 +7,8 @@
     Title="ProjectMaui">
 
     <ShellContent
-        Title="Home"
-        ContentTemplate="{DataTemplate local:MainPage}"
-        Route="MainPage" />
+        Title="Menu GoDahar"
+        ContentTemplate="{DataTemplate local:CustomerMenuPage}"
+        Route="CustomerMenuPage" />
 
 </Shell>
