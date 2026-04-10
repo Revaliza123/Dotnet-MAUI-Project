@@ -1,8 +1,22 @@
-namespace ProjectMaui.Models;
+using ProjectMaui.Common;
+using SQLite;
 
-public class Category 
+namespace ProjectMaui.Models
 {
-    public int CategoryId { get; set; }
-    public string Name { get; set; } = string.Empty;
-    public string Description { get; set; } = string.Empty;
+    public class Category
+    {
+        [PrimaryKey]
+        public Guid Id { get; set; } = Guid.NewGuid();
+
+        public string Name { get; private set; } = default!;
+        public string Description { get; private set; } = default!;
+
+        public Category() { }
+
+        public Category(string name, string description)
+        {
+            Name = Guard.NotNullOrWhiteSpace(name, nameof(name));
+            Description = description;
+        }
+    }
 }

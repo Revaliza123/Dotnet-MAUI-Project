@@ -1,17 +1,47 @@
-namespace ProjectMaui.Models;
+using ProjectMaui.Common;
+using SQLite;
 
-public class User 
+namespace ProjectMaui.Models
 {
-    public int UserId { get; set; }
-    public string Username { get; set; } = string.Empty;
-    public string Password { get; set; } = string.Empty;
-    public string FullName { get; set; } = string.Empty;
-    public string Role { get; set; } = string.Empty; 
-}
+    public class User
+    {
+        [PrimaryKey]
+        public Guid Id { get; set; } = Guid.NewGuid();
 
-// Inheritance Level 2 untuk syarat Pak Kusno
-public class Employee : User 
-{
-    public string EmployeeId { get; set; } = string.Empty;
-    public DateTime JoinDate { get; set; }
+        public string Username { get; private set; } = default!;
+        public string Password { get; private set; } = default!;
+        public string FullName { get; private set; } = default!;
+        public string Role { get; private set; } = default!;
+
+        public User() { }
+
+        public User(string username, string password, string fullName, string role)
+        {
+            Username = Guard.NotNullOrWhiteSpace(username, nameof(username));
+            Password = Guard.NotNullOrWhiteSpace(password, nameof(password));
+            FullName = Guard.NotNullOrWhiteSpace(fullName, nameof(fullName));
+            Role = role;
+        }
+
+        public void UpdateProfile(string fullName)
+        {
+            FullName = Guard.NotNullOrWhiteSpace(fullName, nameof(fullName));
+            Console.WriteLine($"User {Username} updated name to: {fullName}");
+        }
+    }
+
+    public class Employee : User
+    {
+        public string EmployeeId { get; private set; } = default!;
+        public DateTime JoinDate { get; private set; }
+
+        public Employee() : base() { }
+
+        public Employee(string username, string password, string fullName, string role, string employeeId, DateTime joinDate)
+            : base(username, password, fullName, role)
+        {
+            EmployeeId = Guard.NotNullOrWhiteSpace(employeeId, nameof(employeeId));
+            JoinDate = joinDate;
+        }
+    }
 }
