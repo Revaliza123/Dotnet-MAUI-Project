@@ -19,7 +19,7 @@
                 </Frame>
             </Grid>
 
-            <ScrollView Orientation="Horizontal" ShowsHorizontalScrollIndicator="False">
+            <ScrollView Orientation="Horizontal" HorizontalScrollBarVisibility="Never">
                 <HorizontalStackLayout Spacing="15">
                     <Button Text="All Menu" BackgroundColor="#1E3A5F" TextColor="White" CornerRadius="20" HeightRequest="40" Padding="20,0"/>
                     <Button Text="Food" BackgroundColor="Transparent" TextColor="#1E3A5F" BorderColor="#1E3A5F" BorderWidth="1" CornerRadius="20" HeightRequest="40" Padding="20,0"/>

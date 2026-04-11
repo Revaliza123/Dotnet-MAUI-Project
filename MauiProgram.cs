@@ -1,5 +1,4 @@
 ﻿using Microsoft.Extensions.Logging;
-using DotnetMauiProject.Services;
 using ProjectMaui.Services;
 
 namespace ProjectMaui;
