@@ -1,8 +1,8 @@
 namespace ProjectMaui;
 
-public partial class CustomerMenuPage : ContentPage
+public partial class DrinksPage : ContentPage
 {
-    public CustomerMenuPage()
+    public DrinksPage()
     {
         InitializeComponent();
     }
@@ -11,21 +11,15 @@ public partial class CustomerMenuPage : ContentPage
     {
         if (sender is Button btn)
         {
-            // Mengecek tulisan pada tombol yang diklik
-            if (btn.Text == "Drinks")
+            if (btn.Text == "All Menu")
             {
-                // Pindah ke halaman minuman
-                await Navigation.PushAsync(new DrinksPage());
+                // Kembali ke halaman utama (All Menu)
+                await Navigation.PopToRootAsync();
             }
             else if (btn.Text == "Dessert")
             {
                 // Pindah ke halaman dessert
                 await Navigation.PushAsync(new DessertPage());
-            }
-            else
-            {
-                // Kalau tombol Food atau All Menu diklik, munculkan pop up saja untuk sementara
-                await DisplayAlert("Info", $"Kamu sedang berada di kategori: {btn.Text}", "OK");
             }
         }
     }
