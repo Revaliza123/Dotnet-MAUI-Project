@@ -1,8 +1,8 @@
 namespace ProjectMaui;
 
-public partial class DrinksPage : ContentPage
+public partial class FoodPage : ContentPage
 {
-    public DrinksPage()
+    public FoodPage()
     {
         InitializeComponent();
     }
@@ -15,9 +15,9 @@ public partial class DrinksPage : ContentPage
             {
                 await Navigation.PopToRootAsync();
             }
-            else if (btn.Text == "Food")
+            else if (btn.Text == "Drinks")
             {
-                await Navigation.PushAsync(new FoodPage());
+                await Navigation.PushAsync(new DrinksPage());
             }
             else if (btn.Text == "Dessert")
             {

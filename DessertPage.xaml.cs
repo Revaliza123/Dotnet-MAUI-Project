@@ -15,6 +15,10 @@ public partial class DessertPage : ContentPage
             {
                 await Navigation.PopToRootAsync();
             }
+            else if (btn.Text == "Food")
+            {
+                await Navigation.PushAsync(new FoodPage());
+            }
             else if (btn.Text == "Drinks")
             {
                 await Navigation.PushAsync(new DrinksPage());

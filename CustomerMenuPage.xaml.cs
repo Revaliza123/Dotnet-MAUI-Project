@@ -11,21 +11,17 @@ public partial class CustomerMenuPage : ContentPage
     {
         if (sender is Button btn)
         {
-            // Mengecek tulisan pada tombol yang diklik
-            if (btn.Text == "Drinks")
+            if (btn.Text == "Food")
             {
-                // Pindah ke halaman minuman
+                await Navigation.PushAsync(new FoodPage());
+            }
+            else if (btn.Text == "Drinks")
+            {
                 await Navigation.PushAsync(new DrinksPage());
             }
             else if (btn.Text == "Dessert")
             {
-                // Pindah ke halaman dessert
                 await Navigation.PushAsync(new DessertPage());
-            }
-            else
-            {
-                // Kalau tombol Food atau All Menu diklik, munculkan pop up saja untuk sementara
-                await DisplayAlert("Info", $"Kamu sedang berada di kategori: {btn.Text}", "OK");
             }
         }
     }
