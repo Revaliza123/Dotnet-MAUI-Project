@@ -1,25 +1,38 @@
 using ProjectMaui.Models;
-using ProjectMaui.Services;
+using SQLite;
 
-namespace DotnetMauiProject.Services
+namespace ProjectMaui.Services
 {
     public class TableServices
     {
         private readonly DatabaseService? database;
+
+        private SQLiteAsyncConnection connection;
 
         public TableServices(DatabaseService db)
         {
             database = db;
         }
 
+        private async Task<SQLiteAsyncConnection> GetDb()
+        {
+            if (connection == null)
+            {
+                connection = await database.GetConnection();
+            }
+            return connection;
+        }
+
         public async Task<List<Table>> GetTableData()
         {
-            try {
-                var dbConnect = await database.GetConnection();
+            try
+            {
+                var dbConnect = await GetDb();
                 var tables = await dbConnect.Table<Table>().ToListAsync();
                 return tables;
             }
-            catch (Exception exc) {
+            catch (Exception exc)
+            {
                 Console.WriteLine($"Error {exc.Message} when get the data");
                 throw;
             }
@@ -27,19 +40,47 @@ namespace DotnetMauiProject.Services
 
         public async Task AddTable(Table table)
         {
-            try {
-                var db = await database.GetConnection();
+            try
+            {
+                var db = await GetDb();
                 int result = await db.InsertAsync(table);
 
-                if (result > 0) {
+                if (result > 0)
+                {
                     Console.WriteLine($"Succes to add the new data");
                 }
             }
-            catch (Exception exc) {
+            catch (Exception exc)
+            {
                 Console.WriteLine($"Error {exc.Message} when get the data");
                 throw;
             }
         }
+
+        public async Task UpdateTable(Table table)
+        {
+            try
+            {
+                var db = await GetDb();
+                int result = await db.UpdateAsync(table);
+
+                if (result > 0)
+                {
+                    Console.WriteLine($"Succes to update the data");
+                }
+            }
+            catch (Exception exc)
+            {
+                Console.WriteLine($"Error {exc.Message} when update the data");
+                throw;
+            }
+        }
+        public async Task UpdateTable(Guid tableId)
+        {
+            var db = await GetDb();
+            await db.DeleteAsync(tableId);
+        }
+
 
         public void UpdateTableStatus(int tableId, TableStatus tableStatus)
         {
