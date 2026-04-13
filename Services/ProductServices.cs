@@ -27,7 +27,7 @@ namespace ProjectMaui.Services
             try
             {
                 var dbConect = await GetDb();
-                return await dbConect.Table<Product>().ToListAsync();
+                return await dbConect.Table<Product>().ToListAsync();  
             }
             catch (Exception exc)
             {
