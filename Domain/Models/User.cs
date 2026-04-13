@@ -1,7 +1,7 @@
-using ProjectMaui.Common;
+using ProjectMaui.Domain.Common;
 using SQLite;
 
-namespace ProjectMaui.Models
+namespace ProjectMaui.Domain.Models
 {
     public class User
     {

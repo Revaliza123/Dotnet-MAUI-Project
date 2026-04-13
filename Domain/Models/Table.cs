@@ -1,10 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using ProjectMaui.Common;
+using ProjectMaui.Domain.Common;
 using SQLite;
 
-namespace ProjectMaui.Models
+namespace ProjectMaui.Domain.Models
 {
     public class Table
     {

@@ -1,4 +1,4 @@
-using ProjectMaui.Common;
+using ProjectMaui.Domain.Common;
 using SQLite;
 
 namespace ProjectMaui.Models

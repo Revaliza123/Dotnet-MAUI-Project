@@ -1,4 +1,4 @@
-namespace ProjectMaui;
+namespace ProjectMaui.Client.Views;
 
 public partial class CustomerMenuPage : ContentPage
 {

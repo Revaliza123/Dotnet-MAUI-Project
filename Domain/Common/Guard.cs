@@ -1,4 +1,4 @@
-namespace ProjectMaui.Common;
+namespace ProjectMaui.Domain.Common;
 
 public class Guard
 {

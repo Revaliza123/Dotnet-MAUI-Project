@@ -1,15 +1,16 @@
-﻿
-using ProjectMaui.Services;
 
-namespace ProjectMaui;
+using ProjectMaui.Domain.Infrasturcture;
+using ProjectMaui.Domain.Services;
+
+namespace ProjectMaui.Client.Views;
 
 public partial class MainPage : ContentPage
 {
 	int count = 0;
-	private readonly Services.ProductServices _productService;
-	private readonly Services.TableServices _tableService;
-	private readonly Services.OrderService _orderService;
-	public MainPage(Services.ProductServices productServices)
+	private readonly Domain.Services.ProductServices _productService;
+	private readonly Domain.Services.TableServices _tableService;
+	private readonly Domain.Services.OrderService _orderService;
+	public MainPage(Domain.Services.ProductServices productServices)
 	{
 		InitializeComponent();
 		_productService = productServices;

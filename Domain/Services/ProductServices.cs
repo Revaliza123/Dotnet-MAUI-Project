@@ -1,9 +1,10 @@
 using System.Diagnostics;
-using ProjectMaui.Models;
-using ProjectMaui.Services;
+using ProjectMaui.Domain.Infrasturcture;
+using ProjectMaui.Domain.Models;
+using ProjectMaui.Domain.Services;
 using SQLite;
 
-namespace ProjectMaui.Services
+namespace ProjectMaui.Domain.Services
 {
     public class ProductServices
     {

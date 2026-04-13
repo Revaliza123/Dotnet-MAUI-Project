@@ -1,7 +1,7 @@
-using ProjectMaui.Models;
+using ProjectMaui.Domain.Models;
 using SQLite;
 
-namespace ProjectMaui.Services;
+namespace ProjectMaui.Domain.Infrasturcture;
 
 public class DatabaseService
 {

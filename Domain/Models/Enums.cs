@@ -1,4 +1,4 @@
-namespace ProjectMaui.Models
+namespace ProjectMaui.Domain.Models
 {
     public enum ProductStatus { Available, OutOfStock }
     public enum SugarLevel { Normal, Less, NoSugar }

@@ -2,13 +2,14 @@
 <Shell
     x:Class="ProjectMaui.AppShell"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:views="clr-namespace:ProjectMaui.Client.Views"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:local="clr-namespace:ProjectMaui"
+    xmlns:local="clr-namespace:ProjectMaui.Client.Views"
     Title="ProjectMaui">
 
     <ShellContent
         Title="Menu GoDahar"
-        ContentTemplate="{DataTemplate local:CustomerMenuPage}"
-        Route="CustomerMenuPage" />
+        ContentTemplate="{DataTemplate views:CustomerMenuPage}"
+        Route="CustomerMenuPage"/>
 
 </Shell>

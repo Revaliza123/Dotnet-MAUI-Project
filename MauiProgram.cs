@@ -1,5 +1,7 @@
 ﻿using Microsoft.Extensions.Logging;
-using ProjectMaui.Services;
+using ProjectMaui.Domain.Infrasturcture;
+using ProjectMaui.Domain.Services;
+using ProjectMaui.Client.Views;
 
 namespace ProjectMaui;
 
