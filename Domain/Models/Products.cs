@@ -5,28 +5,34 @@ namespace ProjectMaui.Domain.Models
 {
     public class Product
     {
-        [PrimaryKey]
-        public Guid Id { get; set; } = Guid.NewGuid();
-
-        public string Name { get; private set; }
-        public string Description { get; private set; }
-        public Guid? CategoryId { get; private set; }
-        public decimal Price { get; private set; }
-        public string Ingredients { get; private set; }
-        public int StockQuantity { get; private set; }
-        public TimeSpan PreparationTime { get; private set; }
-        public ProductStatus Status { get; private set; }
+        public Guid Id { get; set; }
+        public string Name { get; protected set; }
+        public string Description { get; protected set; }
+        public Guid? CategoryId { get; protected set; }
+        public decimal Price { get; protected set; }
+        public string Image { get; protected set; }
+        public string Ingredients { get; protected set; }
+        public int StockQuantity { get; protected set; }
+        public TimeSpan PreparationTime { get; protected set; }
+        public ProductStatus Status { get; protected set; }
+        public enum ProductTypes { Food, Dessert, Drink }
 
         public Product() { }
-        public Product(string name, string description, decimal price, string ingredients, int stockQuantity, TimeSpan preparationTime, ProductStatus status)
+        public Product(string name, string description, decimal price, string image, string ingredients, int stockQuantity, TimeSpan preparationTime, ProductStatus status)
         {
             Name = Guard.NotNullOrWhiteSpace(name, nameof(name));
             Description = Guard.NotNullOrWhiteSpace(description, nameof(description));
             Price = Guard.NotNegative(price, nameof(price));
+            Image = image;
             Ingredients = ingredients;
             StockQuantity = Guard.AtLeast(stockQuantity, 1, nameof(stockQuantity));
             PreparationTime = preparationTime;
             Status = status;
+        }
+
+        public void SetCategory(Guid categoryId)
+        {
+            this.CategoryId = categoryId;
         }
 
         public void ChangeAvailablelity(ProductStatus status, Guid productId)
@@ -46,6 +52,7 @@ namespace ProjectMaui.Domain.Models
         }
     }
 
+    [Table("Product")]
     public class Food : Product
     {
         public string Taste { get; set; }
@@ -53,8 +60,8 @@ namespace ProjectMaui.Domain.Models
 
         public Food() : base() { }
 
-        public Food(string name, string description, decimal price, string ingredients, int stockQuantity, TimeSpan prepTime, ProductStatus status, string taste, string nutritionInfo)
-            : base(name, description, price, ingredients, stockQuantity, prepTime, status)
+        public Food(string name, string description, decimal price, string image, string ingredients, int stockQuantity, TimeSpan prepTime, ProductStatus status, string taste, string nutritionInfo)
+            : base(name, description, price, image, ingredients, stockQuantity, prepTime, status)
         {
             Taste = Guard.NotNullOrWhiteSpace(taste, nameof(taste));
             NutritionInfo = nutritionInfo;
@@ -66,6 +73,7 @@ namespace ProjectMaui.Domain.Models
         }
     }
 
+    [Table("Product")]
     public class Dessert : Food
     {
         public int SweetnessLevel { get; set; }
@@ -73,8 +81,8 @@ namespace ProjectMaui.Domain.Models
 
         public Dessert() : base() { }
 
-        public Dessert(string name, string description, decimal price, string ingredients, int stockQuantity, TimeSpan prepTime, ProductStatus status, string taste, string nutritionInfo, int sweetness, ServingTemp temp)
-            : base(name, description, price, ingredients, stockQuantity, prepTime, status, taste, nutritionInfo)
+        public Dessert(string name, string description, decimal price, string image, string ingredients, int stockQuantity, TimeSpan prepTime, ProductStatus status, string taste, string nutritionInfo, int sweetness, ServingTemp temp)
+            : base(name, description, price, image, ingredients, stockQuantity, prepTime, status, taste, nutritionInfo)
         {
             SweetnessLevel = sweetness;
             ServingTemp = temp;
@@ -86,6 +94,7 @@ namespace ProjectMaui.Domain.Models
         }
     }
 
+    [Table("Product")]
     public class Drink : Product
     {
         public SugarLevel SugarLevel { get; set; }
@@ -93,8 +102,8 @@ namespace ProjectMaui.Domain.Models
 
         public Drink() : base() { }
 
-        public Drink(string name, string description, decimal price, string ingredients, int stockQuantity, TimeSpan prepTime, ProductStatus status, SugarLevel sugar, bool caffeinated)
-            : base(name, description, price, ingredients, stockQuantity, prepTime, status)
+        public Drink(string name, string description, decimal price, string image, string ingredients, int stockQuantity, TimeSpan prepTime, ProductStatus status, SugarLevel sugar, bool caffeinated)
+            : base(name, description, price, image, ingredients, stockQuantity, prepTime, status)
         {
             SugarLevel = sugar;
             IsCaffeinated = caffeinated;

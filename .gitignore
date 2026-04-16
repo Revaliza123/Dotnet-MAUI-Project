@@ -67,4 +67,5 @@ appsettings.json
 appsettings.Development.json
 *.env
 *.config
+*.lscache
 !App.config

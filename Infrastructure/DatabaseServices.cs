@@ -1,4 +1,5 @@
 using ProjectMaui.Domain.Models;
+using ProjectMaui.Infrastructure.Entities;
 using SQLite;
 
 namespace ProjectMaui.Domain.Infrasturcture;
@@ -18,7 +19,8 @@ public class DatabaseService
         if (database is not null) return database;
         database = new SQLiteAsyncConnection(dbPath);
 
-        await database.CreateTableAsync<Product>();
+        await database.CreateTableAsync<ProductEntity>();
+        await database.CreateTableAsync<Category>();
         await database.CreateTableAsync<Order>();
         await database.CreateTableAsync<OrderItem>();
         await database.CreateTableAsync<Inventory>();

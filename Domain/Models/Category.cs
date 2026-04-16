@@ -1,15 +1,16 @@
 using ProjectMaui.Domain.Common;
 using SQLite;
 
-namespace ProjectMaui.Models
+namespace ProjectMaui.Domain.Models
 {
+    [Table("Category")]
     public class Category
     {
         [PrimaryKey]
         public Guid Id { get; set; } = Guid.NewGuid();
 
-        public string Name { get; private set; } = default!;
-        public string Description { get; private set; } = default!;
+        public string Name { get; set; } = default!;
+        public string Description { get; set; } = default!;
 
         public Category() { }
 
