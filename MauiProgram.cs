@@ -23,6 +23,9 @@ public static class MauiProgram
 		builder.Services.AddSingleton<OrderService>();
 		builder.Services.AddSingleton<TableServices>();
 		builder.Services.AddTransient<MainPage>();
+		builder.Services.AddSingleton<UserServices>();
+        builder.Services.AddSingleton<InventoryServices>(); 
+        builder.Services.AddSingleton<CategoryServices>();    
 
 #if DEBUG
 		builder.Logging.AddDebug();
