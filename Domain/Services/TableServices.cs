@@ -8,20 +8,20 @@ namespace ProjectMaui.Domain.Services
     {
         private readonly DatabaseService? database;
 
-        private SQLiteAsyncConnection connection;
+        private SQLiteAsyncConnection? connection;
 
         public TableServices(DatabaseService db)
         {
-            database = db;
+            database = db ?? throw new ArgumentNullException(nameof(db));
         }
 
         private async Task<SQLiteAsyncConnection> GetDb()
         {
             if (connection == null)
             {
-                connection = await database.GetConnection();
+                connection = await database!.GetConnection();
             }
-            return connection;
+            return connection!;
         }
 
         public async Task<List<Table>> GetTableData()
@@ -76,7 +76,7 @@ namespace ProjectMaui.Domain.Services
                 throw;
             }
         }
-        public async Task UpdateTable(Guid tableId)
+        public async Task DeleteTable(Guid tableId)
         {
             var db = await GetDb();
             await db.DeleteAsync(tableId);

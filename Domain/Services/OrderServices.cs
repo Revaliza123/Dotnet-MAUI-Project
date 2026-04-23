@@ -10,11 +10,11 @@ namespace ProjectMaui.Domain.Services
         private readonly DatabaseService databaseConnect;
         private SQLiteAsyncConnection? connection;
 
-
         public OrderService(DatabaseService db)
         {
             databaseConnect = db;
         }
+
         private async Task<SQLiteAsyncConnection> GetDb()
         {
             if (connection == null)
@@ -24,76 +24,71 @@ namespace ProjectMaui.Domain.Services
             return connection;
         }
 
-        public async Task<List<Order>> GetOrdersList()
+        public async Task AddOrderAsync(Order order)
         {
-            var database = await GetDb();
-            var orders = await database.Table<Order>().ToListAsync();
+            var db = await GetDb();
+
+            await db.InsertAsync(order);
+
+            if (order.OrderItems != null && order.OrderItems.Any())
+            {
+                foreach (var item in order.OrderItems)
+                {
+                    item.OrderId = order.Id;
+                    await db.InsertAsync(item);
+                }
+            }
+        }
+
+        public async Task<List<Order>> GetOrdersWithItemsAsync()
+        {
+            var db = await GetDb();
+            var orders = await db.Table<Order>().ToListAsync();
 
             foreach (var order in orders)
             {
-                var itemsOrder = await database.Table<OrderItem>().Where(x => x.OrderId == order.Id).ToListAsync();
-                order.OrderItems = itemsOrder;
+                var items = await db.Table<OrderItem>().Where(i => i.OrderId == order.Id).ToListAsync();
+                order.OrderItems = items;
             }
+
             return orders;
         }
 
-        public async Task AddOrder(Order order)
-        {
-            try
-            {
-                var db = await GetDb();
-                int result = await db.InsertAsync(order);
-
-                if (result > 0)
-                {
-                    Console.WriteLine($"Succes to add the new data");
-                }
-            }
-            catch (Exception exc)
-            {
-                Console.WriteLine($"Error {exc.Message} when get the data");
-                throw;
-            }
-        }
-
-        public async Task UpdateOrder(Order order)
-        {
-            try
-            {
-                var db = await GetDb();
-                int result = await db.UpdateAsync(order);
-
-                if (result > 0)
-                {
-                    Console.WriteLine($"Succes to update the data");
-                }
-            }
-            catch (Exception exc)
-            {
-                Console.WriteLine($"Error {exc.Message} when update the data");
-                throw;
-            }
-        }
-
-        public async Task DeleteOrder(Guid ordeId)
+        public async Task DeleteOrderAsync(Order order)
         {
             var db = await GetDb();
-            await db.DeleteAsync(ordeId);
+
+            var items = await db.Table<OrderItem>().Where(i => i.OrderId == order.Id).ToListAsync();
+            foreach (var item in items)
+            {
+                await db.DeleteAsync(item);
+            }
+
+            await db.DeleteAsync(order);
         }
 
-        public void UpdateOrderStatus(int orderId, OrderStatus orderStatus)
+        public async Task UpdateOrderStatusAsync(Guid orderId, OrderStatus orderStatus)
         {
-            Console.WriteLine($"{orderId} orders");
-            Console.WriteLine($"{orderStatus} status");
+            var db = await GetDb();
+            var order = await db.Table<Order>().FirstOrDefaultAsync(o => o.Id == orderId);
+
+            if (order != null)
+            {
+                order.OrderStatus = orderStatus;
+
+                await db.UpdateAsync(order);
+                Console.WriteLine($"Order {orderId} status updated to {orderStatus}");
+            }
         }
-        public void ProccessPayment(int orderId, PaymentStatus paymentStatus)
+        public void ProccessPayment(Guid orderId, PaymentStatus paymentStatus)
         {
             Console.WriteLine($"{orderId} orders");
             Console.WriteLine($"{paymentStatus} status");
         }
-        public void UpdateOrderItemStatus(int productId, ItemStatus itemStatus)
+
+        public void UpdateOrderItemStatus(Guid productId, ItemStatus itemStatus)
         {
-            Console.WriteLine($"{productId} orders");
+            Console.WriteLine($"{productId} product");
             Console.WriteLine($"{itemStatus} status");
         }
     }

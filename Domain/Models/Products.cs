@@ -3,19 +3,25 @@ using SQLite;
 
 namespace ProjectMaui.Domain.Models
 {
-    public class Product
+    public abstract class Product
     {
+        [PrimaryKey]
         public Guid Id { get; set; }
-        public string Name { get; protected set; }
-        public string Description { get; protected set; }
-        public Guid? CategoryId { get; protected set; }
-        public decimal Price { get; protected set; }
-        public string Image { get; protected set; }
-        public string Ingredients { get; protected set; }
-        public int StockQuantity { get; protected set; }
-        public TimeSpan PreparationTime { get; protected set; }
-        public ProductStatus Status { get; protected set; }
+        public string Name { get; set; } = default!;
+        public string Description { get; set; } = default!;
+
+
+        public Guid? CategoryId { get; set; }
+        public decimal Price { get; set; }
+        public string Image { get; set; } = default!;
+        public string Ingredients { get; set; } = default!;
+        public int StockQuantity { get; set; }
+        public TimeSpan PreparationTime { get; set; }
+        public ProductStatus Status { get; set; }
         public enum ProductTypes { Food, Dessert, Drink }
+
+        [Ignore]
+        public abstract ProductTypes Type { get; }
 
         public Product() { }
         public Product(string name, string description, decimal price, string image, string ingredients, int stockQuantity, TimeSpan preparationTime, ProductStatus status)
@@ -52,12 +58,14 @@ namespace ProjectMaui.Domain.Models
         }
     }
 
-    [Table("Product")]
+    [Table("Foods")]
     public class Food : Product
     {
-        public string Taste { get; set; }
-        public string NutritionInfo { get; set; }
+        public string Taste { get; set; } = default!;
+        public string NutritionInfo { get; set; } = default!;
 
+        [Ignore]
+        public override ProductTypes Type => ProductTypes.Food;
         public Food() : base() { }
 
         public Food(string name, string description, decimal price, string image, string ingredients, int stockQuantity, TimeSpan prepTime, ProductStatus status, string taste, string nutritionInfo)
@@ -73,7 +81,7 @@ namespace ProjectMaui.Domain.Models
         }
     }
 
-    [Table("Product")]
+    [Table("Desserts")]
     public class Dessert : Food
     {
         public int SweetnessLevel { get; set; }
@@ -94,11 +102,14 @@ namespace ProjectMaui.Domain.Models
         }
     }
 
-    [Table("Product")]
+    [Table("Drinks")]
     public class Drink : Product
     {
         public SugarLevel SugarLevel { get; set; }
         public bool IsCaffeinated { get; set; }
+
+        [Ignore]
+        public override ProductTypes Type => ProductTypes.Drink;
 
         public Drink() : base() { }
 

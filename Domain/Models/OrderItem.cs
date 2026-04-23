@@ -9,14 +9,14 @@ public class OrderItem
     public Guid Id { get; set; } = Guid.NewGuid();
 
     [Indexed]
-    public Guid OrderId { get; private set; }
-    
+    public Guid OrderId { get; set; }
+
     [Indexed]
-    public Guid ProductId { get; private set; }
-    public int Quantity { get; private set; }
-    public decimal UnitPrice { get; private set; }
-    public string Note { get; private set; }
-    public ItemStatus ItemStatus { get; private set; }
+    public Guid ProductId { get; set; }
+    public int Quantity { get; set; }
+    public decimal UnitPrice { get; set; }
+    public string Note { get; set; } = default!;
+    public ItemStatus ItemStatus { get; set; }
     public decimal SubTotal => Quantity * UnitPrice;
 
     public OrderItem() { }

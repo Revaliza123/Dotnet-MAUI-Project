@@ -1,6 +1,7 @@
 using ProjectMaui.Domain.Models;
 using ProjectMaui.Domain.Infrasturcture;
 using SQLite;
+using ProjectMaui.Infrastructure.Entities;
 
 namespace ProjectMaui.Domain.Services
 {
@@ -21,15 +22,43 @@ namespace ProjectMaui.Domain.Services
         }
 
         public async Task<List<Category>> GetAllCategories() => await (await GetDb()).Table<Category>().ToListAsync();
-        
+
         public async Task AddCategory(Category cat) => await (await GetDb()).InsertAsync(cat);
-        
-        
+
+
         public async Task<List<Product>> GetProductsByCategory(Guid categoryId)
         {
             var db = await GetDb();
-            
-            return await db.Table<Product>().Where(p => p.CategoryId == categoryId).ToListAsync();
+
+            var entities = await db.Table<ProductEntity>().Where(p => p.CategoryId == categoryId).ToListAsync();
+
+            var products = entities.Select(p =>
+            {
+                Product product = p.ProductType switch
+                {
+                    "Food" => new Food(
+                        p.Name, p.Description, p.Price, p.Image, p.Ingredients,
+                        p.StockQuantity, p.PreparationTime, (ProductStatus)p.Status,
+                        p.Taste, p.NutritionInfo),
+
+                    "Drink" => new Drink(
+                        p.Name, p.Description, p.Price, p.Image, p.Ingredients,
+                        p.StockQuantity, p.PreparationTime, (ProductStatus)p.Status,
+                        (SugarLevel)p.SugarLevel, p.IsCaffeinated),
+
+                    "Dessert" => new Dessert(
+                        p.Name, p.Description, p.Price, p.Image, p.Ingredients,
+                        p.StockQuantity, p.PreparationTime, (ProductStatus)p.Status,
+                        p.Taste, p.NutritionInfo, p.SweetnessLevel, (ServingTemp)p.ServingTemp),
+
+                    _ => throw new Exception("Tipe produk tidak dikenali")
+                };
+
+                product.Id = p.Id;
+                return product;
+            }).ToList();
+
+            return products;
         }
     }
 }

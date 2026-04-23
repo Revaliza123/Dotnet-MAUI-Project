@@ -5,107 +5,54 @@
              BackgroundColor="#F4F1EA"
              Title="Menu GoDahar">
 
-    <ScrollView>
-        <VerticalStackLayout Padding="20" Spacing="20">
-            
-            <Grid ColumnDefinitions="*, Auto">
-                <VerticalStackLayout Grid.Column="0">
-                    <Label Text="GoDahar" FontSize="28" FontAttributes="Bold" TextColor="#1E3A5F" />
-                    <Label Text="Pesan makanan favoritmu!" FontSize="14" TextColor="Gray" />
+    <Grid>
+        <CollectionView x:Name="MenuCollection" SelectionMode="None">
+            <CollectionView.Header>
+                <VerticalStackLayout Padding="20" Spacing="20">
+                    <Grid ColumnDefinitions="*, Auto">
+                        <VerticalStackLayout Grid.Column="0">
+                            <Label Text="GoDahar" FontSize="28" FontAttributes="Bold" TextColor="#1E3A5F" />
+                            <Label Text="Pesan makanan favoritmu!" FontSize="14" TextColor="Gray" />
+                        </VerticalStackLayout>
+                        
+                        <Border Grid.Column="1" HeightRequest="45" WidthRequest="45" StrokeShape="RoundRectangle 22.5" BackgroundColor="White" StrokeThickness="0">
+                            <Border.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnCartIconTapped" />
+                            </Border.GestureRecognizers>
+                            <Label Text="&#x1F6D2;" HorizontalOptions="Center" VerticalOptions="Center" FontSize="20"/>
+                        </Border>
+                    </Grid>
+
+                    <ScrollView Orientation="Horizontal" HorizontalScrollBarVisibility="Never">
+                        <HorizontalStackLayout Spacing="15">
+                            <Button Text="All Menu" Clicked="OnCategoryClicked" BackgroundColor="#1E3A5F" TextColor="White" CornerRadius="20" HeightRequest="40" Padding="20,0"/>
+                            <Button Text="Food" Clicked="OnCategoryClicked" BackgroundColor="Transparent" TextColor="#1E3A5F" BorderColor="#1E3A5F" BorderWidth="1" CornerRadius="20" HeightRequest="40" Padding="20,0"/>
+                            <Button Text="Drinks" Clicked="OnCategoryClicked" BackgroundColor="Transparent" TextColor="#1E3A5F" BorderColor="#1E3A5F" BorderWidth="1" CornerRadius="20" HeightRequest="40" Padding="20,0"/>
+                        </HorizontalStackLayout>
+                    </ScrollView>
+
+                    <Label Text="Semua Menu 🍽️" FontSize="18" FontAttributes="Bold" TextColor="#1E3A5F" />
                 </VerticalStackLayout>
-                
-                <Frame Grid.Column="1" HeightRequest="45" WidthRequest="45" CornerRadius="22.5" Padding="0" BackgroundColor="White" HasShadow="True">
-                    <Frame.GestureRecognizers>
-                        <TapGestureRecognizer Tapped="OnCartIconTapped" />
-                    </Frame.GestureRecognizers>
-                    <Label Text="&#x1F6D2;" HorizontalOptions="Center" VerticalOptions="Center" FontSize="20"/>
-                </Frame>
-            </Grid>
+            </CollectionView.Header>
 
-            <ScrollView Orientation="Horizontal" HorizontalScrollBarVisibility="Never">
-                <HorizontalStackLayout Spacing="15">
-                    <Button Text="All Menu" Clicked="OnCategoryClicked" BackgroundColor="#1E3A5F" TextColor="White" CornerRadius="20" HeightRequest="40" Padding="20,0"/>
-                    <Button Text="Food" Clicked="OnCategoryClicked" BackgroundColor="Transparent" TextColor="#1E3A5F" BorderColor="#1E3A5F" BorderWidth="1" CornerRadius="20" HeightRequest="40" Padding="20,0"/>
-                    <Button Text="Drinks" Clicked="OnCategoryClicked" BackgroundColor="Transparent" TextColor="#1E3A5F" BorderColor="#1E3A5F" BorderWidth="1" CornerRadius="20" HeightRequest="40" Padding="20,0"/>
-                    <Button Text="Dessert" Clicked="OnCategoryClicked" BackgroundColor="Transparent" TextColor="#1E3A5F" BorderColor="#1E3A5F" BorderWidth="1" CornerRadius="20" HeightRequest="40" Padding="20,0"/>
-                </HorizontalStackLayout>
-            </ScrollView>
+            <CollectionView.ItemsLayout>
+                <GridItemsLayout Orientation="Vertical" Span="2" VerticalItemSpacing="15" HorizontalItemSpacing="15" />
+            </CollectionView.ItemsLayout>
 
-            <Label Text="Semua Menu 🍽️" FontSize="18" FontAttributes="Bold" TextColor="#1E3A5F" />
-
-            <Grid RowDefinitions="Auto, Auto, Auto" ColumnDefinitions="*, *" RowSpacing="15" ColumnSpacing="15">
-                
-                <Frame Grid.Row="0" Grid.Column="0" CornerRadius="20" Padding="0" HasShadow="True" BackgroundColor="White" BorderColor="Transparent">
-                    <VerticalStackLayout>
-                        <BoxView Color="#D1D5DB" HeightRequest="120" CornerRadius="20,20,0,0" />
-                        <StackLayout Padding="12">
-                            <Label Text="Nasi Goreng Spesial" FontSize="16" FontAttributes="Bold" TextColor="#1E3A5F" />
-                            <Label Text="Nasi, telur, ayam..." FontSize="12" TextColor="Gray" MaxLines="2" Margin="0,5,0,0"/>
-                            <Grid ColumnDefinitions="*, Auto" Margin="0,15,0,0">
-                                <Label Text="Rp 25.000" FontSize="14" FontAttributes="Bold" TextColor="#1E3A5F" VerticalOptions="Center" />
-                                <Button Grid.Column="1" Text="+" Clicked="OnAddToCartClicked" BackgroundColor="#1E3A5F" TextColor="White" WidthRequest="30" HeightRequest="30" CornerRadius="15" Padding="0" VerticalOptions="Center"/>
-                            </Grid>
-                        </StackLayout>
-                    </VerticalStackLayout>
-                </Frame>
-
-                <Frame Grid.Row="0" Grid.Column="1" CornerRadius="20" Padding="0" HasShadow="True" BackgroundColor="White" BorderColor="Transparent">
-                    <VerticalStackLayout>
-                        <BoxView Color="#D1D5DB" HeightRequest="120" CornerRadius="20,20,0,0" />
-                        <StackLayout Padding="12">
-                            <Label Text="Ayam Bakar Madu" FontSize="16" FontAttributes="Bold" TextColor="#1E3A5F" />
-                            <Label Text="Ayam kampung, madu..." FontSize="12" TextColor="Gray" MaxLines="2" Margin="0,5,0,0"/>
-                            <Grid ColumnDefinitions="*, Auto" Margin="0,15,0,0">
-                                <Label Text="Rp 30.000" FontSize="14" FontAttributes="Bold" TextColor="#1E3A5F" VerticalOptions="Center" />
-                                <Button Grid.Column="1" Text="+" Clicked="OnAddToCartClicked" BackgroundColor="#1E3A5F" TextColor="White" WidthRequest="30" HeightRequest="30" CornerRadius="15" Padding="0" VerticalOptions="Center"/>
-                            </Grid>
-                        </StackLayout>
-                    </VerticalStackLayout>
-                </Frame>
-
-                <Frame Grid.Row="1" Grid.Column="0" CornerRadius="20" Padding="0" HasShadow="True" BackgroundColor="White" BorderColor="Transparent">
-                    <VerticalStackLayout>
-                        <BoxView Color="#87CEEB" HeightRequest="120" CornerRadius="20,20,0,0" />
-                        <StackLayout Padding="12">
-                            <Label Text="Es Teh Manis" FontSize="16" FontAttributes="Bold" TextColor="#1E3A5F" />
-                            <Label Text="Teh asli dengan es..." FontSize="12" TextColor="Gray" MaxLines="2" Margin="0,5,0,0"/>
-                            <Grid ColumnDefinitions="*, Auto" Margin="0,15,0,0">
-                                <Label Text="Rp 5.000" FontSize="14" FontAttributes="Bold" TextColor="#1E3A5F" VerticalOptions="Center" />
-                                <Button Grid.Column="1" Text="+" Clicked="OnAddToCartClicked" BackgroundColor="#1E3A5F" TextColor="White" WidthRequest="30" HeightRequest="30" CornerRadius="15" Padding="0" VerticalOptions="Center"/>
-                            </Grid>
-                        </StackLayout>
-                    </VerticalStackLayout>
-                </Frame>
-
-                <Frame Grid.Row="1" Grid.Column="1" CornerRadius="20" Padding="0" HasShadow="True" BackgroundColor="White" BorderColor="Transparent">
-                    <VerticalStackLayout>
-                        <BoxView Color="#8B4513" HeightRequest="120" CornerRadius="20,20,0,0" />
-                        <StackLayout Padding="12">
-                            <Label Text="Kopi Susu Aren" FontSize="16" FontAttributes="Bold" TextColor="#1E3A5F" />
-                            <Label Text="Kopi espresso, aren..." FontSize="12" TextColor="Gray" MaxLines="2" Margin="0,5,0,0"/>
-                            <Grid ColumnDefinitions="*, Auto" Margin="0,15,0,0">
-                                <Label Text="Rp 18.000" FontSize="14" FontAttributes="Bold" TextColor="#1E3A5F" VerticalOptions="Center" />
-                                <Button Grid.Column="1" Text="+" Clicked="OnAddToCartClicked" BackgroundColor="#1E3A5F" TextColor="White" WidthRequest="30" HeightRequest="30" CornerRadius="15" Padding="0" VerticalOptions="Center"/>
-                            </Grid>
-                        </StackLayout>
-                    </VerticalStackLayout>
-                </Frame>
-
-                <Frame Grid.Row="2" Grid.Column="0" CornerRadius="20" Padding="0" HasShadow="True" BackgroundColor="White" BorderColor="Transparent">
-                    <VerticalStackLayout>
-                        <BoxView Color="#FFB6C1" HeightRequest="120" CornerRadius="20,20,0,0" />
-                        <StackLayout Padding="12">
-                            <Label Text="Es Krim Strawberry" FontSize="16" FontAttributes="Bold" TextColor="#1E3A5F" />
-                            <Label Text="Manis, menyegarkan..." FontSize="12" TextColor="Gray" MaxLines="2" Margin="0,5,0,0"/>
-                            <Grid ColumnDefinitions="*, Auto" Margin="0,15,0,0">
-                                <Label Text="Rp 12.000" FontSize="14" FontAttributes="Bold" TextColor="#1E3A5F" VerticalOptions="Center" />
-                                <Button Grid.Column="1" Text="+" Clicked="OnAddToCartClicked" BackgroundColor="#1E3A5F" TextColor="White" WidthRequest="30" HeightRequest="30" CornerRadius="15" Padding="0" VerticalOptions="Center"/>
-                            </Grid>
-                        </StackLayout>
-                    </VerticalStackLayout>
-                </Frame>
-
-            </Grid>
-        </VerticalStackLayout>
-    </ScrollView>
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Border StrokeShape="RoundRectangle 20" BackgroundColor="White" StrokeThickness="0" Margin="10,0">
+                        <VerticalStackLayout>
+                            <Image Source="{Binding Image}" HeightRequest="120" Aspect="AspectFill" BackgroundColor="#D1D5DB"/>
+                            <StackLayout Padding="12">
+                                <Label Text="{Binding Name}" FontSize="16" FontAttributes="Bold" TextColor="#1E3A5F" MaxLines="1"/>
+                                <Label Text="{Binding Price, StringFormat='Rp {0:N0}'}" FontSize="14" FontAttributes="Bold" TextColor="#1E3A5F" Margin="0,10,0,0"/>
+                                <Button Text="+" CommandParameter="{Binding .}" Clicked="OnAddToCartClicked" BackgroundColor="#1E3A5F" TextColor="White" HorizontalOptions="End" WidthRequest="40" CornerRadius="20"/>
+                            </StackLayout>
+                        </VerticalStackLayout>
+                    </Border>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </Grid>
 </ContentPage>

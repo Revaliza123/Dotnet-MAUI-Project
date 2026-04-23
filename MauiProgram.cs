@@ -22,10 +22,13 @@ public static class MauiProgram
 		builder.Services.AddSingleton<ProductServices>();
 		builder.Services.AddSingleton<OrderService>();
 		builder.Services.AddSingleton<TableServices>();
-		builder.Services.AddTransient<MainPage>();
 		builder.Services.AddSingleton<UserServices>();
-        builder.Services.AddSingleton<InventoryServices>(); 
-        builder.Services.AddSingleton<CategoryServices>();    
+		builder.Services.AddSingleton<InventoryServices>();
+		builder.Services.AddSingleton<CategoryServices>();
+		builder.Services.AddSingleton<DataSeedService>();
+
+		builder.Services.AddTransient<CustomerMenuPage>();
+		builder.Services.AddTransient<MainPage>();
 
 #if DEBUG
 		builder.Logging.AddDebug();

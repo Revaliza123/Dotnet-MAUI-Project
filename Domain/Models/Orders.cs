@@ -10,13 +10,13 @@ namespace ProjectMaui.Domain.Models
         public Guid Id { get; set; } = Guid.NewGuid();
 
         [Indexed]
-        public Guid? CustomerId { get; private set; }
-        public DateTime OrderDate { get; private set; }
+        public Guid? CustomerId { get; set; }
+        public DateTime OrderDate { get; set; }
         
         [Indexed]
-        public Guid? TableId { get; private set; }
-        public PaymentStatus PaymentStatus { get; private set; }
-        public OrderStatus OrderStatus { get; private set; }
+        public Guid? TableId { get; set; }
+        public PaymentStatus PaymentStatus { get; set; }
+        public OrderStatus OrderStatus { get; set; }
 
         [Ignore]
         public List<OrderItem> OrderItems { get; set; } = new();

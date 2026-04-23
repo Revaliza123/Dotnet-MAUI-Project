@@ -7,19 +7,31 @@ namespace ProjectMaui.Client.Views;
 public partial class MainPage : ContentPage
 {
 	int count = 0;
-	private readonly Domain.Services.ProductServices _productService;
-	private readonly Domain.Services.TableServices _tableService;
-	private readonly Domain.Services.OrderService _orderService;
-	public MainPage(Domain.Services.ProductServices productServices)
+	private readonly ProductServices _productService;
+	private readonly TableServices _tableService;
+	private readonly OrderService _orderService;
+	private readonly DataSeedService _seeder;
+
+	public MainPage(ProductServices productServices, TableServices tableServices, OrderService orderService, DataSeedService seeder)
 	{
 		InitializeComponent();
+
 		_productService = productServices;
+		_tableService = tableServices;
+		_orderService = orderService;
+		_seeder = seeder;
 
-		var database = new DatabaseService();
+	}
 
-		_productService = new ProductServices(database);
-		_tableService = new TableServices(database);
-		_orderService = new OrderService(database);
+	protected override async void OnAppearing()
+	{
+		base.OnAppearing();
+
+		// Tambahkan loading sederhana jika perlu
+		await _seeder.SeedAllData();
+
+		// Opsi: Setelah seed selesai, baru navigasi otomatis ke Menu
+		// await Shell.Current.GoToAsync("//CustomerMenuPage");
 	}
 
 	private void OnCounterClicked(object? sender, EventArgs e)
