@@ -8,10 +8,13 @@ namespace ProjectMaui.Domain.Models
         [PrimaryKey]
         public Guid Id { get; set; } = Guid.NewGuid();
 
-        public string Username { get; set; } = default!;
-        public string Password { get; set; } = default!;
-        public string FullName { get; set; } = default!;
-        public string Role { get; set; } = default!;
+        public string Username { get; private set; } = default!;
+        public string Password { get; private set; } = default!;
+        public string FullName { get; private set; } = default!;
+        public string Email { get; private set; } = default!; //
+        public string PhoneNumber { get; private set; } = default!; // 
+        public string Role { get; private set; } = default!;
+        public DateTime DateOfBirth { get; private set; } // 
 
         public enum UserTypes { Employee, Customer }
 
@@ -20,18 +23,24 @@ namespace ProjectMaui.Domain.Models
 
         public User() { }
 
-        public User(string username, string password, string fullName, string role)
+        public User(string username, string password, string fullName, string email, string phoneNumber, string role, DateTime dateOfBirth)
         {
             Username = Guard.NotNullOrWhiteSpace(username, nameof(username));
             Password = Guard.NotNullOrWhiteSpace(password, nameof(password));
             FullName = Guard.NotNullOrWhiteSpace(fullName, nameof(fullName));
+            Email = Guard.NotNullOrWhiteSpace(email, nameof(email));
+            PhoneNumber = Guard.NotNullOrWhiteSpace(phoneNumber, nameof(phoneNumber));
             Role = role;
+            DateOfBirth = dateOfBirth;
         }
 
-        public void UpdateProfile(string fullName)
+        public void UpdateProfile(string fullName, string email, string phoneNumber)
         {
             FullName = Guard.NotNullOrWhiteSpace(fullName, nameof(fullName));
-            Console.WriteLine($"User {Username} updated name to: {fullName}");
+            Email = Guard.NotNullOrWhiteSpace(email, nameof(email));
+            PhoneNumber = Guard.NotNullOrWhiteSpace(phoneNumber, nameof(phoneNumber));
+
+            Console.WriteLine($"User {Username} updated profile details.");
         }
     }
 
@@ -46,8 +55,9 @@ namespace ProjectMaui.Domain.Models
 
         public Employee() : base() { }
 
-        public Employee(string username, string password, string fullName, string role, string employeeId, DateTime joinDate)
-            : base(username, password, fullName, role)
+
+        public Employee(string username, string password, string fullName, string email, string phoneNumber, string role, DateTime dateOfBirth, string employeeId, DateTime joinDate)
+            : base(username, password, fullName, email, phoneNumber, role, dateOfBirth)
         {
             EmployeeId = Guard.NotNullOrWhiteSpace(employeeId, nameof(employeeId));
             JoinDate = joinDate;
@@ -65,8 +75,8 @@ namespace ProjectMaui.Domain.Models
 
         public Customer() : base() { }
 
-        public Customer(string username, string password, string fullName, string role, string email)
-            : base(username, password, fullName, role)
+        public Customer(string username, string password, string fullName, string email, string phoneNumber, string role, DateTime dateOfBirth)
+            : base(username, password, fullName, email, phoneNumber, role, dateOfBirth)
         {
             Email = email;
             LoyaltyPoints = 0;

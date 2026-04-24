@@ -22,10 +22,28 @@ namespace ProjectMaui.Domain.Services
             var existingUsers = await _userSvc.GetAllEmployees();
             if (existingUsers.Any()) return;
 
-            var admin = new Employee("admin", "admin123", "Muhammad Revaliza", UserRole.Admin.ToString(), "EMP001", DateTime.Now);
+            var admin = new Employee(
+                            "admin",
+                            "admin123",
+                            "Muhammad Revaliza",
+                            "admin@godahar.com",
+                            "08123456789",
+                            UserRole.Admin.ToString(),
+                            new DateTime(2000, 1, 1),
+                            "EMP001",
+                            DateTime.Now);
+
             await _userSvc.AddUser(admin, User.UserTypes.Employee);
 
-            var customer = new Customer("reva_cust", "cust123", "Revaliza Customer", UserRole.Customer.ToString(), "reva@email.com");
+            var customer = new Customer(
+                "reva_cust",
+                "cust123",
+                "Revaliza Customer",
+                "reva@email.com",
+                "08987654321",
+                UserRole.Customer.ToString(),
+                new DateTime(2003, 5, 20));
+
             await _userSvc.AddUser(customer, User.UserTypes.Customer);
 
             var nasiGoreng = new Food(
@@ -52,7 +70,7 @@ namespace ProjectMaui.Domain.Services
                 "Es Teh Manis",
                 "Teh melati segar dengan es batu pilihan",
                 5000,
-                "drinks/es_teh_manis.jpg",
+                "es_teh_manis.jpg",
                 "Teh Melati, Gula, Es Batu",
                 100, TimeSpan.FromMinutes(3),
                 ProductStatus.Available, SugarLevel.Normal, false);
