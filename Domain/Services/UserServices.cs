@@ -22,6 +22,7 @@ namespace ProjectMaui.Domain.Services
         }
 
         
+
         public async Task AddUser(User user)
         {
             var db = await GetDb();
@@ -40,13 +41,43 @@ namespace ProjectMaui.Domain.Services
             await db.DeleteAsync(user);
         }
 
-        
+
+        public async Task AddEmployee(Employee employee)
+        {
+            var db = await GetDb();
+            await db.InsertAsync(employee);
+        }
+
+        public async Task<List<Employee>> GetAllEmployees()
+        {
+            var db = await GetDb();
+            return await db.Table<Employee>().ToListAsync();
+        }
+
+        public async Task UpdateProfile(Employee employee, string newFullName, string newEmail, string newPhone)
+        {
+            var db = await GetDb();
+            
+            employee.UpdateProfile(newFullName, newEmail, newPhone);
+            
+            await db.UpdateAsync(employee);
+        }
+
+
         public async Task<bool> Authenticate(string username, string password)
         {
             var db = await GetDb();
-            // Langsung cari di tabel User
+            // UserServices sekarang juga bisa mencari di tabel Employee karena Employee adalah User
             var user = await db.Table<User>()
                                .FirstOrDefaultAsync(u => u.Username == username && u.Password == password);
+            
+            if (user == null)
+            {
+                var emp = await db.Table<Employee>()
+                                  .FirstOrDefaultAsync(e => e.Username == username && e.Password == password);
+                return emp != null;
+            }
+
             return user != null;
         }
 

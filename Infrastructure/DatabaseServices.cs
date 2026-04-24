@@ -26,6 +26,7 @@ public class DatabaseService
         await database.CreateTableAsync<Inventory>();
         await database.CreateTableAsync<User>();
         await database.CreateTableAsync<Table>();
+        await database.CreateTableAsync<Employee>();
 
         return database;
     }
