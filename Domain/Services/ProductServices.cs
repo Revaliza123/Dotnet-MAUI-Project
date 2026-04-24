@@ -29,20 +29,17 @@ namespace ProjectMaui.Domain.Services
         public async Task<List<Product>> GetAllProducts()
         {
             var db = await GetDb();
-            var entities = await db.Table<ProductEntity>().ToListAsync();
+            var products = new List<Product>();
 
-            return entities.Select(p =>
-            {
-                Product product = p.ProductType switch
-                {
-                    "Food" => new Food(p.Name, p.Description, p.Price, p.Image, p.Ingredients, p.StockQuantity, p.PreparationTime, (ProductStatus)p.Status, p.Taste, p.NutritionInfo),
-                    "Drink" => new Drink(p.Name, p.Description, p.Price, p.Image, p.Ingredients, p.StockQuantity, p.PreparationTime, (ProductStatus)p.Status, (SugarLevel)p.SugarLevel, p.IsCaffeinated),
-                    "Dessert" => new Dessert(p.Name, p.Description, p.Price, p.Image, p.Ingredients, p.StockQuantity, p.PreparationTime, (ProductStatus)p.Status, p.Taste, p.NutritionInfo, p.SweetnessLevel, (ServingTemp)p.ServingTemp),
-                    _ => throw new Exception("Unknown type")
-                };
-                product.Id = p.Id;
-                return product;
-            }).ToList();
+            var foods = await db.Table<Food>().ToListAsync();
+            var drinks = await db.Table<Drink>().ToListAsync();
+            var desserts = await db.Table<Dessert>().ToListAsync();
+
+            products.AddRange(foods);
+            products.AddRange(drinks);
+            products.AddRange(desserts);
+
+            return products;
         }
         private async Task<string> SaveImageLocally(FileResult photo, Product product)
         {
@@ -66,65 +63,67 @@ namespace ProjectMaui.Domain.Services
         public async Task AddProduct(Product product, Product.ProductTypes type, FileResult? photo)
         {
             var db = await GetDb();
-            int result = 0;
 
             if (photo != null)
             {
-                var folderPath = Path.Combine(FileSystem.AppDataDirectory, "product-images");
 
-                if (!Directory.Exists(folderPath))
-                    Directory.CreateDirectory(folderPath);
 
+                var slug = product.Name.ToLower().Replace(" ", "_");
+                var shortId = product.Id.ToString("N")[..8];
                 var extension = Path.GetExtension(photo.FileName);
+                var fileName = $"{slug}_{shortId}{extension}";
+                var fullPath = Path.Combine(fileName);
+
+                using var stream = await photo.OpenReadAsync();
+                using var newStream = File.OpenWrite(fullPath);
+                await stream.CopyToAsync(newStream);
+
+                product.Image = $"{fileName}";
+            }
+
+            int result = type switch
+            {
+                Product.ProductTypes.Food => await db.InsertAsync((Food)product),
+                Product.ProductTypes.Drink => await db.InsertAsync((Drink)product),
+                Product.ProductTypes.Dessert => await db.InsertAsync((Dessert)product),
+                _ => throw new ArgumentOutOfRangeException(nameof(type))
+            };
+
+            if (result > 0)
+                Console.WriteLine($"Berhasil menambah {type}: {product.Name}");
+        }
+
+        public async Task UpdateProduct(Product product, Product.ProductTypes type, FileResult? newPhoto = null)
+        {
+            var db = await GetDb();
+
+            if (newPhoto != null)
+            {
+                var folderPath = Path.Combine(FileSystem.AppDataDirectory, "product-images");
+                Directory.CreateDirectory(folderPath);
+
+                var extension = Path.GetExtension(newPhoto.FileName);
                 var fileName = $"{product.Id}_{product.Name.Replace(" ", "_")}{extension}";
                 var fullPath = Path.Combine(folderPath, fileName);
 
-                using (var stream = await photo.OpenReadAsync())
-                using (var newStream = File.OpenWrite(fullPath))
-                {
-                    await stream.CopyToAsync(newStream);
-                }
+                using var stream = await newPhoto.OpenReadAsync();
+                using var newStream = File.OpenWrite(fullPath);
+                await stream.CopyToAsync(newStream);
 
                 product.Image = fullPath;
             }
 
-            switch (type)
+            int result = type switch
             {
-                case Product.ProductTypes.Food:
-                    result = await db.InsertAsync((Food)product);
-                    break;
-                case Product.ProductTypes.Drink:
-                    result = await db.InsertAsync((Drink)product);
-                    break;
-                case Product.ProductTypes.Dessert:
-                    result = await db.InsertAsync((Dessert)product);
-                    break;
-            }
+                Product.ProductTypes.Food => await db.UpdateAsync((Food)product),
+                Product.ProductTypes.Drink => await db.UpdateAsync((Drink)product),
+                Product.ProductTypes.Dessert => await db.UpdateAsync((Dessert)product),
+                _ => throw new ArgumentOutOfRangeException(nameof(type))
+            };
 
-            if (result > 0) Console.WriteLine($"Berhasil menambah {type} dengan gambar unik.");
+            if (result > 0)
+                Console.WriteLine($"Berhasil update {type}: {product.Name}");
         }
-
-        public async Task UpdateProduct(Product product, Product.ProductTypes type)
-        {
-            var db = await GetDb();
-            int result = 0;
-
-            switch (type)
-            {
-                case Product.ProductTypes.Food:
-                    result = await db.UpdateAsync((Food)product);
-                    break;
-                case Product.ProductTypes.Drink:
-                    result = await db.UpdateAsync((Drink)product);
-                    break;
-                case Product.ProductTypes.Dessert:
-                    result = await db.UpdateAsync((Dessert)product);
-                    break;
-            }
-
-            if (result > 0) Console.WriteLine($"Berhasil update {type}");
-        }
-
         public async Task DeleteProduct(Guid productId, Product.ProductTypes type)
         {
             var db = await GetDb();
@@ -132,17 +131,22 @@ namespace ProjectMaui.Domain.Services
             switch (type)
             {
                 case Product.ProductTypes.Food:
-                    await db.DeleteAsync<Food>(productId);
+                    var food = await db.Table<Food>().FirstOrDefaultAsync(f => f.Id == productId);
+                    if (food != null) await db.DeleteAsync(food);
                     break;
+
                 case Product.ProductTypes.Drink:
-                    await db.DeleteAsync<Drink>(productId);
+                    var drink = await db.Table<Drink>().FirstOrDefaultAsync(d => d.Id == productId);
+                    if (drink != null) await db.DeleteAsync(drink);
                     break;
+
                 case Product.ProductTypes.Dessert:
-                    await db.DeleteAsync<Dessert>(productId);
+                    var dessert = await db.Table<Dessert>().FirstOrDefaultAsync(d => d.Id == productId);
+                    if (dessert != null) await db.DeleteAsync(dessert);
                     break;
             }
 
-            Console.WriteLine($"Berhasil menghapus {type}");
+            Console.WriteLine($"Berhasil menghapus {type} id: {productId}");
         }
 
 

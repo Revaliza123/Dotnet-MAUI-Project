@@ -28,6 +28,9 @@ public static class MauiProgram
 		builder.Services.AddSingleton<DataSeedService>();
 
 		builder.Services.AddTransient<CustomerMenuPage>();
+		builder.Services.AddTransient<FoodPage>();
+		builder.Services.AddTransient<DrinksPage>();
+		builder.Services.AddTransient<DessertPage>();
 		builder.Services.AddTransient<MainPage>();
 
 #if DEBUG

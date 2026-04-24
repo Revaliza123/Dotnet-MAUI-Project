@@ -1,53 +1,134 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:converters="clr-namespace:ProjectMaui.Client.Converters"
              x:Class="ProjectMaui.Client.Views.CustomerMenuPage"
-             BackgroundColor="#F4F1EA"
-             Title="Menu GoDahar">
+             BackgroundColor="#F4F1EA">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:ImageConverter x:Key="ImageConverter"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
 
     <Grid>
-        <CollectionView x:Name="MenuCollection" SelectionMode="None">
+        <CollectionView x:Name="MenuCollection"
+                SelectionMode="None">
             <CollectionView.Header>
-                <VerticalStackLayout Padding="20" Spacing="20">
+                <VerticalStackLayout Padding="20"
+                        Spacing="20">
                     <Grid ColumnDefinitions="*, Auto">
                         <VerticalStackLayout Grid.Column="0">
-                            <Label Text="GoDahar" FontSize="28" FontAttributes="Bold" TextColor="#1E3A5F" />
-                            <Label Text="Pesan makanan favoritmu!" FontSize="14" TextColor="Gray" />
+                            <Label Text="GoDahar"
+                                    FontSize="28"
+                                    FontAttributes="Bold"
+                                    TextColor="#1E3A5F"/>
+                            <Label Text="Pesan makanan favoritmu!"
+                                    FontSize="14"
+                                    TextColor="Gray"/>
                         </VerticalStackLayout>
-                        
-                        <Border Grid.Column="1" HeightRequest="45" WidthRequest="45" StrokeShape="RoundRectangle 22.5" BackgroundColor="White" StrokeThickness="0">
+
+                        <Border Grid.Column="1"
+                                HeightRequest="45"
+                                WidthRequest="45"
+                                StrokeShape="RoundRectangle 22.5"
+                                BackgroundColor="White"
+                                StrokeThickness="0">
                             <Border.GestureRecognizers>
-                                <TapGestureRecognizer Tapped="OnCartIconTapped" />
+                                <TapGestureRecognizer Tapped="OnCartIconTapped"/>
                             </Border.GestureRecognizers>
-                            <Label Text="&#x1F6D2;" HorizontalOptions="Center" VerticalOptions="Center" FontSize="20"/>
+                            <Label Text="&#x1F6D2;"
+                                    HorizontalOptions="Center"
+                                    VerticalOptions="Center"
+                                    FontSize="20"/>
                         </Border>
                     </Grid>
 
-                    <ScrollView Orientation="Horizontal" HorizontalScrollBarVisibility="Never">
+                    <ScrollView Orientation="Horizontal"
+                            HorizontalScrollBarVisibility="Never">
                         <HorizontalStackLayout Spacing="15">
-                            <Button Text="All Menu" Clicked="OnCategoryClicked" BackgroundColor="#1E3A5F" TextColor="White" CornerRadius="20" HeightRequest="40" Padding="20,0"/>
-                            <Button Text="Food" Clicked="OnCategoryClicked" BackgroundColor="Transparent" TextColor="#1E3A5F" BorderColor="#1E3A5F" BorderWidth="1" CornerRadius="20" HeightRequest="40" Padding="20,0"/>
-                            <Button Text="Drinks" Clicked="OnCategoryClicked" BackgroundColor="Transparent" TextColor="#1E3A5F" BorderColor="#1E3A5F" BorderWidth="1" CornerRadius="20" HeightRequest="40" Padding="20,0"/>
+                            <Button Text="All Menu"
+                                    Clicked="OnCategoryClicked"
+                                    BackgroundColor="#1E3A5F"
+                                    TextColor="White"
+                                    CornerRadius="20"
+                                    HeightRequest="40"
+                                    Padding="20,0"/>
+                            <Button Text="Food"
+                                    Clicked="OnCategoryClicked"
+                                    BackgroundColor="Transparent"
+                                    TextColor="#1E3A5F"
+                                    BorderColor="#1E3A5F"
+                                    BorderWidth="1"
+                                    CornerRadius="20"
+                                    HeightRequest="40"
+                                    Padding="20,0"/>
+                            <Button Text="Drinks"
+                                    Clicked="OnCategoryClicked"
+                                    BackgroundColor="Transparent"
+                                    TextColor="#1E3A5F"
+                                    BorderColor="#1E3A5F"
+                                    BorderWidth="1"
+                                    CornerRadius="20"
+                                    HeightRequest="40"
+                                    Padding="20,0"/>
+                            <Button Text="Dessert"
+                                    Clicked="OnCategoryClicked"
+                                    BackgroundColor="Transparent"
+                                    TextColor="#1E3A5F"
+                                    BorderColor="#1E3A5F"
+                                    BorderWidth="1"
+                                    CornerRadius="20"
+                                    HeightRequest="40"
+                                    Padding="20,0"/>
                         </HorizontalStackLayout>
                     </ScrollView>
 
-                    <Label Text="Semua Menu 🍽️" FontSize="18" FontAttributes="Bold" TextColor="#1E3A5F" />
+                    <Label x:Name="CategoryTitle"
+                            Text="Semua Menu 🍽️"
+                            FontSize="18"
+                            FontAttributes="Bold"
+                            TextColor="#1E3A5F"/>
                 </VerticalStackLayout>
             </CollectionView.Header>
 
             <CollectionView.ItemsLayout>
-                <GridItemsLayout Orientation="Vertical" Span="2" VerticalItemSpacing="15" HorizontalItemSpacing="15" />
+                <GridItemsLayout Orientation="Vertical"
+                        Span="2"
+                        VerticalItemSpacing="15"
+                        HorizontalItemSpacing="15"/>
             </CollectionView.ItemsLayout>
 
             <CollectionView.ItemTemplate>
                 <DataTemplate>
-                    <Border StrokeShape="RoundRectangle 20" BackgroundColor="White" StrokeThickness="0" Margin="10,0">
+                    <Border StrokeShape="RoundRectangle 20"
+                            BackgroundColor="White"
+                            StrokeThickness="0"
+                            Margin="10,0">
                         <VerticalStackLayout>
-                            <Image Source="{Binding Image}" HeightRequest="120" Aspect="AspectFill" BackgroundColor="#D1D5DB"/>
+                            <Image Source="{Binding Image, Converter={StaticResource ImageConverter}}"
+                                    HeightRequest="120"
+                                    Aspect="AspectFill"
+                                    BackgroundColor="#D1D5DB"/>
                             <StackLayout Padding="12">
-                                <Label Text="{Binding Name}" FontSize="16" FontAttributes="Bold" TextColor="#1E3A5F" MaxLines="1"/>
-                                <Label Text="{Binding Price, StringFormat='Rp {0:N0}'}" FontSize="14" FontAttributes="Bold" TextColor="#1E3A5F" Margin="0,10,0,0"/>
-                                <Button Text="+" CommandParameter="{Binding .}" Clicked="OnAddToCartClicked" BackgroundColor="#1E3A5F" TextColor="White" HorizontalOptions="End" WidthRequest="40" CornerRadius="20"/>
+                                <Label Text="{Binding Name}"
+                                        FontSize="16"
+                                        FontAttributes="Bold"
+                                        TextColor="#1E3A5F"
+                                        MaxLines="1"/>
+                                <Label Text="{Binding Price, StringFormat='Rp {0:N0}'}"
+                                        FontSize="14"
+                                        FontAttributes="Bold"
+                                        TextColor="#1E3A5F"
+                                        Margin="0,10,0,0"/>
+                                <Button Text="+"
+                                        CommandParameter="{Binding .}"
+                                        Clicked="OnAddToCartClicked"
+                                        BackgroundColor="#1E3A5F"
+                                        TextColor="White"
+                                        HorizontalOptions="End"
+                                        WidthRequest="40"
+                                        CornerRadius="20"/>
                             </StackLayout>
                         </VerticalStackLayout>
                     </Border>

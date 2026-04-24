@@ -2,14 +2,40 @@
 <Shell
     x:Class="ProjectMaui.AppShell"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-    xmlns:views="clr-namespace:ProjectMaui.Client.Views"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:local="clr-namespace:ProjectMaui.Client.Views"
-    Title="ProjectMaui">
+    xmlns:views="clr-namespace:ProjectMaui.Client.Views"
+    Title="ProjectMaui"
+    Shell.TabBarBackgroundColor="White"
+    Shell.TabBarTitleColor="#1E3A5F"
+    Shell.TabBarUnselectedColor="Gray">
 
-    <ShellContent
-        Title="Menu GoDahar"
-        ContentTemplate="{DataTemplate views:CustomerMenuPage}"
-        Route="CustomerMenuPage"/>
+    <TabBar>
+        <Tab Title="Home">
+            <Tab.Icon>
+                <FontImageSource Glyph="🏠" Color="#1E3A5F" Size="20" />
+            </Tab.Icon>
+            <ShellContent 
+                ContentTemplate="{DataTemplate views:CustomerMenuPage}" 
+                Route="CustomerMenuPage" />
+        </Tab>
+
+        <Tab Title="Orders">
+            <Tab.Icon>
+                <FontImageSource Glyph="📋" Color="#1E3A5F" Size="20" />
+            </Tab.Icon>
+            <ShellContent 
+                ContentTemplate="{DataTemplate views:CustomerMenuPage}" 
+                Route="OrdersPage" />
+        </Tab>
+
+        <Tab Title="Profile">
+            <Tab.Icon>
+                <FontImageSource Glyph="👤" Color="#1E3A5F" Size="20" />
+            </Tab.Icon>
+            <ShellContent 
+                ContentTemplate="{DataTemplate views:CustomerMenuPage}" 
+                Route="ProfilePage" />
+        </Tab>
+    </TabBar>
 
 </Shell>

@@ -26,12 +26,17 @@ public partial class MainPage : ContentPage
 	protected override async void OnAppearing()
 	{
 		base.OnAppearing();
-
-		// Tambahkan loading sederhana jika perlu
-		await _seeder.SeedAllData();
-
-		// Opsi: Setelah seed selesai, baru navigasi otomatis ke Menu
-		// await Shell.Current.GoToAsync("//CustomerMenuPage");
+		try
+		{
+			await _seeder.SeedAllData();
+			Console.WriteLine("✅ Seeding selesai.");
+		}
+		catch (Exception ex)
+		{
+			Console.WriteLine($"❌ SEED ERROR: {ex.GetType().Name} — {ex.Message}");
+			Console.WriteLine(ex.StackTrace);
+			await DisplayAlert("Seed Error", ex.Message, "OK");
+		}
 	}
 
 	private void OnCounterClicked(object? sender, EventArgs e)

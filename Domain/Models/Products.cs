@@ -6,7 +6,7 @@ namespace ProjectMaui.Domain.Models
     public abstract class Product
     {
         [PrimaryKey]
-        public Guid Id { get; set; }
+        public Guid Id { get; set; } = Guid.NewGuid();
         public string Name { get; set; } = default!;
         public string Description { get; set; } = default!;
 
@@ -86,6 +86,9 @@ namespace ProjectMaui.Domain.Models
     {
         public int SweetnessLevel { get; set; }
         public ServingTemp ServingTemp { get; set; }
+
+        [Ignore]
+        public override ProductTypes Type => ProductTypes.Dessert;
 
         public Dessert() : base() { }
 
