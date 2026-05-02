@@ -31,11 +31,12 @@
         <Tab Title="Profile">
             <Tab.Icon>
                 <FontImageSource Glyph="👤" Color="#1E3A5F" Size="20" />
-            </Tab.Icon>
-            <ShellContent 
-                ContentTemplate="{DataTemplate views:CustomerMenuPage}" 
-                Route="ProfilePage" />
+           </Tab.Icon>
+           <ShellContent 
+               ContentTemplate="{DataTemplate views:ProfilePage}" 
+               Route="ProfilePage" />
         </Tab>
+        
     </TabBar>
 
 </Shell>
