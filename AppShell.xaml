@@ -7,7 +7,8 @@
     Title="ProjectMaui"
     Shell.TabBarBackgroundColor="White"
     Shell.TabBarTitleColor="#1E3A5F"
-    Shell.TabBarUnselectedColor="Gray">
+    Shell.TabBarUnselectedColor="Gray"
+    Shell.FlyoutBackgroundColor="White">
 
     <TabBar>
         <Tab Title="Home">
@@ -31,11 +32,23 @@
         <Tab Title="Profile">
             <Tab.Icon>
                 <FontImageSource Glyph="👤" Color="#1E3A5F" Size="20" />
-            </Tab.Icon>
-            <ShellContent 
-                ContentTemplate="{DataTemplate views:AdminPage}" 
-                Route="ProfilePage" />
+           </Tab.Icon>
+           <ShellContent 
+               ContentTemplate="{DataTemplate views:ProfilePage}" 
+               Route="ProfilePage" />
         </Tab>
+        
     </TabBar>
+
+    <!-- <FlyoutItem Title="Admin" Icon="👤">
+        <ShellContent
+            Title="Products"
+            ContentTemplate="{DataTemplate views:AdminProductsPage}"
+            Route="AdminProducts" />
+        <ShellContent
+            Title="Categories"
+            ContentTemplate="{DataTemplate views:AdminCategoriesPage}"
+            Route="AdminCategories" />
+    </FlyoutItem> -->
 
 </Shell>

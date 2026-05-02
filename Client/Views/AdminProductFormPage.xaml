@@ -1,236 +1,188 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentPage
-    x:Class="ProjectMaui.Client.Views.AdminProductFormPage"
-    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:models="clr-namespace:ProjectMaui.Domain.Models"
-    Title="Product Form"
-    Shell.NavBarIsVisible="True"
-    Shell.TitleColor="Black">
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:models="clr-namespace:ProjectMaui.Domain.Models"
+             x:Class="ProjectMaui.Client.Views.AdminProductFormPage"
+             BackgroundColor="#F4F1EA"
+             Title="Product Form">
 
-    <Grid
-        Margin="16,40,16,16"
-        ColumnDefinitions="*"
-        RowDefinitions="Auto,*,Auto">
-        <Grid.Background>
-            <LinearGradientBrush StartPoint="0,0"
-                    EndPoint="0,1">
-                <GradientStop Offset="0.0"
-                        Color="#2D0000"/>
-                <GradientStop Offset="1.0"
-                        Color="#5c1a01"/>
-            </LinearGradientBrush>
-        </Grid.Background>
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="16">
 
-        <!--  Title  -->
-        <Label
-            Grid.Row="0"
-            Margin="0,0,0,16"
-            FontSize="20"
-            Style="{StaticResource H1Style}"
-            Text="📝  Product Form"
-            TextColor="White"/>
+            <!--  Form Card  -->
+            <Border StrokeShape="RoundRectangle 16"
+                    BackgroundColor="White"
+                    StrokeThickness="0">
+                <Border.Shadow>
+                    <Shadow Brush="Black" Offset="0,2" Radius="5" Opacity="0.1"/>
+                </Border.Shadow>
+                <VerticalStackLayout Padding="20" Spacing="14">
 
-        <!--  Form Fields  -->
-        <ScrollView Grid.Row="1">
-            <VerticalStackLayout Spacing="14">
+                    <!--  Product Type Picker  -->
+                    <VerticalStackLayout Spacing="6">
+                        <Label Text="Product Type"
+                               FontSize="14"
+                               FontAttributes="Bold"
+                               TextColor="#1E3A5F"/>
+                        <Picker x:Name="TypePicker"
+                                BackgroundColor="#F5F5F5"
+                                Title="Select product type"
+                                SelectedIndexChanged="OnTypeSelected">
+                            <Picker.Items>
+                                <x:String>Food</x:String>
+                                <x:String>Dessert</x:String>
+                                <x:String>Drink</x:String>
+                            </Picker.Items>
+                        </Picker>
+                    </VerticalStackLayout>
 
-                <!--  Product Type Picker  -->
-                <VerticalStackLayout Spacing="4">
-                    <Label Style="{StaticResource H1Style}"
-                            Text="Product Type"
-                            TextColor="White"/>
-                    <Picker
-                        x:Name="TypePicker"
-                        BackgroundColor="#4a0e05"
-                        SelectedIndexChanged="OnTypeSelected"
-                        Title="Select product type"
-                        TitleColor="#FFB74D"
-                        TextColor="White">
-                        <Picker.Items>
-                            <x:String>Food</x:String>
-                            <x:String>Dessert</x:String>
-                            <x:String>Drink</x:String>
-                        </Picker.Items>
-                    </Picker>
-                </VerticalStackLayout>
+                    <!--  Name  -->
+                    <VerticalStackLayout Spacing="6">
+                        <Label Text="Name"
+                               FontSize="14"
+                               FontAttributes="Bold"
+                               TextColor="#1E3A5F"/>
+                        <Entry x:Name="NameEntry"
+                               Placeholder="Product name"
+                               PlaceholderColor="#9E9E9E"
+                               BackgroundColor="#F5F5F5"/>
+                    </VerticalStackLayout>
 
-                <!--  Name  -->
-                <VerticalStackLayout Spacing="4">
-                    <Label Style="{StaticResource H1Style}"
-                            Text="Name"
-                            TextColor="White"/>
-                    <Entry
-                        x:Name="NameEntry"
-                        BackgroundColor="#4a0e05"
-                        Placeholder="Product name"
-                        PlaceholderColor="#9E9E9E"
-                        TextColor="White"/>
-                </VerticalStackLayout>
+                    <!--  Description  -->
+                    <VerticalStackLayout Spacing="6">
+                        <Label Text="Description"
+                               FontSize="14"
+                               FontAttributes="Bold"
+                               TextColor="#1E3A5F"/>
+                        <Editor x:Name="DescriptionEditor"
+                                Placeholder="Product description"
+                                PlaceholderColor="#9E9E9E"
+                                HeightRequest="80"
+                                BackgroundColor="#F5F5F5"/>
+                    </VerticalStackLayout>
 
-                <!--  Description  -->
-                <VerticalStackLayout Spacing="4">
-                    <Label Style="{StaticResource H1Style}"
-                            Text="Description"
-                            TextColor="White"/>
-                    <Editor
-                        x:Name="DescriptionEditor"
-                        BackgroundColor="#4a0e05"
-                        HeightRequest="80"
-                        Placeholder="Product description"
-                        PlaceholderColor="#9E9E9E"
-                        TextColor="White"/>
-                </VerticalStackLayout>
+                    <!--  Price  -->
+                    <VerticalStackLayout Spacing="6">
+                        <Label Text="Price"
+                               FontSize="14"
+                               FontAttributes="Bold"
+                               TextColor="#1E3A5F"/>
+                        <Entry x:Name="PriceEntry"
+                               Keyboard="Numeric"
+                               Placeholder="0.00"
+                               PlaceholderColor="#9E9E9E"
+                               BackgroundColor="#F5F5F5"/>
+                    </VerticalStackLayout>
 
-                <!--  Price  -->
-                <VerticalStackLayout Spacing="4">
-                    <Label Style="{StaticResource H1Style}"
-                            Text="Price"
-                            TextColor="White"/>
-                    <Entry
-                        x:Name="PriceEntry"
-                        BackgroundColor="#4a0e05"
-                        Keyboard="Numeric"
-                        Placeholder="0.00"
-                        PlaceholderColor="#9E9E9E"
-                        TextColor="White"/>
-                </VerticalStackLayout>
+                    <!--  Stock Quantity  -->
+                    <VerticalStackLayout Spacing="6">
+                        <Label Text="Stock Quantity"
+                               FontSize="14"
+                               FontAttributes="Bold"
+                               TextColor="#1E3A5F"/>
+                        <Entry x:Name="StockEntry"
+                               Keyboard="Numeric"
+                               Placeholder="0"
+                               PlaceholderColor="#9E9E9E"
+                               BackgroundColor="#F5F5F5"/>
+                    </VerticalStackLayout>
 
-                <!--  Stock Quantity  -->
-                <VerticalStackLayout Spacing="4">
-                    <Label Style="{StaticResource H1Style}"
-                            Text="Stock Quantity"
-                            TextColor="White"/>
-                    <Entry
-                        x:Name="StockEntry"
-                        BackgroundColor="#4a0e05"
-                        Keyboard="Numeric"
-                        Placeholder="0"
-                        PlaceholderColor="#9E9E9E"
-                        TextColor="White"/>
-                </VerticalStackLayout>
+                    <!--  Ingredients  -->
+                    <VerticalStackLayout Spacing="6">
+                        <Label Text="Ingredients"
+                               FontSize="14"
+                               FontAttributes="Bold"
+                               TextColor="#1E3A5F"/>
+                        <Entry x:Name="IngredientsEntry"
+                               Placeholder="Comma-separated ingredients"
+                               PlaceholderColor="#9E9E9E"
+                               BackgroundColor="#F5F5F5"/>
+                    </VerticalStackLayout>
 
-                <!--  Ingredients  -->
-                <VerticalStackLayout Spacing="4">
-                    <Label Style="{StaticResource H1Style}"
-                            Text="Ingredients"
-                            TextColor="White"/>
-                    <Entry
-                        x:Name="IngredientsEntry"
-                        BackgroundColor="#4a0e05"
-                        Placeholder="Comma-separated ingredients"
-                        PlaceholderColor="#9E9E9E"
-                        TextColor="White"/>
-                </VerticalStackLayout>
+                    <!--  Preparation Time  -->
+                    <VerticalStackLayout Spacing="6">
+                        <Label Text="Preparation Time (minutes)"
+                               FontSize="14"
+                               FontAttributes="Bold"
+                               TextColor="#1E3A5F"/>
+                        <Entry x:Name="PrepTimeEntry"
+                               Keyboard="Numeric"
+                               Placeholder="0"
+                               PlaceholderColor="#9E9E9E"
+                               BackgroundColor="#F5F5F5"/>
+                    </VerticalStackLayout>
 
-                <!--  Preparation Time (minutes)  -->
-                <VerticalStackLayout Spacing="4">
-                    <Label Style="{StaticResource H1Style}"
-                            Text="Preparation Time (minutes)"
-                            TextColor="White"/>
-                    <Entry
-                        x:Name="PrepTimeEntry"
-                        BackgroundColor="#4a0e05"
-                        Keyboard="Numeric"
-                        Placeholder="0"
-                        PlaceholderColor="#9E9E9E"
-                        TextColor="White"/>
-                </VerticalStackLayout>
+                    <!--  Status Picker  -->
+                    <VerticalStackLayout Spacing="6">
+                        <Label Text="Status"
+                               FontSize="14"
+                               FontAttributes="Bold"
+                               TextColor="#1E3A5F"/>
+                        <Picker x:Name="StatusPicker"
+                                BackgroundColor="#F5F5F5"
+                                Title="Select status"
+                                SelectedIndex="0">
+                            <Picker.Items>
+                                <x:String>Available</x:String>
+                                <x:String>Out of Stock</x:String>
+                                <x:String>Discontinued</x:String>
+                            </Picker.Items>
+                        </Picker>
+                    </VerticalStackLayout>
 
-                <!--  Status Picker  -->
-                <VerticalStackLayout Spacing="4">
-                    <Label Style="{StaticResource H1Style}"
-                            Text="Status"
-                            TextColor="White"/>
-                    <Picker
-                        x:Name="StatusPicker"
-                        BackgroundColor="#4a0e05"
-                        SelectedIndex="0"
-                        Title="Select status"
-                        TitleColor="#FFB74D"
-                        TextColor="White">
-                        <Picker.Items>
-                            <x:String>Available</x:String>
-                            <x:String>Out of Stock</x:String>
-                            <x:String>Discontinued</x:String>
-                        </Picker.Items>
-                    </Picker>
-                </VerticalStackLayout>
+                    <!--  Image Picker  -->
+                    <VerticalStackLayout Spacing="6">
+                        <Label Text="Product Image"
+                               FontSize="14"
+                               FontAttributes="Bold"
+                               TextColor="#1E3A5F"/>
+                        <Grid ColumnDefinitions="*,Auto" ColumnSpacing="10">
+                            <Entry x:Name="ImagePathEntry"
+                                   Grid.Column="0"
+                                   IsReadOnly="True"
+                                   Placeholder="No image selected"
+                                   PlaceholderColor="#9E9E9E"
+                                   BackgroundColor="#F5F5F5"/>
+                            <Button Grid.Column="1"
+                                    Text="📷"
+                                    BackgroundColor="#1E3A5F"
+                                    TextColor="White"
+                                    CornerRadius="8"
+                                    Clicked="OnPickImageClicked"/>
+                        </Grid>
 
-                <!--  Image Picker  -->
-                <VerticalStackLayout Spacing="4">
-                    <Label Style="{StaticResource H1Style}"
-                            Text="Product Image"
-                            TextColor="White"/>
-                    <Grid ColumnDefinitions="*,Auto"
-                            ColumnSpacing="10">
-                        <Entry
-                            x:Name="ImagePathEntry"
-                            IsReadOnly="True"
-                            Grid.Column="0"
-                            BackgroundColor="#4a0e05"
-                            Placeholder="No image selected"
-                            PlaceholderColor="#9E9E9E"
-                            TextColor="White"/>
-                        <Button
-                            Grid.Column="1"
-                            BackgroundColor="#FFB74D"
-                            Clicked="OnPickImageClicked"
-                            Text="📷"
-                            TextColor="Black"/>
-                    </Grid>
-                    <Grid HeightRequest="150"
-                            HorizontalOptions="Center"
-                            WidthRequest="150">
-                        <Border
-                            Margin="10"
-                            Padding="0"
-                            Stroke="#FFB74D"
-                            StrokeThickness="1"
-                            StrokeShape="RoundRectangle 15,15,15,15">
-                            <Border.Background>
-                                <LinearGradientBrush StartPoint="0,0.5"
-                                        EndPoint="1,0.5">
-                                    <GradientStop Offset="0.0"
-                                            Color="#FFB74D"/>
-                                    <GradientStop Offset="1.0"
-                                            Color="#FF8A65"/>
-                                </LinearGradientBrush>
-                            </Border.Background>
-                            <Image
-                                x:Name="PreviewImage"
-                                Aspect="AspectFill"/>
+                        <!--  Image Preview  -->
+                        <Border HeightRequest="150"
+                                WidthRequest="150"
+                                HorizontalOptions="Center"
+                                StrokeShape="RoundRectangle 12"
+                                Stroke="#1E3A5F"
+                                StrokeThickness="1"
+                                BackgroundColor="#F5F5F5"
+                                Margin="0,8,0,0">
+                            <Image x:Name="PreviewImage"
+                                   Aspect="AspectFill"/>
                         </Border>
-                    </Grid>
+                    </VerticalStackLayout>
                 </VerticalStackLayout>
-            </VerticalStackLayout>
-        </ScrollView>
+            </Border>
 
-        <!--  Bottom Buttons  -->
-        <HorizontalStackLayout
-            Grid.Row="2"
-            Margin="0,16,0,0"
-            HorizontalOptions="End"
-            Spacing="10">
-
-            <!--  Cancel Button  -->
-            <Button
-                BackgroundColor="#757575"
-                Clicked="OnCancelClicked"
-                CornerRadius="24"
-                Padding="20,0"
-                Text="Cancel"
-                TextColor="White"/>
-
-            <!--  Save Button  -->
-            <Button
-                x:Name="SaveButton"
-                BackgroundColor="#FFB74D"
-                Clicked="OnSaveClicked"
-                CornerRadius="24"
-                Padding="20,0"
-                Text="Save"
-                TextColor="Black"/>
-        </HorizontalStackLayout>
-    </Grid>
+            <!--  Action Buttons  -->
+            <HorizontalStackLayout Spacing="10" HorizontalOptions="End">
+                <Button Text="Cancel"
+                        BackgroundColor="#757575"
+                        TextColor="White"
+                        CornerRadius="20"
+                        Padding="20,0"
+                        Clicked="OnCancelClicked"/>
+                <Button x:Name="SaveButton"
+                        Text="Save"
+                        BackgroundColor="#1E3A5F"
+                        TextColor="White"
+                        CornerRadius="20"
+                        Padding="20,0"
+                        Clicked="OnSaveClicked"/>
+            </HorizontalStackLayout>
+        </VerticalStackLayout>
+    </ScrollView>
 </ContentPage>

@@ -38,6 +38,8 @@ public static class MauiProgram
 		builder.Services.AddTransient<AdminPage>();
 		builder.Services.AddTransient<AdminProductsPage>();
 		builder.Services.AddTransient<AdminProductFormPage>();
+		builder.Services.AddTransient<AdminCategoriesPage>();
+		builder.Services.AddTransient<AdminCategoryFormPage>();
 
 #if DEBUG
 		builder.Logging.AddDebug();

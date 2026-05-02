@@ -1,77 +1,66 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentPage
-    x:Class="ProjectMaui.Client.Views.AdminCategoryFormPage"
-    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-xmlns:models="clr-namespace:ProjectMaui.Domain.Models"
-    Title="Category Form"
-    Shell.NavBarIsVisible="True"
-    Shell.TitleColor="Black">
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:models="clr-namespace:ProjectMaui.Domain.Models"
+             x:Class="ProjectMaui.Client.Views.AdminCategoryFormPage"
+             BackgroundColor="#F4F1EA"
+             Title="Category Form">
 
-    <Grid
-        Margin="16,40,16,16"
-        ColumnDefinitions="*"
-        RowDefinitions="Auto,*,Auto">
-        <Grid.Background>
-            <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
-                <GradientStop Offset="0.0" Color="#2D0000" />
-                <GradientStop Offset="1.0" Color="#5c1a01" />
-            </LinearGradientBrush>
-        </Grid.Background>
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="16">
 
-        <Label
-            Grid.Row="0"
-            Margin="0,0,0,16"
-            FontSize="20"
-            Style="{StaticResource H1Style}"
-            Text="📝  Category Form"
-            TextColor="White" />
+            <!--  Form Card  -->
+            <Border StrokeShape="RoundRectangle 16"
+                    BackgroundColor="White"
+                    StrokeThickness="0">
+                <Border.Shadow>
+                    <Shadow Brush="Black" Offset="0,2" Radius="5" Opacity="0.1"/>
+                </Border.Shadow>
+                <VerticalStackLayout Padding="20" Spacing="16">
 
-        <ScrollView Grid.Row="1">
-            <VerticalStackLayout Spacing="14">
-                <VerticalStackLayout Spacing="4">
-                    <Label Style="{StaticResource H1Style}" Text="Name" TextColor="White" />
-                    <Entry
-                        x:Name="NameEntry"
-                        BackgroundColor="#4a0e05"
-                        Placeholder="Category name"
-                        PlaceholderColor="#9E9E9E"
-                        TextColor="White" />
+                    <!--  Name  -->
+                    <VerticalStackLayout Spacing="6">
+                        <Label Text="Name"
+                               FontSize="14"
+                               FontAttributes="Bold"
+                               TextColor="#1E3A5F"/>
+                        <Entry x:Name="NameEntry"
+                               Placeholder="Category name"
+                               PlaceholderColor="#9E9E9E"
+                               BackgroundColor="#F5F5F5"/>
+                    </VerticalStackLayout>
+
+                    <!--  Description  -->
+                    <VerticalStackLayout Spacing="6">
+                        <Label Text="Description"
+                               FontSize="14"
+                               FontAttributes="Bold"
+                               TextColor="#1E3A5F"/>
+                        <Editor x:Name="DescriptionEditor"
+                                Placeholder="Category description"
+                                PlaceholderColor="#9E9E9E"
+                                HeightRequest="100"
+                                BackgroundColor="#F5F5F5"/>
+                    </VerticalStackLayout>
                 </VerticalStackLayout>
+            </Border>
 
-                <VerticalStackLayout Spacing="4">
-                    <Label Style="{StaticResource H1Style}" Text="Description" TextColor="White" />
-                    <Editor
-                        x:Name="DescriptionEditor"
-                        BackgroundColor="#4a0e05"
-                        HeightRequest="120"
-                        Placeholder="Category description"
-                        PlaceholderColor="#9E9E9E"
-                        TextColor="White" />
-                </VerticalStackLayout>
-            </VerticalStackLayout>
-        </ScrollView>
-
-        <HorizontalStackLayout
-            Grid.Row="2"
-            Margin="0,16,0,0"
-            HorizontalOptions="End"
-            Spacing="10">
-            <Button
-                BackgroundColor="#757575"
-                Clicked="OnCancelClicked"
-                CornerRadius="24"
-                Padding="20,0"
-                Text="Cancel"
-                TextColor="White" />
-            <Button
-                x:Name="SaveButton"
-                BackgroundColor="#FFB74D"
-                Clicked="OnSaveClicked"
-                CornerRadius="24"
-                Padding="20,0"
-                Text="Save"
-                TextColor="Black" />
-        </HorizontalStackLayout>
-    </Grid>
+            <!--  Action Buttons  -->
+            <HorizontalStackLayout Spacing="10" HorizontalOptions="End">
+                <Button Text="Cancel"
+                        BackgroundColor="#757575"
+                        TextColor="White"
+                        CornerRadius="20"
+                        Padding="20,0"
+                        Clicked="OnCancelClicked"/>
+                <Button x:Name="SaveButton"
+                        Text="Save"
+                        BackgroundColor="#1E3A5F"
+                        TextColor="White"
+                        CornerRadius="20"
+                        Padding="20,0"
+                        Clicked="OnSaveClicked"/>
+            </HorizontalStackLayout>
+        </VerticalStackLayout>
+    </ScrollView>
 </ContentPage>
