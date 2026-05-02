@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ProjectMaui.Client.Views.ProfilePage"
+             Title="Profile">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="25" Spacing="20">
+            <VerticalStackLayout HorizontalOptions="Center" Spacing="10">
+                <Frame HeightRequest="120" WidthRequest="120" 
+                       CornerRadius="60" Padding="0"
+                       IsClippedToBounds="True"
+                       BorderColor="#1E3A5F">
+                    <Image Source="dotnet_bot.png" Aspect="AspectFill" />
+                </Frame>
+                <Label Text="Employee Profile" 
+                       FontSize="22" 
+                       FontAttributes="Bold" 
+                       TextColor="#1E3A5F" 
+                       HorizontalOptions="Center"/>
+            </VerticalStackLayout>
+
+            <Frame BorderColor="#E0E0E0" CornerRadius="15" Padding="20">
+                <VerticalStackLayout Spacing="15">
+                    <VerticalStackLayout Spacing="5">
+                        <Label Text="Full Name" FontAttributes="Bold" />
+                        <Entry x:Name="EntryFullName" Placeholder="Masukkan nama lengkap" />
+                    </VerticalStackLayout>
+
+                    <VerticalStackLayout Spacing="5">
+                        <Label Text="Email Address" FontAttributes="Bold" />
+                        <Entry x:Name="EntryEmail" Keyboard="Email" Placeholder="user@uph.edu" />
+                    </VerticalStackLayout>
+
+                    <VerticalStackLayout Spacing="5">
+                        <Label Text="Phone Number" FontAttributes="Bold" />
+                        <Entry x:Name="EntryPhone" Keyboard="Telephone" Placeholder="08xxxx" />
+                    </VerticalStackLayout>
+                </VerticalStackLayout>
+            </Frame>
+
+            <Frame BackgroundColor="#F8F9FA" BorderColor="Transparent" CornerRadius="10">
+                <VerticalStackLayout Spacing="10">
+                    <Grid ColumnDefinitions="*,*">
+                        <Label Text="Role:" FontAttributes="Bold" />
+                        <Label x:Name="LabelRole" Text="Employee" Grid.Column="1" HorizontalOptions="End" />
+                    </Grid>
+                    <Grid ColumnDefinitions="*,*">
+                        <Label Text="Employee ID:" FontAttributes="Bold" />
+                        <Label x:Name="LabelID" Text="EMP-2026-001" Grid.Column="1" HorizontalOptions="End" />
+                    </Grid>
+                </VerticalStackLayout>
+            </Frame>
+
+            <Button Text="Update Profile"
+                    Clicked="OnUpdateClicked"
+                    BackgroundColor="#1E3A5F"
+                    TextColor="White"
+                    CornerRadius="10"
+                    HeightRequest="50" />
+            
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>
