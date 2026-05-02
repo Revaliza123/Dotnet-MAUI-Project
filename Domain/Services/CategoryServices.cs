@@ -25,6 +25,10 @@ namespace ProjectMaui.Domain.Services
 
         public async Task AddCategory(Category cat) => await (await GetDb()).InsertAsync(cat);
 
+        public async Task UpdateCategory(Category cat) => await (await GetDb()).UpdateAsync(cat);
+
+        public async Task DeleteCategory(Guid id) => await (await GetDb()).DeleteAsync(id);
+
 
         public async Task<List<Product>> GetProductsByCategory(Guid categoryId)
         {

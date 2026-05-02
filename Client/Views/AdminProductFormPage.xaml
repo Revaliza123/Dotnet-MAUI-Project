@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="ProjectMaui.Client.Views.AdminProductFormPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:models="clr-namespace:ProjectMaui.Domain.Models"
+    Title="Product Form"
+    Shell.NavBarIsVisible="True"
+    Shell.TitleColor="Black">
+
+    <Grid
+        Margin="16,40,16,16"
+        ColumnDefinitions="*"
+        RowDefinitions="Auto,*,Auto">
+        <Grid.Background>
+            <LinearGradientBrush StartPoint="0,0"
+                    EndPoint="0,1">
+                <GradientStop Offset="0.0"
+                        Color="#2D0000"/>
+                <GradientStop Offset="1.0"
+                        Color="#5c1a01"/>
+            </LinearGradientBrush>
+        </Grid.Background>
+
+        <!--  Title  -->
+        <Label
+            Grid.Row="0"
+            Margin="0,0,0,16"
+            FontSize="20"
+            Style="{StaticResource H1Style}"
+            Text="📝  Product Form"
+            TextColor="White"/>
+
+        <!--  Form Fields  -->
+        <ScrollView Grid.Row="1">
+            <VerticalStackLayout Spacing="14">
+
+                <!--  Product Type Picker  -->
+                <VerticalStackLayout Spacing="4">
+                    <Label Style="{StaticResource H1Style}"
+                            Text="Product Type"
+                            TextColor="White"/>
+                    <Picker
+                        x:Name="TypePicker"
+                        BackgroundColor="#4a0e05"
+                        SelectedIndexChanged="OnTypeSelected"
+                        Title="Select product type"
+                        TitleColor="#FFB74D"
+                        TextColor="White">
+                        <Picker.Items>
+                            <x:String>Food</x:String>
+                            <x:String>Dessert</x:String>
+                            <x:String>Drink</x:String>
+                        </Picker.Items>
+                    </Picker>
+                </VerticalStackLayout>
+
+                <!--  Name  -->
+                <VerticalStackLayout Spacing="4">
+                    <Label Style="{StaticResource H1Style}"
+                            Text="Name"
+                            TextColor="White"/>
+                    <Entry
+                        x:Name="NameEntry"
+                        BackgroundColor="#4a0e05"
+                        Placeholder="Product name"
+                        PlaceholderColor="#9E9E9E"
+                        TextColor="White"/>
+                </VerticalStackLayout>
+
+                <!--  Description  -->
+                <VerticalStackLayout Spacing="4">
+                    <Label Style="{StaticResource H1Style}"
+                            Text="Description"
+                            TextColor="White"/>
+                    <Editor
+                        x:Name="DescriptionEditor"
+                        BackgroundColor="#4a0e05"
+                        HeightRequest="80"
+                        Placeholder="Product description"
+                        PlaceholderColor="#9E9E9E"
+                        TextColor="White"/>
+                </VerticalStackLayout>
+
+                <!--  Price  -->
+                <VerticalStackLayout Spacing="4">
+                    <Label Style="{StaticResource H1Style}"
+                            Text="Price"
+                            TextColor="White"/>
+                    <Entry
+                        x:Name="PriceEntry"
+                        BackgroundColor="#4a0e05"
+                        Keyboard="Numeric"
+                        Placeholder="0.00"
+                        PlaceholderColor="#9E9E9E"
+                        TextColor="White"/>
+                </VerticalStackLayout>
+
+                <!--  Stock Quantity  -->
+                <VerticalStackLayout Spacing="4">
+                    <Label Style="{StaticResource H1Style}"
+                            Text="Stock Quantity"
+                            TextColor="White"/>
+                    <Entry
+                        x:Name="StockEntry"
+                        BackgroundColor="#4a0e05"
+                        Keyboard="Numeric"
+                        Placeholder="0"
+                        PlaceholderColor="#9E9E9E"
+                        TextColor="White"/>
+                </VerticalStackLayout>
+
+                <!--  Ingredients  -->
+                <VerticalStackLayout Spacing="4">
+                    <Label Style="{StaticResource H1Style}"
+                            Text="Ingredients"
+                            TextColor="White"/>
+                    <Entry
+                        x:Name="IngredientsEntry"
+                        BackgroundColor="#4a0e05"
+                        Placeholder="Comma-separated ingredients"
+                        PlaceholderColor="#9E9E9E"
+                        TextColor="White"/>
+                </VerticalStackLayout>
+
+                <!--  Preparation Time (minutes)  -->
+                <VerticalStackLayout Spacing="4">
+                    <Label Style="{StaticResource H1Style}"
+                            Text="Preparation Time (minutes)"
+                            TextColor="White"/>
+                    <Entry
+                        x:Name="PrepTimeEntry"
+                        BackgroundColor="#4a0e05"
+                        Keyboard="Numeric"
+                        Placeholder="0"
+                        PlaceholderColor="#9E9E9E"
+                        TextColor="White"/>
+                </VerticalStackLayout>
+
+                <!--  Status Picker  -->
+                <VerticalStackLayout Spacing="4">
+                    <Label Style="{StaticResource H1Style}"
+                            Text="Status"
+                            TextColor="White"/>
+                    <Picker
+                        x:Name="StatusPicker"
+                        BackgroundColor="#4a0e05"
+                        SelectedIndex="0"
+                        Title="Select status"
+                        TitleColor="#FFB74D"
+                        TextColor="White">
+                        <Picker.Items>
+                            <x:String>Available</x:String>
+                            <x:String>Out of Stock</x:String>
+                            <x:String>Discontinued</x:String>
+                        </Picker.Items>
+                    </Picker>
+                </VerticalStackLayout>
+
+                <!--  Image Picker  -->
+                <VerticalStackLayout Spacing="4">
+                    <Label Style="{StaticResource H1Style}"
+                            Text="Product Image"
+                            TextColor="White"/>
+                    <Grid ColumnDefinitions="*,Auto"
+                            ColumnSpacing="10">
+                        <Entry
+                            x:Name="ImagePathEntry"
+                            IsReadOnly="True"
+                            Grid.Column="0"
+                            BackgroundColor="#4a0e05"
+                            Placeholder="No image selected"
+                            PlaceholderColor="#9E9E9E"
+                            TextColor="White"/>
+                        <Button
+                            Grid.Column="1"
+                            BackgroundColor="#FFB74D"
+                            Clicked="OnPickImageClicked"
+                            Text="📷"
+                            TextColor="Black"/>
+                    </Grid>
+                    <Grid HeightRequest="150"
+                            HorizontalOptions="Center"
+                            WidthRequest="150">
+                        <Border
+                            Margin="10"
+                            Padding="0"
+                            Stroke="#FFB74D"
+                            StrokeThickness="1"
+                            StrokeShape="RoundRectangle 15,15,15,15">
+                            <Border.Background>
+                                <LinearGradientBrush StartPoint="0,0.5"
+                                        EndPoint="1,0.5">
+                                    <GradientStop Offset="0.0"
+                                            Color="#FFB74D"/>
+                                    <GradientStop Offset="1.0"
+                                            Color="#FF8A65"/>
+                                </LinearGradientBrush>
+                            </Border.Background>
+                            <Image
+                                x:Name="PreviewImage"
+                                Aspect="AspectFill"/>
+                        </Border>
+                    </Grid>
+                </VerticalStackLayout>
+            </VerticalStackLayout>
+        </ScrollView>
+
+        <!--  Bottom Buttons  -->
+        <HorizontalStackLayout
+            Grid.Row="2"
+            Margin="0,16,0,0"
+            HorizontalOptions="End"
+            Spacing="10">
+
+            <!--  Cancel Button  -->
+            <Button
+                BackgroundColor="#757575"
+                Clicked="OnCancelClicked"
+                CornerRadius="24"
+                Padding="20,0"
+                Text="Cancel"
+                TextColor="White"/>
+
+            <!--  Save Button  -->
+            <Button
+                x:Name="SaveButton"
+                BackgroundColor="#FFB74D"
+                Clicked="OnSaveClicked"
+                CornerRadius="24"
+                Padding="20,0"
+                Text="Save"
+                TextColor="Black"/>
+        </HorizontalStackLayout>
+    </Grid>
+</ContentPage>

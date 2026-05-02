@@ -33,7 +33,7 @@
                 <FontImageSource Glyph="👤" Color="#1E3A5F" Size="20" />
             </Tab.Icon>
             <ShellContent 
-                ContentTemplate="{DataTemplate views:CustomerMenuPage}" 
+                ContentTemplate="{DataTemplate views:AdminPage}" 
                 Route="ProfilePage" />
         </Tab>
     </TabBar>

@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="ProjectMaui.Client.Views.AdminProductsPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:converters="clr-namespace:ProjectMaui.Client.Converters"
+    xmlns:models="clr-namespace:ProjectMaui.Domain.Models"
+    x:Name="ThisPage"
+    Title="Admin - Products"
+    Shell.NavBarIsVisible="True"
+    Shell.TitleColor="Black">
+
+    <ContentPage.Resources>
+        <converters:ImageConverter x:Key="ImageConverter"/>
+    </ContentPage.Resources>
+
+    <Grid
+        Margin="16,40,16,16"
+        ColumnDefinitions="*,*,*"
+        ColumnSpacing="16"
+        RowDefinitions="Auto,*,Auto">
+        <Grid.Background>
+            <LinearGradientBrush StartPoint="0,0"
+                    EndPoint="0,1">
+                <GradientStop Offset="0.0"
+                        Color="#2D0000"/>
+                <GradientStop Offset="1.0"
+                        Color="#5c1a01"/>
+            </LinearGradientBrush>
+        </Grid.Background>
+
+        <HorizontalStackLayout
+            Grid.Row="0"
+            Grid.Column="0"
+            Grid.ColumnSpan="3"
+            Margin="0,0,0,16"
+            HorizontalOptions="Start"
+            Spacing="8"
+            VerticalOptions="Center">
+            <Label
+                FontSize="20"
+                Style="{StaticResource H1Style}"
+                Text="📦  Manage Products"/>
+        </HorizontalStackLayout>
+
+        <ScrollView Grid.Row="1"
+                Grid.ColumnSpan="3">
+            <VerticalStackLayout Spacing="10">
+                <CollectionView x:Name="productsItemsView">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="models:Product">
+                            <Frame
+                                BackgroundColor="Transparent"
+                                BorderColor="Transparent"
+                                HasShadow="False"
+                                Padding="0">
+                                <Grid
+                                    Padding="0"
+                                    BackgroundColor="#4a0e05"
+                                    ColumnDefinitions="Auto,*"
+                                    ColumnSpacing="12"
+                                    HeightRequest="120"
+                                    RowDefinitions="*,Auto"
+                                    RowSpacing="0">
+                                    <Border
+                                        Grid.Row="0"
+                                        Grid.RowSpan="2"
+                                        Grid.Column="0"
+                                        Margin="10"
+                                        HeightRequest="100"
+                                        Padding="0"
+                                        Stroke="Transparent"
+                                        StrokeThickness="0"
+                                        StrokeShape="RoundRectangle 15,15,15,15"
+                                        VerticalOptions="Center"
+                                        WidthRequest="100">
+                                        <Border.Background>
+                                            <LinearGradientBrush StartPoint="0,0.5"
+                                                    EndPoint="1,0.5">
+                                                <GradientStop Offset="0.0"
+                                                        Color="#FFB74D"/>
+                                                <GradientStop Offset="1.0"
+                                                        Color="#FF8A65"/>
+                                            </LinearGradientBrush>
+                                        </Border.Background>
+                                        <Image
+                                            Aspect="AspectFill"
+                                            Source="{Binding Image, Converter={StaticResource ImageConverter}}"/>
+                                    </Border>
+
+                                    <Label
+                                        Grid.Row="0"
+                                        Grid.Column="1"
+                                        Margin="0,10,0,0"
+                                        FontAttributes="Bold"
+                                        FontSize="16"
+                                        Style="{StaticResource H1Style}"
+                                        Text="{Binding Name}"
+                                        TextColor="White"/>
+                                    <Label
+                                        Grid.Row="1"
+                                        Grid.Column="1"
+                                        Margin="0,0,0,6"
+                                        FontSize="12"
+                                        Style="{StaticResource PStyle}"
+                                        Text="{Binding Status}"
+                                        TextColor="White"/>
+
+                                    <Label
+                                        Grid.Row="0"
+                                        Grid.Column="1"
+                                        Margin="0,0,16,0"
+                                        FontAttributes="Bold"
+                                        FontSize="16"
+                                        HorizontalOptions="End"
+                                        Style="{StaticResource H1Style}"
+                                        Text="{Binding Price, StringFormat='Rp{0:N0}'}"
+                                        TextColor="#FFB74D"
+                                        VerticalOptions="Center"/>
+
+                                    <HorizontalStackLayout
+                                        Grid.Row="1"
+                                        Grid.Column="1"
+                                        Margin="0,0,10,10"
+                                        HorizontalOptions="End"
+                                        Spacing="6"
+                                        VerticalOptions="Center">
+                                        <Button
+                                            BackgroundColor="#2196F3"
+                                            Clicked="OnEditClicked"
+                                            CommandParameter="{Binding Id}"
+                                            CornerRadius="8"
+                                            Padding="8,4"
+                                            Text="✏️"
+                                            TextColor="White"/>
+                                        <Button
+                                            BackgroundColor="#F44336"
+                                            Clicked="OnDeleteClicked"
+                                            CommandParameter="{Binding Id}"
+                                            CornerRadius="8"
+                                            Padding="8,4"
+                                            Text="🗑️"
+                                            TextColor="White"/>
+                                    </HorizontalStackLayout>
+                                </Grid>
+                            </Frame>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+
+                <VerticalStackLayout
+                    x:Name="emptyState"
+                    IsVisible="False"
+                    Spacing="8"
+                    VerticalOptions="Center">
+                    <Label
+                        FontSize="20"
+                        HorizontalOptions="Center"
+                        Style="{StaticResource H1Style}"
+                        Text="No products found"
+                        TextColor="White"/>
+                    <Label
+                        FontSize="14"
+                        HorizontalOptions="Center"
+                        Style="{StaticResource PStyle}"
+                        Text="Click 'Add Product' to create a new product"
+                        TextColor="#BDBDBD"/>
+                </VerticalStackLayout>
+            </VerticalStackLayout>
+        </ScrollView>
+
+        <HorizontalStackLayout
+            Grid.Row="2"
+            Grid.Column="0"
+            Grid.ColumnSpan="3"
+            Margin="0,16,0,0"
+            HorizontalOptions="End"
+            Spacing="10">
+            <Border
+                HeightRequest="48"
+                Padding="0"
+                Stroke="#80FFFFFF"
+                StrokeThickness="1"
+                StrokeShape="RoundRectangle 24,24,24,24"
+                WidthRequest="48">
+                <Border.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding BindingContext.GoBackCommand, Source={x:Reference ThisPage}}"/>
+                </Border.GestureRecognizers>
+                <Border.Background>
+                    <LinearGradientBrush StartPoint="0,0"
+                            EndPoint="1,1">
+                        <GradientStop Offset="0.0"
+                                Color="#2196F3"/>
+                        <GradientStop Offset="1.0"
+                                Color="#1976D2"/>
+                    </LinearGradientBrush>
+                </Border.Background>
+                <Label
+                    HorizontalOptions="Center"
+                    Text="⬅️"
+                    TextColor="White"
+                    VerticalOptions="Center"/>
+            </Border>
+
+            <Border
+                HeightRequest="48"
+                MinimumWidthRequest="160"
+                Padding="16,0"
+                Stroke="#80FFFFFF"
+                StrokeThickness="1"
+                StrokeShape="RoundRectangle 24,24,24,24">
+                <Border.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnAddProductClicked"/>
+                </Border.GestureRecognizers>
+                <Border.Background>
+                    <LinearGradientBrush StartPoint="0,0"
+                            EndPoint="1,1">
+                        <GradientStop Offset="0.0"
+                                Color="#FFB74D"/>
+                        <GradientStop Offset="1.0"
+                                Color="#FF8A65"/>
+                    </LinearGradientBrush>
+                </Border.Background>
+                <Label
+                    HorizontalOptions="Center"
+                    Style="{StaticResource H1Style}"
+                    Text="+ Add Product"
+                    TextColor="Black"
+                    VerticalOptions="Center"/>
+            </Border>
+        </HorizontalStackLayout>
+    </Grid>
+</ContentPage>

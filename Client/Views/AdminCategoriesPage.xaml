@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="ProjectMaui.Client.Views.AdminCategoriesPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:models="clr-namespace:ProjectMaui.Domain.Models"
+    Title="Admin - Categories"
+    Shell.NavBarIsVisible="True"
+    Shell.TitleColor="Black">
+
+    <Grid
+        Margin="16,40,16,16"
+        ColumnDefinitions="*"
+        RowDefinitions="Auto,*,Auto">
+        <Grid.Background>
+            <LinearGradientBrush StartPoint="0,0"
+                    EndPoint="0,1">
+                <GradientStop Offset="0.0"
+                        Color="#2D0000"/>
+                <GradientStop Offset="1.0"
+                        Color="#5c1a01"/>
+            </LinearGradientBrush>
+        </Grid.Background>
+
+        <Label
+            Grid.Row="0"
+            Margin="0,0,0,16"
+            FontSize="20"
+            Style="{StaticResource H1Style}"
+            Text="📂  Manage Categories"
+            TextColor="White"/>
+
+        <ScrollView Grid.Row="1">
+            <VerticalStackLayout Spacing="10">
+                <CollectionView x:Name="categoriesItemsView">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="models:Category">
+                            <Frame
+                                BackgroundColor="Transparent"
+                                BorderColor="Transparent"
+                                HasShadow="False"
+                                Padding="0">
+                                <Grid
+                                    Padding="16"
+                                    BackgroundColor="#4a0e05"
+                                    ColumnDefinitions="*,Auto,Auto"
+                                    ColumnSpacing="10"
+                                    RowDefinitions="Auto,Auto"
+                                    RowSpacing="4">
+
+                                    <Label
+                                        Grid.Row="0"
+                                        Grid.Column="0"
+                                        FontAttributes="Bold"
+                                        FontSize="16"
+                                        Style="{StaticResource H1Style}"
+                                        Text="{Binding Name}"
+                                        TextColor="White"/>
+
+                                    <Label
+                                        Grid.Row="1"
+                                        Grid.Column="0"
+                                        FontSize="12"
+                                        MaxLines="1"
+                                        Style="{StaticResource PStyle}"
+                                        Text="{Binding Description}"
+                                        TextColor="#BDBDBD"/>
+
+                                    <Button
+                                        Grid.Row="0"
+                                        Grid.RowSpan="1"
+                                        Grid.Column="1"
+                                        VerticalOptions="Start"
+                                        BackgroundColor="#2196F3"
+                                        Clicked="OnEditClicked"
+                                        CommandParameter="{Binding Id}"
+                                        CornerRadius="8"
+                                        Padding="8,4"
+                                        Text="✏️"
+                                        TextColor="White"/>
+
+                                    <Button
+                                        Grid.Row="0"
+                                        Grid.RowSpan="1"
+                                        Grid.Column="2"
+                                        VerticalOptions="Start"
+                                        BackgroundColor="#F44336"
+                                        Clicked="OnDeleteClicked"
+                                        CommandParameter="{Binding Id}"
+                                        CornerRadius="8"
+                                        Padding="8,4"
+                                        Text="🗑️"
+                                        TextColor="White"/>
+                                </Grid>
+                            </Frame>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+
+                <VerticalStackLayout
+                    x:Name="emptyState"
+                    IsVisible="False"
+                    Spacing="8"
+                    VerticalOptions="Center">
+                    <Label
+                        FontSize="20"
+                        HorizontalOptions="Center"
+                        Style="{StaticResource H1Style}"
+                        Text="No categories found"
+                        TextColor="White"/>
+                    <Label
+                        FontSize="14"
+                        HorizontalOptions="Center"
+                        Style="{StaticResource PStyle}"
+                        Text="Click 'Add Category' to create a new category"
+                        TextColor="#BDBDBD"/>
+                </VerticalStackLayout>
+            </VerticalStackLayout>
+        </ScrollView>
+
+        <HorizontalStackLayout
+            Grid.Row="2"
+            Margin="0,16,0,0"
+            HorizontalOptions="End"
+            Spacing="10">
+            <Button
+                BackgroundColor="#757575"
+                Clicked="OnBackClicked"
+                CornerRadius="24"
+                Padding="20,0"
+                Text="⬅️  Back"
+                TextColor="White"/>
+            <Button
+                BackgroundColor="#FFB74D"
+                Clicked="OnAddCategoryClicked"
+                CornerRadius="24"
+                Padding="20,0"
+                Text="+ Add Category"
+                TextColor="Black"/>
+        </HorizontalStackLayout>
+    </Grid>
+</ContentPage>

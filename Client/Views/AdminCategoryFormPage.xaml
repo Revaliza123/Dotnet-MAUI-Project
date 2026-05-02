@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="ProjectMaui.Client.Views.AdminCategoryFormPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+xmlns:models="clr-namespace:ProjectMaui.Domain.Models"
+    Title="Category Form"
+    Shell.NavBarIsVisible="True"
+    Shell.TitleColor="Black">
+
+    <Grid
+        Margin="16,40,16,16"
+        ColumnDefinitions="*"
+        RowDefinitions="Auto,*,Auto">
+        <Grid.Background>
+            <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                <GradientStop Offset="0.0" Color="#2D0000" />
+                <GradientStop Offset="1.0" Color="#5c1a01" />
+            </LinearGradientBrush>
+        </Grid.Background>
+
+        <Label
+            Grid.Row="0"
+            Margin="0,0,0,16"
+            FontSize="20"
+            Style="{StaticResource H1Style}"
+            Text="📝  Category Form"
+            TextColor="White" />
+
+        <ScrollView Grid.Row="1">
+            <VerticalStackLayout Spacing="14">
+                <VerticalStackLayout Spacing="4">
+                    <Label Style="{StaticResource H1Style}" Text="Name" TextColor="White" />
+                    <Entry
+                        x:Name="NameEntry"
+                        BackgroundColor="#4a0e05"
+                        Placeholder="Category name"
+                        PlaceholderColor="#9E9E9E"
+                        TextColor="White" />
+                </VerticalStackLayout>
+
+                <VerticalStackLayout Spacing="4">
+                    <Label Style="{StaticResource H1Style}" Text="Description" TextColor="White" />
+                    <Editor
+                        x:Name="DescriptionEditor"
+                        BackgroundColor="#4a0e05"
+                        HeightRequest="120"
+                        Placeholder="Category description"
+                        PlaceholderColor="#9E9E9E"
+                        TextColor="White" />
+                </VerticalStackLayout>
+            </VerticalStackLayout>
+        </ScrollView>
+
+        <HorizontalStackLayout
+            Grid.Row="2"
+            Margin="0,16,0,0"
+            HorizontalOptions="End"
+            Spacing="10">
+            <Button
+                BackgroundColor="#757575"
+                Clicked="OnCancelClicked"
+                CornerRadius="24"
+                Padding="20,0"
+                Text="Cancel"
+                TextColor="White" />
+            <Button
+                x:Name="SaveButton"
+                BackgroundColor="#FFB74D"
+                Clicked="OnSaveClicked"
+                CornerRadius="24"
+                Padding="20,0"
+                Text="Save"
+                TextColor="Black" />
+        </HorizontalStackLayout>
+    </Grid>
+</ContentPage>
