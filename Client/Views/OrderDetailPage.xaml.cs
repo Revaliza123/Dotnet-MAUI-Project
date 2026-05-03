@@ -19,6 +19,26 @@ public partial class OrderDetailPage : ContentPage
         _cartService = cartService;
         _orderService = orderService;
         _userService = userService;
+        _cartService.OnCartChanged += ReloadCart;
+    }
+
+    protected override void OnAppearing()
+    {
+        base.OnAppearing();
+        LoadCartItems();
+    }
+
+    protected override void OnDisappearing()
+    {
+        base.OnDisappearing();
+        _cartService.OnCartChanged -= ReloadCart;
+    }
+
+    private bool _isReloading;
+
+    private void ReloadCart()
+    {
+        if (_isReloading) return;
         LoadCartItems();
     }
 
@@ -156,15 +176,16 @@ public partial class OrderDetailPage : ContentPage
         };
         minusBtn.Clicked += (s, e) =>
         {
-            cartItem.Quantity--;
-            if (cartItem.Quantity <= 0)
+            if (cartItem.Quantity <= 1)
             {
+                _isReloading = true;
                 _cartService.RemoveItem(cartItem.Product.Id);
                 LoadCartItems();
+                _isReloading = false;
             }
             else
             {
-                LoadCartItems();
+                _cartService.DecreaseQuantity(cartItem.Product.Id);
             }
         };
 
@@ -189,8 +210,7 @@ public partial class OrderDetailPage : ContentPage
         };
         plusBtn.Clicked += (s, e) =>
         {
-            cartItem.Quantity++;
-            LoadCartItems();
+            _cartService.IncreaseQuantity(cartItem.Product.Id);
         };
 
         qtyStack.Children.Add(minusBtn);

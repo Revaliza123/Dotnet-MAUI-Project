@@ -23,19 +23,19 @@ public partial class CustomerMenuPage : ContentPage
         _cartService = cartService;
         _cartService.OnCartChanged += UpdateCartBadge;
         _orderDetailPage = orderDetailPage;
-        _cartService.OnCartChanged += UpdateCartBadge;
+    }
+
+    protected override async void OnAppearing()
+    {
+        base.OnAppearing();
+        UpdateCartBadge();
+        await LoadProducts();
     }
 
     protected override void OnDisappearing()
     {
         base.OnDisappearing();
         _cartService.OnCartChanged -= UpdateCartBadge;
-    }
-
-    protected override async void OnAppearing()
-    {
-        base.OnAppearing();
-        await LoadProducts();
     }
 
     private async Task LoadProducts()
@@ -141,7 +141,7 @@ public partial class CustomerMenuPage : ContentPage
 
     private void UpdateCartBadge()
     {
-        Device.InvokeOnMainThreadAsync(() =>
+        MainThread.InvokeOnMainThreadAsync(() =>
         {
             var isEmpty = _cartService.IsEmpty;
 
