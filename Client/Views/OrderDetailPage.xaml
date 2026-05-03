@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:models="clr-namespace:ProjectMaui.Domain.Models"
+             xmlns:dtos="clr-namespace:ProjectMaui.Domain.DTOs"
+             x:Class="ProjectMaui.Client.Views.OrderDetailPage"
+             BackgroundColor="#F4F1EA"
+             Title="Detail Pesanan">
+
+    <Grid RowDefinitions="Auto,*,Auto">
+        <!-- Header -->
+        <VerticalStackLayout Grid.Row="0" Padding="20,10" Spacing="4">
+            <Grid ColumnDefinitions="*,Auto">
+                <VerticalStackLayout Grid.Column="0" Spacing="2">
+                    <Label Text="Detail Pesanan"
+                           FontSize="24"
+                           FontAttributes="Bold"
+                           TextColor="#1E3A5F"/>
+                    <Label Text="Kustomisasi pesananmu"
+                           FontSize="14"
+                           TextColor="Gray"/>
+                </VerticalStackLayout>
+                <Grid ColumnDefinitions="Auto,Auto" Grid.Column="1" ColumnSpacing="8">
+                    <Border WidthRequest="60"
+                            HeightRequest="36"
+                            StrokeShape="RoundRectangle 18"
+                            BackgroundColor="#FF6B35"
+                            StrokeThickness="0">
+                        <HorizontalStackLayout HorizontalOptions="Center"
+                                               VerticalOptions="Center"
+                                               Spacing="2">
+                            <Label Text="🛒" FontSize="14"/>
+                            <Label x:Name="ItemCountLabel"
+                                   Text="0"
+                                   FontSize="14"
+                                   FontAttributes="Bold"
+                                   TextColor="White"/>
+                        </HorizontalStackLayout>
+                    </Border>
+                    <Label x:Name="TotalPriceLabel"
+                           Grid.Column="1"
+                           Text="Rp 0"
+                           FontSize="16"
+                           FontAttributes="Bold"
+                           TextColor="#FF6B35"
+                           VerticalOptions="Center"/>
+                </Grid>
+            </Grid>
+        </VerticalStackLayout>
+
+        <!-- Cart Items List -->
+        <ScrollView Grid.Row="1">
+            <VerticalStackLayout Padding="20,10" Spacing="12" x:Name="ItemsContainer">
+            </VerticalStackLayout>
+        </ScrollView>
+
+        <!-- Pesan Button -->
+        <VerticalStackLayout Grid.Row="2"
+                             Padding="20,16"
+                             BackgroundColor="White"
+                             Spacing="8">
+            <Grid ColumnDefinitions="*,Auto">
+                <Label Text="Total Pesanan"
+                       FontSize="16"
+                       TextColor="#555"
+                       VerticalOptions="Center"/>
+                <Label x:Name="OrderTotalLabel"
+                       Grid.Column="1"
+                       Text="Rp 0"
+                       FontSize="18"
+                       FontAttributes="Bold"
+                       TextColor="#1E3A5F"
+                       VerticalOptions="Center"/>
+            </Grid>
+
+            <Button x:Name="OrderButton"
+                    Text="Pesan Sekarang"
+                    BackgroundColor="#1E3A5F"
+                    TextColor="White"
+                    CornerRadius="12"
+                    HeightRequest="50"
+                    FontSize="16"
+                    FontAttributes="Bold"
+                    Clicked="OnPlaceOrderClicked"
+                    IsEnabled="False"/>
+        </VerticalStackLayout>
+    </Grid>
+</ContentPage>

@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:models="clr-namespace:ProjectMaui.Domain.Models"
+             x:Class="ProjectMaui.Client.Views.AdminOrdersPage"
+             BackgroundColor="#F4F1EA"
+             Title="Admin Pesanan">
+
+    <Grid RowDefinitions="Auto,*">
+        <!-- Header -->
+        <VerticalStackLayout Grid.Row="0" Padding="20,10" Spacing="4">
+            <Grid ColumnDefinitions="*,Auto">
+                <VerticalStackLayout Grid.Column="0" Spacing="2">
+                    <Label Text="Manajemen Pesanan"
+                           FontSize="24"
+                           FontAttributes="Bold"
+                           TextColor="#1E3A5F"/>
+                    <Label Text="Kelola semua pesanan"
+                           FontSize="14"
+                           TextColor="Gray"/>
+                </VerticalStackLayout>
+            </Grid>
+        </VerticalStackLayout>
+
+        <!-- Orders List -->
+        <ScrollView Grid.Row="1">
+            <VerticalStackLayout Padding="20,10" Spacing="12">
+                <CollectionView x:Name="OrdersCollection">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="models:Order">
+                            <Border StrokeShape="RoundRectangle 16"
+                                    BackgroundColor="White"
+                                    StrokeThickness="0"
+                                    Margin="0,0,0,8">
+                                <Border.Shadow>
+                                    <Shadow Brush="Black" Offset="0,2" Radius="5" Opacity="0.1"/>
+                                </Border.Shadow>
+                                <VerticalStackLayout Padding="16" Spacing="8">
+                                    <!-- Header with status -->
+                                    <Grid ColumnDefinitions="*,Auto">
+                                        <VerticalStackLayout Grid.Column="0" Spacing="2">
+                                            <Label Text="{Binding OrderDate, StringFormat='Pesanan #{0:dd MMM yyyy HH:mm}'}"
+                                                   FontSize="15"
+                                                   FontAttributes="Bold"
+                                                   TextColor="#1E3A5F"/>
+                                            <Label Text="{Binding Id, StringFormat='ID: {0:N0}'}"
+                                                   FontSize="11"
+                                                   TextColor="Gray"/>
+                                        </VerticalStackLayout>
+
+                                        <!-- Status Badge -->
+                                        <Border Grid.Column="1"
+                                                WidthRequest="100"
+                                                HeightRequest="28"
+                                                StrokeThickness="0">
+                                            <Border.StrokeShape>
+                                                <RoundRectangle CornerRadius="14"/>
+                                            </Border.StrokeShape>
+                                            <Label Text="{Binding OrderStatus}"
+                                                   FontSize="11"
+                                                   FontAttributes="Bold"
+                                                   HorizontalOptions="Center"
+                                                   VerticalOptions="Center"
+                                                   TextColor="White"/>
+                                        </Border>
+                                    </Grid>
+
+                                    <!-- Items Count -->
+                                    <Label Text="{Binding OrderItems, StringFormat='{}{0} item(s)'}"
+                                           FontSize="13"
+                                           TextColor="Gray"/>
+
+                                    <!-- Bottom Row -->
+                                    <Grid ColumnDefinitions="*,Auto,Auto,Auto" ColumnSpacing="6">
+                                        <Label Grid.Column="0"
+                                               Text="{Binding SubTotal, StringFormat='Rp {0:N0}'}"
+                                               FontSize="16"
+                                               FontAttributes="Bold"
+                                               TextColor="#FF6B35"
+                                               VerticalOptions="Center"/>
+
+                                        <!-- View Detail Button -->
+                                        <Button Grid.Column="1"
+                                                Text="Lihat"
+                                                HeightRequest="30"
+                                                WidthRequest="55"
+                                                BackgroundColor="#1E3A5F"
+                                                TextColor="White"
+                                                FontSize="11"
+                                                CornerRadius="8"
+                                                Clicked="OnViewOrderClicked"/>
+
+                                        <!-- Edit Button -->
+                                        <Button Grid.Column="2"
+                                                Text="Edit"
+                                                HeightRequest="30"
+                                                WidthRequest="55"
+                                                BackgroundColor="#FF6B35"
+                                                TextColor="White"
+                                                FontSize="11"
+                                                CornerRadius="8"
+                                                Clicked="OnEditOrderClicked"/>
+
+                                        <!-- Delete Button -->
+                                        <Button Grid.Column="3"
+                                                Text="Hapus"
+                                                HeightRequest="30"
+                                                WidthRequest="55"
+                                                BackgroundColor="#E74C3C"
+                                                TextColor="White"
+                                                FontSize="11"
+                                                CornerRadius="8"
+                                                Clicked="OnDeleteOrderClicked"/>
+                                    </Grid>
+                                </VerticalStackLayout>
+                            </Border>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+
+                <!-- Empty State -->
+                <VerticalStackLayout x:Name="EmptyState"
+                                     Spacing="10"
+                                     IsVisible="False"
+                                     HorizontalOptions="Center"
+                                     Padding="0,60">
+                    <Label Text="📋" FontSize="48" HorizontalOptions="Center"/>
+                    <Label Text="Belum ada pesanan"
+                           FontSize="16"
+                           FontAttributes="Bold"
+                           TextColor="#888"
+                           HorizontalOptions="Center"/>
+                </VerticalStackLayout>
+            </VerticalStackLayout>
+        </ScrollView>
+    </Grid>
+</ContentPage>

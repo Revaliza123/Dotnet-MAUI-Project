@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ProjectMaui.Client.Views.AdminOrderEditPage"
+             BackgroundColor="#F4F1EA"
+             Title="Edit Pesanan">
+
+    <Grid RowDefinitions="Auto,*,Auto">
+        <!-- Header -->
+        <VerticalStackLayout Grid.Row="0" Padding="20,10" Spacing="4">
+            <Label Text="Edit Pesanan"
+                   FontSize="24"
+                   FontAttributes="Bold"
+                   TextColor="#1E3A5F"/>
+            <Label x:Name="OrderIdLabel"
+                   FontSize="14"
+                   TextColor="Gray"/>
+        </VerticalStackLayout>
+
+        <!-- Edit Form -->
+        <ScrollView Grid.Row="1">
+            <VerticalStackLayout Padding="20,10" Spacing="16">
+                <!-- Status -->
+                <VerticalStackLayout Spacing="6">
+                    <Label Text="Status Pesanan"
+                           FontSize="15"
+                           FontAttributes="Bold"
+                           TextColor="#1E3A5F"/>
+                    <Picker x:Name="StatusPicker"
+                            Title="Pilih status"
+                            FontSize="14"
+                            BackgroundColor="White"/>
+                </VerticalStackLayout>
+
+                <!-- Payment Status -->
+                <VerticalStackLayout Spacing="6">
+                    <Label Text="Status Pembayaran"
+                           FontSize="15"
+                           FontAttributes="Bold"
+                           TextColor="#1E3A5F"/>
+                    <Picker x:Name="PaymentStatusPicker"
+                            Title="Pilih status pembayaran"
+                            FontSize="14"
+                            BackgroundColor="White"/>
+                </VerticalStackLayout>
+
+                <!-- Order Items List -->
+                <VerticalStackLayout Spacing="6">
+                    <Label Text="Item Pesanan"
+                           FontSize="15"
+                           FontAttributes="Bold"
+                           TextColor="#1E3A5F"/>
+                    <VerticalStackLayout x:Name="ItemsContainer" Spacing="8"/>
+                </VerticalStackLayout>
+            </VerticalStackLayout>
+        </ScrollView>
+
+        <!-- Save Button -->
+        <VerticalStackLayout Grid.Row="2"
+                             Padding="20,16"
+                             BackgroundColor="White"
+                             Spacing="8">
+            <Grid ColumnDefinitions="*,Auto">
+                <Label Text="Total"
+                       FontSize="16"
+                       TextColor="#555"
+                       VerticalOptions="Center"/>
+                <Label x:Name="TotalLabel"
+                       Grid.Column="1"
+                       Text="Rp 0"
+                       FontSize="18"
+                       FontAttributes="Bold"
+                       TextColor="#1E3A5F"
+                       VerticalOptions="Center"/>
+            </Grid>
+
+            <Button x:Name="SaveButton"
+                    Text="Simpan Perubahan"
+                    BackgroundColor="#1E3A5F"
+                    TextColor="White"
+                    CornerRadius="12"
+                    HeightRequest="50"
+                    FontSize="16"
+                    FontAttributes="Bold"
+                    Clicked="OnSaveClicked"/>
+        </VerticalStackLayout>
+    </Grid>
+</ContentPage>
