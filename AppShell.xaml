@@ -4,51 +4,50 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:views="clr-namespace:ProjectMaui.Client.Views"
-    Title="ProjectMaui"
-    Shell.TabBarBackgroundColor="White"
-    Shell.TabBarTitleColor="#1E3A5F"
-    Shell.TabBarUnselectedColor="Gray"
-    Shell.FlyoutBackgroundColor="White">
+    xmlns:ios="clr-namespace:Microsoft.Maui.Controls.PlatformConfiguration.iOSSpecific;assembly=Microsoft.Maui.Controls"
+    ios:Page.UseSafeArea="True">
+
 
     <TabBar>
-        <Tab Title="Home">
+        <Tab Title="Menu"
+                Route="menu"
+                Style="{StaticResource TabBarNewStyle}">
             <Tab.Icon>
-                <FontImageSource Glyph="🏠" Color="#1E3A5F" Size="20" />
+                <FontImageSource Glyph="🍽️"
+                        Color="#1E3A5F"
+                        Size="20"/>
             </Tab.Icon>
-            <ShellContent 
-                ContentTemplate="{DataTemplate views:CustomerMenuPage}" 
-                Route="CustomerMenuPage" />
+            <ShellContent ContentTemplate="{DataTemplate views:CustomerMenuPage}"/>
         </Tab>
 
-        <Tab Title="Orders">
+        <Tab Title="Orders"
+                Route="orders"
+                Style="{StaticResource TabBarNewStyle}">
             <Tab.Icon>
-                <FontImageSource Glyph="📋" Color="#1E3A5F" Size="20" />
+                <FontImageSource Glyph="📋"
+                        Color="#1E3A5F"
+                        Size="20"/>
             </Tab.Icon>
-            <ShellContent 
-                ContentTemplate="{DataTemplate views:CustomerMenuPage}" 
-                Route="OrdersPage" />
+            <ShellContent ContentTemplate="{DataTemplate views:CustomerOrdersPage}"/>
         </Tab>
 
-        <Tab Title="Profile">
+        <Tab Title="Profile"
+                Route="profile"
+                Style="{StaticResource TabBarNewStyle}">
             <Tab.Icon>
-                <FontImageSource Glyph="👤" Color="#1E3A5F" Size="20" />
-           </Tab.Icon>
-           <ShellContent 
-               ContentTemplate="{DataTemplate views:ProfilePage}" 
-               Route="ProfilePage" />
+                <FontImageSource Glyph="👤"
+                        Color="#1E3A5F"
+                        Size="20"/>
+            </Tab.Icon>
+            <ShellContent ContentTemplate="{DataTemplate views:ProfilePage}"/>
         </Tab>
-        
     </TabBar>
 
-    <!-- <FlyoutItem Title="Admin" Icon="👤">
-        <ShellContent
-            Title="Products"
-            ContentTemplate="{DataTemplate views:AdminProductsPage}"
-            Route="AdminProducts" />
-        <ShellContent
-            Title="Categories"
-            ContentTemplate="{DataTemplate views:AdminCategoriesPage}"
-            Route="AdminCategories" />
-    </FlyoutItem> -->
+    <!--  <FlyoutItem Title="Admin"
+            Style="{StaticResource FlyoutItemStyle}"
+            Icon="home.png">
+        <ShellContent Route="admin" ContentTemplate="{DataTemplate views:AdminPage}" />
+    </FlyoutItem>  -->
 
 </Shell>
+

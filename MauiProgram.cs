@@ -1,4 +1,4 @@
-﻿using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging;
 using ProjectMaui.Domain.Infrasturcture;
 using ProjectMaui.Domain.Services;
 using ProjectMaui.Client.Views;
@@ -12,13 +12,13 @@ public static class MauiProgram
 	{
 		var builder = MauiApp.CreateBuilder();
 		builder
-					.UseMauiApp<App>()
-					.UseMauiCommunityToolkit()
-					.ConfigureFonts(fonts =>
-					{
-						fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
-						fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
-					});
+			.UseMauiApp<App>()
+			.UseMauiCommunityToolkit()
+			.ConfigureFonts(fonts =>
+			{
+				fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
+				fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
+			});
 
 		builder.Services.AddSingleton<DatabaseService>();
 		builder.Services.AddSingleton<ProductServices>();
@@ -28,18 +28,24 @@ public static class MauiProgram
 		builder.Services.AddSingleton<InventoryServices>();
 		builder.Services.AddSingleton<CategoryServices>();
 		builder.Services.AddSingleton<DataSeedService>();
+		builder.Services.AddSingleton<CartService>();
 
 		builder.Services.AddTransient<CustomerMenuPage>();
 		builder.Services.AddTransient<FoodPage>();
 		builder.Services.AddTransient<DrinksPage>();
 		builder.Services.AddTransient<DessertPage>();
 		builder.Services.AddTransient<MainPage>();
+		builder.Services.AddTransient<OrderDetailPage>();
+		builder.Services.AddTransient<CustomerOrdersPage>();
 
 		builder.Services.AddTransient<AdminPage>();
 		builder.Services.AddTransient<AdminProductsPage>();
 		builder.Services.AddTransient<AdminProductFormPage>();
 		builder.Services.AddTransient<AdminCategoriesPage>();
 		builder.Services.AddTransient<AdminCategoryFormPage>();
+		builder.Services.AddTransient<AdminOrdersPage>();
+		builder.Services.AddTransient<OrderDetailViewPage>();
+		builder.Services.AddTransient<AdminOrderEditPage>();
 
 #if DEBUG
 		builder.Logging.AddDebug();

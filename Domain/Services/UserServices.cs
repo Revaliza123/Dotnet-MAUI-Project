@@ -1,87 +1,92 @@
-using ProjectMaui.Domain.Models;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using ProjectMaui.Domain.Infrasturcture;
+using ProjectMaui.Domain.Models;
 using SQLite;
 
-namespace ProjectMaui.Domain.Services
+namespace ProjectMaui.Domain.Services;
+
+public class UserServices
 {
-    public class UserServices
+    private readonly DatabaseService _databaseService;
+    private SQLiteAsyncConnection? _connection;
+
+    public UserServices(DatabaseService databaseService)
     {
-        private readonly DatabaseService _databaseServices;
-        private SQLiteAsyncConnection? _connection;
+        _databaseService = databaseService ?? throw new ArgumentNullException(nameof(databaseService));
+    }
 
-        public UserServices(DatabaseService database)
+    private async Task<SQLiteAsyncConnection> GetDb()
+    {
+        if (_connection == null)
         {
-            _databaseServices = database;
+            _connection ??= await _databaseService.GetConnection();
+        }
+        return _connection;
+    }
+
+    public async Task<User> AddUser(User user, User.UserTypes userType)
+    {
+        var db = await GetDb();
+        if (userType == User.UserTypes.Employee)
+            await db.InsertAsync((Employee)user);
+        else
+            await db.InsertAsync((Customer)user);
+        return user;
+    }
+
+    public async Task<User> UpdateUser(User user)
+    {
+        var db = await GetDb();
+        if (user is Employee emp)
+            await db.UpdateAsync(emp);
+        else if (user is Customer cust)
+            await db.UpdateAsync(cust);
+        return user;
+    }
+
+    public async Task<bool> DeleteUser(Guid id)
+    {
+        var db = await GetDb();
+
+        var employee = await db.Table<Employee>().FirstOrDefaultAsync(u => u.Id == id);
+        if (employee != null)
+        {
+            await db.DeleteAsync(employee);
+            return true;
         }
 
-        private async Task<SQLiteAsyncConnection> GetDb()
+        var customer = await db.Table<Customer>().FirstOrDefaultAsync(u => u.Id == id);
+        if (customer != null)
         {
-            if (_connection == null)
-                _connection = await _databaseServices.GetConnection();
-            return _connection;
+            await db.DeleteAsync(customer);
+            return true;
         }
+        return false;
+    }
 
+    public async Task<User?> Authenticate(string username, string password)
+    {
+        var db = await GetDb();
 
-        public async Task AddUser(User user, User.UserTypes type)
-        {
-            var db = await GetDb();
-            int result = 0;
+        var employee = await db.Table<Employee>()
+            .FirstOrDefaultAsync(u => u.Username == username && u.Password == password);
+        if (employee != null) return employee;
 
-            switch (type)
-            {
-                case User.UserTypes.Employee:
-                    result = await db.InsertAsync((Employee)user);
-                    break;
-                case User.UserTypes.Customer:
-                    result = await db.InsertAsync((Customer)user);
-                    break;
-            }
-            if (result > 0) Console.WriteLine($"Berhasil menambah {type}");
-        }
+        var customer = await db.Table<Customer>()
+            .FirstOrDefaultAsync(u => u.Username == username && u.Password == password);
+        return customer;
+    }
 
-        public async Task UpdateUser(User user, User.UserTypes type)
-        {
-            var db = await GetDb();
-            int result = 0;
+    public async Task<List<Employee>> GetAllEmployees()
+    {
+        var db = await GetDb();
+        return await db.Table<Employee>().ToListAsync();
+    }
 
-            switch (type)
-            {
-                case User.UserTypes.Employee:
-                    result = await db.UpdateAsync((Employee)user);
-                    break;
-            }
-
-            if (result > 0) Console.WriteLine($"Berhasil update {type}");
-        }
-
-        public async Task DeleteUser(Guid userId, User.UserTypes type)
-        {
-            var db = await GetDb();
-            switch (type)
-            {
-                case User.UserTypes.Employee:
-                    await db.DeleteAsync<Employee>(userId);
-                    break;
-                case User.UserTypes.Customer:
-                    await db.DeleteAsync<Customer>(userId);
-                    break;
-            }
-        }
-
-        public async Task<User?> Authenticate(string username, string password)
-        {
-            var db = await GetDb();
-
-            var employee = await db.Table<Employee>().FirstOrDefaultAsync(u => u.Username == username && u.Password == password);
-
-            return employee;
-        }
-
-        public async Task<List<User>> GetAllEmployees()
-        {
-            var db = await GetDb();
-            var data = await db.Table<Employee>().ToListAsync();
-            return data.Cast<User>().ToList();
-        }
+    public async Task<List<Customer>> GetAllCustomers()
+    {
+        var db = await GetDb();
+        return await db.Table<Customer>().ToListAsync();
     }
 }

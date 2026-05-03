@@ -11,8 +11,9 @@
         </ResourceDictionary>
     </ContentPage.Resources>
 
-    <Grid>
+    <Grid RowDefinitions="*, Auto">
         <CollectionView x:Name="MenuCollection"
+                Grid.Row="0"
                 SelectionMode="None">
             <CollectionView.Header>
                 <VerticalStackLayout Padding="20"
@@ -37,10 +38,31 @@
                             <Border.GestureRecognizers>
                                 <TapGestureRecognizer Tapped="OnCartIconTapped"/>
                             </Border.GestureRecognizers>
-                            <Label Text="&#x1F6D2;"
-                                    HorizontalOptions="Center"
-                                    VerticalOptions="Center"
-                                    FontSize="20"/>
+                            <Grid>
+                                <Label Text="&#x1F6D2;"
+                                        HorizontalOptions="Center"
+                                        VerticalOptions="Center"
+                                        FontSize="20"/>
+                                <Label x:Name="CartBadge"
+                                        Text="0"
+                                        FontSize="10"
+                                        FontAttributes="Bold"
+                                        TextColor="White"
+                                        BackgroundColor="#FF6B35"
+                                        WidthRequest="18"
+                                        HeightRequest="18"
+                                        HorizontalOptions="End"
+                                        VerticalOptions="End"
+                                        TranslationX="-6"
+                                        TranslationY="-6"
+                                        IsVisible="False">
+                                    <Label.Style>
+                                        <Style TargetType="Label">
+                                            <Setter Property="LineBreakMode" Value="HeadTruncation"/>
+                                        </Style>
+                                    </Label.Style>
+                                </Label>
+                            </Grid>
                         </Border>
                     </Grid>
 
@@ -135,5 +157,40 @@
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
+
+        <!-- Floating Bottom Cart Bar -->
+        <Border x:Name="CartBottomBar"
+                Grid.Row="1"
+                IsVisible="False"
+                StrokeShape="RoundRectangle 20"
+                BackgroundColor="#1E3A5F"
+                StrokeThickness="0"
+                Margin="20,0"
+                Padding="0">
+            <Border.GestureRecognizers>
+                <TapGestureRecognizer Tapped="OnCartBottomBarTapped"/>
+            </Border.GestureRecognizers>
+            <Grid ColumnDefinitions="Auto, *, Auto" ColumnSpacing="12" Padding="16,14">
+                <Label Text="&#x1F6D2;"
+                        FontSize="22"
+                        VerticalOptions="Center"/>
+                <VerticalStackLayout Grid.Column="1" Spacing="0">
+                    <Label x:Name="CartItemCountLabel"
+                            Text="0 item"
+                            FontSize="14"
+                            FontAttributes="Bold"
+                            TextColor="White"/>
+                    <Label x:Name="CartTotalPriceLabel"
+                            Text="Rp 0"
+                            FontSize="12"
+                            TextColor="#D0D0D0"/>
+                </VerticalStackLayout>
+                <Label Text="→"
+                        Grid.Column="2"
+                        FontSize="20"
+                        TextColor="White"
+                        VerticalOptions="Center"/>
+            </Grid>
+        </Border>
     </Grid>
 </ContentPage>

@@ -10,10 +10,10 @@ namespace ProjectMaui.Client.Views;
 public partial class OrderDetailPage : ContentPage
 {
     private readonly CartService _cartService;
-    private readonly OrderService _orderService;
-    private readonly UserServices _userService;
+    private readonly OrderService? _orderService;
+    private readonly UserServices? _userService;
 
-    public OrderDetailPage(CartService cartService, OrderService orderService, UserServices userService)
+    public OrderDetailPage(CartService cartService, OrderService? orderService = null, UserServices? userService = null)
     {
         InitializeComponent();
         _cartService = cartService;
@@ -21,6 +21,20 @@ public partial class OrderDetailPage : ContentPage
         _userService = userService;
         LoadCartItems();
     }
+
+    private static Dictionary<string, SugarLevel> _sugarLevelMap = new()
+    {
+        { "Tanpa Gula", SugarLevel.NoSugar },
+        { "Gula Sedikit", SugarLevel.Less },
+        { "Gula Normal", SugarLevel.Normal }
+    };
+
+    private static Dictionary<string, ServingTemp> _servingTempMap = new()
+    {
+        { "Suhu Dingin", ServingTemp.Cold },
+        { "Suhu Hangat", ServingTemp.Hot },
+        { "Suhu Normal", ServingTemp.RoomTemperature }
+    };
 
     private void LoadCartItems()
     {
@@ -212,12 +226,13 @@ public partial class OrderDetailPage : ContentPage
             FontSize = 13,
             BackgroundColor = (Color)Color.Parse("#F9F9F9")
         };
-        sugarPicker.ItemsSource = new[] { "Tidak", "Sedikit", "Normal", "Banyak" };
-        sugarPicker.SelectedItem = cartItem.SugarLevel.ToString();
+        sugarPicker.ItemsSource = new[] { "Tanpa Gula", "Gula Sedikit", "Gula Normal" };
         sugarPicker.SelectedIndexChanged += (s, e) =>
         {
-            if (Enum.TryParse<SugarLevel>(sugarPicker.SelectedItem?.ToString(), out var level))
+            if (e is SelectedItemChangedEventArgs changed && changed.SelectedItem != null && _sugarLevelMap.TryGetValue(changed.SelectedItem.ToString()!, out SugarLevel level))
+            {
                 cartItem.SugarLevel = level;
+            }
         };
         sugarGrid.Add(sugarPicker, 1, 0);
         customStack.Children.Add(sugarGrid);
@@ -246,12 +261,13 @@ public partial class OrderDetailPage : ContentPage
             FontSize = 13,
             BackgroundColor = (Color)Color.Parse("#F9F9F9")
         };
-        tempPicker.ItemsSource = new[] { "Dingin", "Hangat", "Panas" };
-        tempPicker.SelectedItem = cartItem.ServingTemp.ToString();
+        tempPicker.ItemsSource = new[] { "Suhu Normal", "Suhu Hangat", "Suhu Dingin" };
         tempPicker.SelectedIndexChanged += (s, e) =>
         {
-            if (Enum.TryParse<ServingTemp>(tempPicker.SelectedItem?.ToString(), out var temp))
+            if (e is SelectedItemChangedEventArgs changed && changed.SelectedItem != null && _servingTempMap.TryGetValue(changed.SelectedItem.ToString()!, out ServingTemp temp))
+            {
                 cartItem.ServingTemp = temp;
+            }
         };
         tempGrid.Add(tempPicker, 1, 0);
         customStack.Children.Add(tempGrid);
@@ -332,6 +348,12 @@ public partial class OrderDetailPage : ContentPage
             }
 
             // Get current customer
+            if (_userService == null)
+            {
+                await DisplayAlert("Error", "User service tidak tersedia.", "OK");
+                return;
+            }
+
             var customers = await _userService.GetAllCustomers();
             var customer = customers.FirstOrDefault();
 
@@ -371,6 +393,12 @@ public partial class OrderDetailPage : ContentPage
                     ItemStatus = ItemStatus.Pending
                 };
                 order.OrderItems.Add(orderItem);
+            }
+
+            if (_orderService == null)
+            {
+                await DisplayAlert("Error", "Order service tidak tersedia.", "OK");
+                return;
             }
 
             // Save to database
