@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ProjectMaui.Client.Views.CheckoutPage"
+             BackgroundColor="#F4F1EA"
+             Title="Checkout">
+
+    <Grid RowDefinitions="Auto,*,Auto">
+
+        <!--  Header  -->
+        <VerticalStackLayout Grid.Row="0" Padding="20,12" Spacing="4">
+            <Label Text="Pilih Meja"
+                   FontSize="20"
+                   FontAttributes="Bold"
+                   TextColor="#1E3A5F"/>
+            <Label Text="Silakan pilih meja yang tersedia untuk melanjutkan pesanan"
+                   FontSize="13"
+                   TextColor="Gray"/>
+            <Label x:Name="OrderTotalLabel"
+                   Text="Total: Rp 0"
+                   FontSize="18"
+                   FontAttributes="Bold"
+                   TextColor="#FF6B35"/>
+        </VerticalStackLayout>
+
+        <!--  Tables list  -->
+        <ScrollView Grid.Row="1">
+            <VerticalStackLayout x:Name="TablesContainer"
+                                 Padding="20,10"
+                                 Spacing="10"/>
+        </ScrollView>
+
+        <!--  Confirm button  -->
+        <VerticalStackLayout Grid.Row="2"
+                             Padding="20,16"
+                             BackgroundColor="White"
+                             Spacing="8">
+            <Button x:Name="ConfirmButton"
+                    Text="Konfirmasi Pesanan"
+                    BackgroundColor="#1E3A5F"
+                    TextColor="White"
+                    CornerRadius="12"
+                    HeightRequest="50"
+                    FontSize="16"
+                    FontAttributes="Bold"
+                    IsEnabled="False"
+                    Clicked="OnConfirmClicked"/>
+        </VerticalStackLayout>
+    </Grid>
+</ContentPage>

@@ -82,6 +82,24 @@ namespace ProjectMaui.Domain.Services
             await db.DeleteAsync(tableId);
         }
 
+        public async Task<Guid> DeleteTableAsync(Guid tableId)
+        {
+            var db = await GetDb();
+            await db.DeleteAsync(tableId);
+            return tableId;
+        }
+
+        public async Task<Table?> GetTableByIdAsync(Guid tableId)
+        {
+            var db = await GetDb();
+            return await db.Table<Table>().FirstOrDefaultAsync(t => t.Id == tableId);
+        }
+
+        public async Task<List<Table>> GetAvailableTablesAsync()
+        {
+            var db = await GetDb();
+            return await db.Table<Table>().Where(t => t.Status == TableStatus.Available).ToListAsync();
+        }
 
         public void UpdateTableStatus(int tableId, TableStatus tableStatus)
         {

@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:models="clr-namespace:ProjectMaui.Domain.Models"
+             x:Class="ProjectMaui.Client.Views.AdminInventoryPage"
+             BackgroundColor="#F4F1EA"
+             Title="Inventory">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="16">
+
+            <!--  Add Inventory Button  -->
+            <Button Text="+ Add Inventory"
+                    BackgroundColor="#1E3A5F"
+                    TextColor="White"
+                    CornerRadius="20"
+                    HeightRequest="48"
+                    FontSize="15"
+                    FontAttributes="Bold">
+                <Button.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnAddInventoryClicked"/>
+                </Button.GestureRecognizers>
+            </Button>
+
+            <!--  Inventory List  -->
+            <CollectionView x:Name="inventoryItemsView">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Border StrokeShape="RoundRectangle 16"
+                                BackgroundColor="White"
+                                StrokeThickness="0"
+                                Margin="0,0,0,12">
+                            <Border.Shadow>
+                                <Shadow Brush="Black" Offset="0,2" Radius="5" Opacity="0.1"/>
+                            </Border.Shadow>
+                            <VerticalStackLayout Padding="16" Spacing="10">
+
+                                <!--  Product Name & Actions  -->
+                                <Grid ColumnDefinitions="*,Auto">
+                                    <Label Grid.Column="0"
+                                           Text="{Binding ProductName}"
+                                           FontSize="16"
+                                           FontAttributes="Bold"
+                                           TextColor="#1E3A5F"
+                                           MaxLines="1"/>
+                                    <HorizontalStackLayout Grid.Column="1"
+                                                           Spacing="4"
+                                                           VerticalOptions="Center">
+                                        <Button Text="✏️"
+                                                WidthRequest="32"
+                                                HeightRequest="32"
+                                                BackgroundColor="#E3F2FD"
+                                                TextColor="#1E3A5F"
+                                                CornerRadius="8"
+                                                FontSize="12"
+                                                Clicked="OnEditClicked"
+                                                CommandParameter="{Binding Id}"/>
+                                        <Button Text="🗑️"
+                                                WidthRequest="32"
+                                                HeightRequest="32"
+                                                BackgroundColor="#FFEBEE"
+                                                TextColor="#D32F2F"
+                                                CornerRadius="8"
+                                                FontSize="12"
+                                                Clicked="OnDeleteClicked"
+                                                CommandParameter="{Binding Id}"/>
+                                    </HorizontalStackLayout>
+                                </Grid>
+
+                                <!--  Stock Info Row  -->
+                                <Grid ColumnDefinitions="*,*,*" ColumnSpacing="12">
+                                    <VerticalStackLayout Grid.Column="0" Spacing="2">
+                                        <Label Text="Current Stock"
+                                               FontSize="11"
+                                               TextColor="Gray"/>
+                                        <Label Text="{Binding CurrentStock}"
+                                               FontSize="16"
+                                               FontAttributes="Bold"
+                                               TextColor="#1E3A5F"/>
+                                    </VerticalStackLayout>
+                                    <VerticalStackLayout Grid.Column="1" Spacing="2">
+                                        <Label Text="Minimum Stock"
+                                               FontSize="11"
+                                               TextColor="Gray"/>
+                                        <Label Text="{Binding MinimumStock}"
+                                               FontSize="16"
+                                               FontAttributes="Bold"
+                                               TextColor="#1E3A5F"/>
+                                    </VerticalStackLayout>
+                                    <VerticalStackLayout Grid.Column="2" Spacing="2">
+                                        <Label Text="Status"
+                                               FontSize="11"
+                                               TextColor="Gray"/>
+                                        <Label Text="{Binding StockStatus}"
+                                               FontSize="14"
+                                               FontAttributes="Bold"
+                                               TextColor="{Binding StockStatusColor}"/>
+                                    </VerticalStackLayout>
+                                </Grid>
+
+                                <!--  Last Updated  -->
+                                <Label Text="{Binding LastUpdated, StringFormat='Updated: {0:dd MMM yyyy HH:mm}'}"
+                                       FontSize="11"
+                                       TextColor="#9E9E9E"/>
+                            </VerticalStackLayout>
+                        </Border>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+            <!--  Empty State  -->
+            <VerticalStackLayout x:Name="emptyState"
+                                 IsVisible="False"
+                                 Spacing="8"
+                                 VerticalOptions="Center">
+                <Label Text="No inventory records found"
+                       FontSize="18"
+                       HorizontalOptions="Center"
+                       TextColor="#1E3A5F"
+                       FontAttributes="Bold"/>
+                <Label Text="Click '+ Add Inventory' to create a new record"
+                       FontSize="14"
+                       HorizontalOptions="Center"
+                       TextColor="Gray"/>
+            </VerticalStackLayout>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

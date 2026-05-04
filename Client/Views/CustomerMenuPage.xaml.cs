@@ -8,26 +8,26 @@ namespace ProjectMaui.Client.Views;
 
 public partial class CustomerMenuPage : ContentPage
 {
-    private readonly ProductServices _productService;
+    private readonly IProductService _productService;
     private readonly DataSeedService _seeder;
     private readonly CartService _cartService;
     private readonly OrderDetailPage _orderDetailPage;
 
     private List<Product> _allProducts = new List<Product>();
 
-    public CustomerMenuPage(ProductServices productService, DataSeedService seeder, CartService cartService, OrderDetailPage orderDetailPage)
+    public CustomerMenuPage(IProductService productService, DataSeedService seeder, CartService cartService, OrderDetailPage orderDetailPage)
     {
         InitializeComponent();
         _productService = productService;
         _seeder = seeder;
         _cartService = cartService;
-        _cartService.OnCartChanged += UpdateCartBadge;
         _orderDetailPage = orderDetailPage;
     }
 
     protected override async void OnAppearing()
     {
         base.OnAppearing();
+        _cartService.OnCartChanged += UpdateCartBadge;
         UpdateCartBadge();
         await LoadProducts();
     }

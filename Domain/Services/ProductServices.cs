@@ -8,7 +8,7 @@ using SQLite;
 
 namespace ProjectMaui.Domain.Services
 {
-    public class ProductServices
+    public class ProductServices : IProductService
     {
         private readonly DatabaseService databaseServices;
         private SQLiteAsyncConnection? connection;
@@ -41,7 +41,7 @@ namespace ProjectMaui.Domain.Services
 
             return products;
         }
-        private async Task<string> SaveImageLocally(FileResult photo, Product product)
+        public async Task<string> SaveImageLocally(FileResult photo, Product product)
         {
             var folderPath = Path.Combine(FileSystem.AppDataDirectory, "product-images");
 

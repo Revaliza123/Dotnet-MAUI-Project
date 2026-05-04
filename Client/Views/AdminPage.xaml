@@ -66,6 +66,64 @@
                     <TapGestureRecognizer Tapped="OnCategoriesTapped"/>
                 </Border.GestureRecognizers>
             </Border>
+
+            <Border StrokeShape="RoundRectangle 16"
+                    BackgroundColor="White"
+                    StrokeThickness="0">
+                <Border.Shadow>
+                    <Shadow Brush="Black" Offset="0,2" Radius="5" Opacity="0.1"/>
+                </Border.Shadow>
+                <Grid ColumnDefinitions="Auto,*" ColumnSpacing="16" Padding="20">
+                    <VerticalStackLayout WidthRequest="60" HeightRequest="60">
+                        <BoxView BackgroundColor="#E8F5E9" CornerRadius="30"/>
+                        <Label Text="📋"
+                               FontSize="28"
+                               HorizontalOptions="Center"
+                               VerticalOptions="Center"/>
+                    </VerticalStackLayout>
+                    <VerticalStackLayout Grid.Column="1" Spacing="4">
+                        <Label Text="Manage Inventory"
+                               FontSize="16"
+                               FontAttributes="Bold"
+                               TextColor="#1E3A5F"/>
+                        <Label Text="View and manage stock levels"
+                               FontSize="13"
+                               TextColor="Gray"/>
+                    </VerticalStackLayout>
+                </Grid>
+                <Border.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnInventoryTapped"/>
+                </Border.GestureRecognizers>
+            </Border>
+
+            <Border StrokeShape="RoundRectangle 16"
+                    BackgroundColor="White"
+                    StrokeThickness="0">
+                <Border.Shadow>
+                    <Shadow Brush="Black" Offset="0,2" Radius="5" Opacity="0.1"/>
+                </Border.Shadow>
+                <Grid ColumnDefinitions="Auto,*" ColumnSpacing="16" Padding="20">
+                    <VerticalStackLayout WidthRequest="60" HeightRequest="60">
+                        <BoxView BackgroundColor="#E1F5FE" CornerRadius="30"/>
+                        <Label Text="🪑"
+                               FontSize="28"
+                               HorizontalOptions="Center"
+                               VerticalOptions="Center"/>
+                    </VerticalStackLayout>
+                    <VerticalStackLayout Grid.Column="1" Spacing="4">
+                        <Label Text="Manage Tables"
+                               FontSize="16"
+                               FontAttributes="Bold"
+                               TextColor="#1E3A5F"/>
+                        <Label Text="View and manage table statuses"
+                               FontSize="13"
+                               TextColor="Gray"/>
+                    </VerticalStackLayout>
+                </Grid>
+                <Border.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnTablesTapped"/>
+                </Border.GestureRecognizers>
+            </Border>
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>

@@ -9,12 +9,14 @@ namespace ProjectMaui.Domain.Services
         private readonly UserServices _userSvc;
         private readonly ProductServices _productSvc;
         private readonly OrderService _orderSvc;
+        private readonly TableServices _tableSvc;
 
-        public DataSeedService(UserServices userSvc, ProductServices productSvc, OrderService orderSvc)
+        public DataSeedService(UserServices userSvc, ProductServices productSvc, OrderService orderSvc, TableServices tableSvc)
         {
             _userSvc = userSvc;
             _productSvc = productSvc;
             _orderSvc = orderSvc;
+            _tableSvc = tableSvc;
         }
 
         public async Task SeedAllData()
@@ -121,6 +123,21 @@ namespace ProjectMaui.Domain.Services
 
             order.OrderItems.Add(orderItem);
             await _orderSvc.AddOrderAsync(order);
+
+            // Seed tables
+            var tablesExist = await _tableSvc.GetTableData();
+            if (tablesExist.Any()) return;
+
+            await _tableSvc.AddTable(new Table(1, "Lantai 1", 4, TableStatus.Available));
+            await _tableSvc.AddTable(new Table(2, "Lantai 1", 4, TableStatus.Available));
+            await _tableSvc.AddTable(new Table(3, "Lantai 1", 6, TableStatus.Available));
+            await _tableSvc.AddTable(new Table(4, "Lantai 1", 6, TableStatus.Available));
+            await _tableSvc.AddTable(new Table(5, "Lantai 2", 2, TableStatus.Available));
+            await _tableSvc.AddTable(new Table(6, "Lantai 2", 2, TableStatus.Available));
+            await _tableSvc.AddTable(new Table(7, "Lantai 2", 8, TableStatus.Available));
+            await _tableSvc.AddTable(new Table(8, "Lantai 2", 8, TableStatus.Available));
+            await _tableSvc.AddTable(new Table(9, "Teras", 10, TableStatus.Available));
+            await _tableSvc.AddTable(new Table(10, "Teras", 10, TableStatus.Available));
         }
     }
 }

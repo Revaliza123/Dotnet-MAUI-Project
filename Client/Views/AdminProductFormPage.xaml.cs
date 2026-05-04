@@ -9,13 +9,13 @@ namespace ProjectMaui.Client.Views;
 
 public partial class AdminProductFormPage : ContentPage
 {
-    private readonly ProductServices _productService;
+    private readonly IProductService _productService;
     private Product? _editingProduct;
     private FileResult? _selectedImage;
 
     public AdminProductFormPage(IServiceProvider serviceProvider, Product? product = null)
     {
-        _productService = serviceProvider.GetRequiredService<ProductServices>();
+        _productService = serviceProvider.GetRequiredService<IProductService>();
         _editingProduct = product;
         InitializeComponent();
 

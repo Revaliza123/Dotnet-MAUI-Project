@@ -383,55 +383,10 @@ public partial class OrderDetailPage : ContentPage
                 return;
             }
 
-            // Create order
-            var order = new Order
-            {
-                Id = Guid.NewGuid(),
-                CustomerId = customer.Id,
-                OrderDate = DateTime.Now,
-                PaymentStatus = PaymentStatus.Pending,
-                OrderStatus = OrderStatus.Placed
-            };
-
-            // Create order items with customization
-            foreach (var cartItem in items)
-            {
-                var noteStr = new List<string>();
-                if (!string.IsNullOrWhiteSpace(cartItem.Note))
-                    noteStr.Add(cartItem.Note);
-                noteStr.Add($"Gula: {cartItem.SugarLevel}");
-                noteStr.Add($"Suhu: {cartItem.ServingTemp}");
-
-                var orderItem = new OrderItem
-                {
-                    Id = Guid.NewGuid(),
-                    OrderId = order.Id,
-                    ProductId = cartItem.Product.Id,
-                    Quantity = cartItem.Quantity,
-                    UnitPrice = cartItem.UnitPrice,
-                    Note = string.Join(" | ", noteStr),
-                    ItemStatus = ItemStatus.Pending
-                };
-                order.OrderItems.Add(orderItem);
-            }
-
-            if (_orderService == null)
-            {
-                await DisplayAlert("Error", "Order service tidak tersedia.", "OK");
-                return;
-            }
-
-            // Save to database
-            await _orderService.AddOrderAsync(order);
-
-            // Clear cart
-            _cartService.Clear();
-
-            var toast = Toast.Make("Pesanan berhasil dipesan!", ToastDuration.Short);
-            await toast.Show();
-
-            // Navigate to customer orders page
-            await Navigation.PushAsync(new CustomerOrdersPage(_orderService));
+            // Navigate to checkout page for table selection
+            var tableService = new TableServices(new Domain.Infrasturcture.DatabaseService());
+            var checkoutPage = new CheckoutPage(_cartService, _orderService!, tableService, _userService);
+            await Navigation.PushAsync(checkoutPage);
         }
         catch (Exception ex)
         {

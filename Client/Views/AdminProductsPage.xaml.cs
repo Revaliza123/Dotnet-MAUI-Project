@@ -8,10 +8,10 @@ namespace ProjectMaui.Client.Views;
 
 public partial class AdminProductsPage : ContentPage
 {
-    private readonly ProductServices _productService;
+    private readonly IProductService _productService;
     private readonly IServiceProvider _serviceProvider;
 
-    public AdminProductsPage(ProductServices productService, IServiceProvider serviceProvider)
+    public AdminProductsPage(IProductService productService, IServiceProvider serviceProvider)
     {
         InitializeComponent();
         _productService = productService;

@@ -7,17 +7,16 @@ namespace ProjectMaui.Client.Views;
 
 public partial class DrinksPage : ContentPage
 {
-    private readonly ProductServices _productService;
+    private readonly IProductService _productService;
     private readonly DataSeedService _seeder;
     private readonly CartService _cartService;
 
-    public DrinksPage(ProductServices productService, DataSeedService seeder, CartService cartService)
+    public DrinksPage(IProductService productService, DataSeedService seeder, CartService cartService)
     {
         InitializeComponent();
         _productService = productService;
         _seeder = seeder;
         _cartService = cartService;
-        _cartService.OnCartChanged += UpdateCartBadge;
     }
 
     protected override void OnDisappearing()
@@ -29,6 +28,8 @@ public partial class DrinksPage : ContentPage
     protected override async void OnAppearing()
     {
         base.OnAppearing();
+        _cartService.OnCartChanged += UpdateCartBadge;
+        UpdateCartBadge();
         await LoadProducts();
     }
 

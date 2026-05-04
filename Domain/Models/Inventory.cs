@@ -37,5 +37,17 @@ namespace ProjectMaui.Domain.Models
             CurrentStock = Guard.AtLeast(result, 0, "Stock cannot be negative");
             LastUpdated = DateTime.Now;
         }
+
+        public void SetCurrentStock(int amount)
+        {
+            CurrentStock = Guard.AtLeast(amount, 0, nameof(amount));
+            LastUpdated = DateTime.Now;
+        }
+
+        public void SetMinimumStock(int amount)
+        {
+            MinimumStock = Guard.AtLeast(amount, 0, nameof(amount));
+            LastUpdated = DateTime.Now;
+        }
     }
 }

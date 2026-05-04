@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ProjectMaui.Client.Views.AdminInventoryFormPage"
+             BackgroundColor="#F4F1EA"
+             Title="Inventory Form">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="16">
+
+            <!--  Form Card  -->
+            <Border StrokeShape="RoundRectangle 16"
+                    BackgroundColor="White"
+                    StrokeThickness="0">
+                <Border.Shadow>
+                    <Shadow Brush="Black" Offset="0,2" Radius="5" Opacity="0.1"/>
+                </Border.Shadow>
+                <VerticalStackLayout Padding="20" Spacing="14">
+
+                    <!--  Product Picker  -->
+                    <VerticalStackLayout Spacing="6">
+                        <Label Text="Product"
+                               FontSize="14"
+                               FontAttributes="Bold"
+                               TextColor="#1E3A5F"/>
+                        <Picker x:Name="ProductPicker"
+                                BackgroundColor="#F5F5F5"
+                                Title="Select product"/>
+                    </VerticalStackLayout>
+
+                    <!--  Current Stock  -->
+                    <VerticalStackLayout Spacing="6">
+                        <Label Text="Current Stock"
+                               FontSize="14"
+                               FontAttributes="Bold"
+                               TextColor="#1E3A5F"/>
+                        <Entry x:Name="CurrentStockEntry"
+                               Keyboard="Numeric"
+                               Placeholder="0"
+                               PlaceholderColor="#9E9E9E"
+                               BackgroundColor="#F5F5F5"/>
+                    </VerticalStackLayout>
+
+                    <!--  Minimum Stock  -->
+                    <VerticalStackLayout Spacing="6">
+                        <Label Text="Minimum Stock (Alert Threshold)"
+                               FontSize="14"
+                               FontAttributes="Bold"
+                               TextColor="#1E3A5F"/>
+                        <Entry x:Name="MinimumStockEntry"
+                               Keyboard="Numeric"
+                               Placeholder="0"
+                               PlaceholderColor="#9E9E9E"
+                               BackgroundColor="#F5F5F5"/>
+                    </VerticalStackLayout>
+                </VerticalStackLayout>
+            </Border>
+
+            <!--  Action Buttons  -->
+            <HorizontalStackLayout Spacing="10" HorizontalOptions="End">
+                <Button Text="Cancel"
+                        BackgroundColor="#757575"
+                        TextColor="White"
+                        CornerRadius="20"
+                        Padding="20,0"
+                        Clicked="OnCancelClicked"/>
+                <Button x:Name="SaveButton"
+                        Text="Save"
+                        BackgroundColor="#1E3A5F"
+                        TextColor="White"
+                        CornerRadius="20"
+                        Padding="20,0"
+                        Clicked="OnSaveClicked"/>
+            </HorizontalStackLayout>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

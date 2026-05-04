@@ -1,43 +1,82 @@
-using ProjectMaui.Domain.Models;
+using Microsoft.Maui.Controls;
 using ProjectMaui.Domain.Infrasturcture;
+using ProjectMaui.Domain.Models;
 using SQLite;
 
-namespace ProjectMaui.Domain.Services
+namespace ProjectMaui.Domain.Services;
+
+public class InventoryServices : IInventoryManager
 {
-    public class InventoryServices
+    private readonly DatabaseService _databaseService;
+    private SQLiteAsyncConnection? _connection;
+
+    public InventoryServices(DatabaseService databaseService)
     {
-        private readonly DatabaseService _databaseServices;
-        private SQLiteAsyncConnection? _connection;
+        _databaseService = databaseService;
+    }
 
-        public InventoryServices(DatabaseService database)
+    private async Task<SQLiteAsyncConnection> GetDb()
+    {
+        if (_connection == null)
+            _connection = await _databaseService.GetConnection();
+        return _connection;
+    }
+
+    public async Task AddInventoryAsync(Inventory inventory)
+    {
+        var db = await GetDb();
+        await db.InsertAsync(inventory);
+        Console.WriteLine("Inventory record added");
+    }
+
+    public async Task UpdateInventoryAsync(Inventory inventory)
+    {
+        var db = await GetDb();
+        await db.UpdateAsync(inventory);
+        Console.WriteLine("Inventory record updated");
+    }
+
+    public async Task DeleteInventoryAsync(Guid inventoryId)
+    {
+        var db = await GetDb();
+        var inventory = await db.Table<Inventory>().FirstOrDefaultAsync(x => x.Id == inventoryId);
+        if (inventory != null)
         {
-            _databaseServices = database;
+            await db.DeleteAsync(inventory);
+            Console.WriteLine("Inventory record deleted");
         }
+    }
 
-        private async Task<SQLiteAsyncConnection> GetDb()
-        {
-            if (_connection == null) _connection = await _databaseServices.GetConnection();
-            return _connection;
-        }
+    public async Task<bool> CheckAvailabilityAsync(Guid productId)
+    {
+        var db = await GetDb();
+        var inventory = await db.Table<Inventory>().FirstOrDefaultAsync(x => x.ProductId == productId);
+        return inventory != null && inventory.CurrentStock > 0;
+    }
 
-        
-        public async Task AddInventory(Inventory inv) => await (await GetDb()).InsertAsync(inv);
-        public async Task UpdateInventory(Inventory inv) => await (await GetDb()).UpdateAsync(inv);
-        public async Task DeleteInventory(Inventory inv) => await (await GetDb()).DeleteAsync(inv);
+    public async Task<bool> IsLowStockAsync(Guid productId)
+    {
+        var db = await GetDb();
+        var inventory = await db.Table<Inventory>().FirstOrDefaultAsync(x => x.ProductId == productId);
+        if (inventory == null) return false;
+        return inventory.CurrentStock <= inventory.MinimumStock;
+    }
 
-        
-        public async Task<bool> CheckAvailability(Guid productId)
-        {
-            var db = await GetDb();
-            var item = await db.Table<Inventory>().FirstOrDefaultAsync(x => x.ProductId == productId);
-            return item != null && item.CurrentStock > 0;
-        }
+    public async Task<List<Inventory>> GetAllInventoryAsync()
+    {
+        var db = await GetDb();
+        return await db.Table<Inventory>().ToListAsync();
+    }
 
-        public async Task<bool> IsLowStock(Guid productId)
-        {
-            var db = await GetDb();
-            var item = await db.Table<Inventory>().FirstOrDefaultAsync(x => x.ProductId == productId);
-            return item != null && item.CurrentStock <= item.MinimumStock;
-        }
+    public async Task<Inventory?> GetInventoryByProductIdAsync(Guid productId)
+    {
+        var db = await GetDb();
+        return await db.Table<Inventory>().FirstOrDefaultAsync(x => x.ProductId == productId);
+    }
+
+    public async Task<List<Inventory>> GetLowStockItemsAsync()
+    {
+        var all = await GetAllInventoryAsync();
+        return all.Where(x => x.CurrentStock <= x.MinimumStock).ToList();
     }
 }

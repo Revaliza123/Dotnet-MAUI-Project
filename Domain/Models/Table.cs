@@ -23,5 +23,15 @@ namespace ProjectMaui.Domain.Models
             Capacity = Guard.AtLeast(capacity, 2, nameof(capacity));
             Status = status;
         }
+
+        public void SetStatus(TableStatus newStatus)
+        {
+            if (this.Status == TableStatus.Occupied && newStatus != TableStatus.Occupied)
+            {
+                throw new InvalidOperationException(
+                    "Cannot change status of an occupied table. Please free the table first.");
+            }
+            Status = newStatus;
+        }
     }
 }
