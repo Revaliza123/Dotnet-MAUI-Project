@@ -61,6 +61,12 @@ public partial class AdminTablesPage : ContentPage
         }
     }
 
+    async void OnAddTableClicked(object? sender, EventArgs e)
+    {
+        var formPage = new AdminTableFormPage(_tableService);
+        await Navigation.PushAsync(formPage);
+    }
+
     async void OnSetStatusClicked(object? sender, EventArgs e)
     {
         if (sender is Button btn && btn.CommandParameter is Guid id)

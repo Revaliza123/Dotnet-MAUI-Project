@@ -8,6 +8,17 @@
     <ScrollView>
         <VerticalStackLayout Padding="20" Spacing="16">
 
+            <!--  Add Table Button  -->
+            <Button Text="+ Tambah Meja"
+                    BackgroundColor="#1E3A5F"
+                    TextColor="White"
+                    FontSize="14"
+                    FontAttributes="Bold"
+                    CornerRadius="12"
+                    HeightRequest="48"
+                    HorizontalOptions="Fill"
+                    Clicked="OnAddTableClicked"/>
+
             <!--  Table List  -->
             <CollectionView x:Name="TablesCollectionView">
                 <CollectionView.ItemTemplate>
@@ -113,6 +124,7 @@
                        HorizontalOptions="Center"
                        TextColor="Gray"/>
             </VerticalStackLayout>
+
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>

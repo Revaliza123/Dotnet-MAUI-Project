@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ProjectMaui.Client.Views.AdminTableFormPage"
+             BackgroundColor="#F4F1EA"
+             Title="Tambah Meja">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="16">
+
+            <!--  Form Card  -->
+            <Border StrokeShape="RoundRectangle 16"
+                    BackgroundColor="White"
+                    StrokeThickness="0">
+                <Border.Shadow>
+                    <Shadow Brush="Black" Offset="0,2" Radius="5" Opacity="0.1"/>
+                </Border.Shadow>
+                <VerticalStackLayout Padding="20" Spacing="14">
+
+                    <!--  Table Number  -->
+                    <VerticalStackLayout Spacing="6">
+                        <Label Text="Nomor Meja"
+                               FontSize="14"
+                               FontAttributes="Bold"
+                               TextColor="#1E3A5F"/>
+                        <Entry x:Name="TableNumberEntry"
+                               Keyboard="Numeric"
+                               Placeholder="Contoh: 1"
+                               PlaceholderColor="#9E9E9E"
+                               BackgroundColor="#F5F5F5"/>
+                    </VerticalStackLayout>
+
+                    <!--  Area  -->
+                    <VerticalStackLayout Spacing="6">
+                        <Label Text="Area / Lokasi"
+                               FontSize="14"
+                               FontAttributes="Bold"
+                               TextColor="#1E3A5F"/>
+                        <Entry x:Name="AreaEntry"
+                               Placeholder="Contoh: Indoor, Outdoor, VIP"
+                               PlaceholderColor="#9E9E9E"
+                               BackgroundColor="#F5F5F5"/>
+                    </VerticalStackLayout>
+
+                    <!--  Capacity  -->
+                    <VerticalStackLayout Spacing="6">
+                        <Label Text="Kapasitas (orang)"
+                               FontSize="14"
+                               FontAttributes="Bold"
+                               TextColor="#1E3A5F"/>
+                        <Entry x:Name="CapacityEntry"
+                               Keyboard="Numeric"
+                               Placeholder="Minimal 2"
+                               PlaceholderColor="#9E9E9E"
+                               BackgroundColor="#F5F5F5"/>
+                    </VerticalStackLayout>
+
+                    <!--  Status  -->
+                    <VerticalStackLayout Spacing="6">
+                        <Label Text="Status Awal"
+                               FontSize="14"
+                               FontAttributes="Bold"
+                               TextColor="#1E3A5F"/>
+                        <Picker x:Name="StatusPicker"
+                                BackgroundColor="#F5F5F5"
+                                Title="Pilih status meja"/>
+                    </VerticalStackLayout>
+
+                </VerticalStackLayout>
+            </Border>
+
+            <!--  Action Buttons  -->
+            <HorizontalStackLayout Spacing="10" HorizontalOptions="End">
+                <Button Text="Batal"
+                        BackgroundColor="#757575"
+                        TextColor="White"
+                        CornerRadius="20"
+                        Padding="20,0"
+                        Clicked="OnCancelClicked"/>
+                <Button x:Name="SaveButton"
+                        Text="Simpan"
+                        BackgroundColor="#1E3A5F"
+                        TextColor="White"
+                        CornerRadius="20"
+                        Padding="20,0"
+                        Clicked="OnSaveClicked"/>
+            </HorizontalStackLayout>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

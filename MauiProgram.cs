@@ -34,7 +34,7 @@ public static class MauiProgram
         builder.Services.AddSingleton<TableServices>();
 
         // Register pages
-        // builder.Services.AddSingleton<LoginPage>();
+        builder.Services.AddSingleton<LoginPage>();
         builder.Services.AddSingleton<AdminPage>();
         builder.Services.AddSingleton<OrderDetailPage>();
         builder.Services.AddTransient<CustomerMenuPage>();
